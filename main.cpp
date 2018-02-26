@@ -52,15 +52,70 @@ TODO:
 */
 
 
+//2 triângulos
 void plane(){
 
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
 
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
 
 }
 
+
+//12 triângulos (6 faces * 2 triângulos por face)
 void box(){
 
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
 
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
+
+	glVertex3f();
+	glVertex3f();
+	glVertex3f();
 
 }
 
