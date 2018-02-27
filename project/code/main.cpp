@@ -6,7 +6,7 @@
 
 #include <math.h>
 
-
+GLUquadric* qobj;
 float translateX = 0;
 float translateZ = 0;
 float rotateXZ = 0;
@@ -189,20 +189,23 @@ void ring() {
 
 	//float innerRadius, float outerRadius, int sides, int rings
 	//glutSolidTorus(0.3, 0.75, 50, 200);
-	glutWireTorus(0.3, 0.75, 50, 200);
+	//glutWireTorus(0.3, 0.75, 50, 200);
 
 }
 
 void cylinder() {
 
 	//GLUquadric* quad,  GLdouble base,  GLdouble top,  GLdouble height,  GLint slices,  GLint stacks
-	//gluCylinder( , 2.0, 2.0, 4.0, 75, 100);
+	gluCylinder(qobj, 1.0, 1.0, 3.0, 75, 100);
 	//drawCylinder(2.0, 5.0, 100);
 
 }
 
 
 void renderScene(void) {
+
+	qobj = gluNewQuadric();
+	gluQuadricNormals(qobj, GLU_SMOOTH);
 
 	// clear buffers (depth and color buffers)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
