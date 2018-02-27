@@ -76,10 +76,10 @@ void axis_system() {
 
 
 
-/*
+
 //2 triângulos
 void plane(){
-
+/*
 	glBegin(GL_TRIANGLES);
 
 	glColor3f(1.0, 0.0, 0.0);
@@ -93,14 +93,13 @@ void plane(){
 	glVertex3f(-1.0f, 0.0f,  1.0f); //A
 
 	glEnd();
-
-}
 */
+}
 
-/*
+
 //12 triângulos (6 faces * 2 triângulos por face)
 void box(){
-
+	/*
 	glBegin(GL_TRIANGLES);
 
 	//BASE SUP
@@ -165,23 +164,42 @@ void box(){
 	glVertex3f(-1.0f,-1.0f,-1.0f); //G
 
 	glEnd();
-
+	*/
 }
 
-*/
+
 
 void sphere(){
 
-
+	//float radius, int slices, int stacks
+	//glutSolidSphere(1.5, 75, 75);
+	//glutWireSphere(1.5, 75, 75);
 
 }
 
 void cone(){
 
+	//float radius, float height, int slices, int stacks
+	//glutSolidCone(1.5, 3.0, 75, 75);
+	//glutWireCone(1.5, 3.0, 75, 75);
 
-	
 }
 
+void ring() {
+
+	//float innerRadius, float outerRadius, int sides, int rings
+	//glutSolidTorus(0.3, 0.75, 50, 200);
+	glutWireTorus(0.3, 0.75, 50, 200);
+
+}
+
+void cylinder() {
+
+	//GLUquadric* quad,  GLdouble base,  GLdouble top,  GLdouble height,  GLint slices,  GLint stacks
+	//gluCylinder( , 2.0, 2.0, 4.0, 75, 100);
+	//drawCylinder(2.0, 5.0, 100);
+
+}
 
 
 void renderScene(void) {
@@ -207,10 +225,12 @@ void renderScene(void) {
 
 
 	// put drawing instructions here
-	//plane();
-	//box();
-	//sphere();
-	//cone();
+	plane();
+	box();
+	sphere();
+	cone();
+	ring();
+	cylinder();
 
 	// End of frame
 	glutSwapBuffers();
