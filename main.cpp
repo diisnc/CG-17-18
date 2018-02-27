@@ -55,13 +55,13 @@ TODO:
 //2 triângulos
 void plane(){
 
-	glVertex3f( 1.0f, 0.0f,  1.0f);
-	glVertex3f(-1.0f, 0.0f,  1.0f);
-	glVertex3f( 1.0f, 0.0f, -1.0f);
+	glVertex3f( 1.0f, 0.0f, -1.0f); //C
+	glVertex3f(-1.0f, 0.0f,  1.0f); //A
+	glVertex3f( 1.0f, 0.0f,  1.0f); //D
 
-	glVertex3f(-1.0f, 0.0f, -1.0f);
-	glVertex3f(-1.0f, 0.0f,  1.0f);
-	glVertex3f( 1.0f, 0.0f, -1.0f);
+	glVertex3f( 1.0f, 0.0f, -1.0f); //C
+	glVertex3f(-1.0f, 0.0f, -1.0f); //B
+	glVertex3f(-1.0f, 0.0f,  1.0f); //A
 
 }
 
@@ -70,56 +70,65 @@ void plane(){
 void box(){
 
 	//BASE SUP
+	glVertex3f(-1.0f, 1.0f, 1.0f); //D
 	glVertex3f( 1.0f, 1.0f, 1.0f); //A
 	glVertex3f( 1.0f, 1.0f,-1.0f); //B
-	glVertex3f(-1.0f, 1.0f, 1.0f); //D
 
 	//BASE SUP
 	glVertex3f(-1.0f, 1.0f,-1.0f); //C
-	glVertex3f( 1.0f, 1.0f,-1.0f); //B
 	glVertex3f(-1.0f, 1.0f, 1.0f); //D
+	glVertex3f( 1.0f, 1.0f,-1.0f); //B
 
 	//BASE INF
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	glVertex3f( 1.0f,-1.0f, 1.0f); //E
+	glVertex3f(-1.0f,-1.0f, 1.0f); //H
+	glVertex3f( 1.0f,-1.0f,-1.0f); //F
 
 	//BASE INF
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	glVertex3f( 1.0f,-1.0f,-1.0f); //F
+	glVertex3f(-1.0f,-1.0f, 1.0f); //H
+	glVertex3f(-1.0f,-1.0f,-1.0f); //G
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L1
+	glVertex3f(1.0f, 1.0f,-1.0f); //B
+	glVertex3f(1.0f, 1.0f, 1.0f); //A
+	glVertex3f(1.0f,-1.0f, 1.0f); //E
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L1
+	glVertex3f(1.0f, 1.0f,-1.0f); //B
+	glVertex3f(1.0f,-1.0f, 1.0f); //E
+	glVertex3f(1.0f,-1.0f,-1.0f); //F
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L2
+	glVertex3f( 1.0f, 1.0f, 1.0f); //A
+	glVertex3f(-1.0f, 1.0f, 1.0f); //D
+	glVertex3f(-1.0f,-1.0f, 1.0f); //H
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L2
+	glVertex3f( 1.0f, 1.0f, 1.0f); //A
+	glVertex3f(-1.0f,-1.0f, 1.0f); //H
+	glVertex3f( 1.0f,-1.0f, 1.0f); //E
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L3
+	glVertex3f(-1.0f, 1.0f, 1.0f); //D
+	glVertex3f(-1.0f, 1.0f,-1.0f); //C
+	glVertex3f(-1.0f,-1.0f, 1.0f); //H
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L3
+	glVertex3f(-1.0f, 1.0f,-1.0f); //C
+	glVertex3f(-1.0f,-1.0f,-1.0f); //G
+	glVertex3f(-1.0f,-1.0f, 1.0f); //H
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L4
+	glVertex3f(-1.0f,-1.0f,-1.0f); //G
+	glVertex3f(-1.0f, 1.0f,-1.0f); //C
+	glVertex3f( 1.0f, 1.0f,-1.0f); //B
+	
 
-	glVertex3f();
-	glVertex3f();
-	glVertex3f();
+	//L4
+	glVertex3f( 1.0f, 1.0f,-1.0f); //B
+	glVertex3f( 1.0f,-1.0f,-1.0f); //F
+	glVertex3f(-1.0f,-1.0f,-1.0f); //G
 
 }
 
@@ -133,45 +142,6 @@ void cone(){
 
 
 	
-}
-
-void pyramid() {
-
-	glBegin(GL_TRIANGLES);
-
-	//glColor3f(r,g,b): r=1 means full red, g=1 means full green, b=1 means full blue
-	//T1 
-	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.f, 0.0f); //1 0 0 
-	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, 0.0f, 1.0f); //1 0 0
-	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f, 0.0f, 1.0f); //1 0 0 ficava a face vermelha
-
-															   //T2
-	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.0f, 0.0f);
-	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(1.0f, 0.0f, 1.0f);
-	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f, 0.0f, -1.0f);
-
-	//T3
-	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.0f, 0.0f);
-	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, 0.0f, 1.0f);
-	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
-
-	//T4
-	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.0f, 0.0f);
-	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(1.0f, 0.0f, -1.0f);
-	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
-
-	//T5
-	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 1.0f);
-	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, 0.0f, 1.0f);
-	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
-
-	//T6
-	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 1.0f);
-	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(1.0f, 0.0f, -1.0f);
-	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
-
-
-	glEnd();
 }
 
 
