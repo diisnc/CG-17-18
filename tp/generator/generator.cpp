@@ -13,12 +13,12 @@ int main(int argc, char** argv) {
         std::cout << form << " é argv1." << std::endl;
 
         // PLANE
-        if(form.compare("plane") == 0 && argc == 20) {
+        if(form.compare("plane") == 0 && argc == 21) {
             std::cout << "Está a criar um plano." << std::endl;
             // Create file and his output stream
-            std::ofstream outfile ("plane.3d");
+            std::ofstream outfile (argv[20]);
             // Read inputs and put them in file, line by line
-            for(int i = 1; i < argc; i++) {
+            for(int i = 1; i < argc-1; i++) { // argc-1 because file name is not a vertex coordinate
                 outfile << argv[i] << std::endl;
             }
             outfile.close();
@@ -33,12 +33,12 @@ int main(int argc, char** argv) {
             std::cout << "C= (" << argv[17] << "," << argv[18] << "," << argv[19] << ")" << std::endl;
         }
         // BOX
-        else if(form.compare("box") == 0 && argc == 26) {
+        else if(form.compare("box") == 0 && argc == 27) {
             std::cout << "Está a criar um quadrado." << std::endl;
             // Create file and his output stream
-            std::ofstream outfile ("box.3d");
+            std::ofstream outfile (argv[26]);
             // Read inputs and put them in file, line by line
-            for(int i = 1; i < argc; i++) {
+            for(int i = 1; i < argc-1; i++) {
                 outfile << argv[i] << std::endl;
             }
             outfile.close();
@@ -53,12 +53,12 @@ int main(int argc, char** argv) {
             std::cout << "H= (" << argv[23] << "," << argv[24] << "," << argv[25] << ")" << std::endl;
         }
         // SPHERE
-        else if(form.compare("sphere") == 0 && argc == 5) {
+        else if(form.compare("sphere") == 0 && argc == 6) {
             std::cout << "Está a criar uma esfera." << std::endl;
             // Create file and his output stream
-            std::ofstream outfile ("sphere.3d");
+            std::ofstream outfile (argv[5]);
             // Read inputs and put them in file, line by line
-            for(int i = 1; i < argc; i++) {
+            for(int i = 1; i < argc-1; i++) {
                 outfile << argv[i] << std::endl;
             }
             outfile.close();
@@ -68,12 +68,12 @@ int main(int argc, char** argv) {
             std::cout << "Stacks= " << argv[4] << std::endl;
         }
         // CONE
-        else if(form.compare("cone") == 0 && argc == 6) {
+        else if(form.compare("cone") == 0 && argc == 7) {
             std::cout << "Está a criar um cone." << std::endl;
             // Create file and his output stream
-            std::ofstream outfile ("cone.3d");
+            std::ofstream outfile (argv[6]);
             // Read inputs and put them in file, line by line
-            for(int i = 1; i < argc; i++) {
+            for(int i = 1; i < argc-1; i++) {
                 outfile << argv[i] << std::endl;
             }
             outfile.close();
