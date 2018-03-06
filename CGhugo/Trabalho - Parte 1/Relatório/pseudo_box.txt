@@ -1,0 +1,32 @@
+1.	Colocar na variável py o valor de y/2
+
+	1.1.  Se py é igual a -y/2, saltar para o passo 4
+
+2.	Colocar na variável px o valor de -x/2
+
+	2.1. Se px é igual a x/2, saltar para o passo 3
+
+	2.2. Criar o primeiro triângulo com os pontos:
+		P1 -> (px, py, z/2)
+		P2 -> (px, py – (y/numberOfDivisions), z/2)
+		P3 -> (px + (x/numberOfDivisions), py, z/2)
+
+	2.3. Criar o segundo triângulo com os pontos:
+		P2 -> (px, py – (y/numberOfDivisions), z/2)
+		P4 -> (px + (x/numberOfDivisions), py – (y/numberOfDivisions), z/2)
+		P3 -> (px + (x/numberOfDivisions), py, z/2)
+
+	2.4. px toma o valor de px + (x/numberOfDivisions)
+
+	2.5. voltar a 2.1
+
+3. 	py toma o valor de py – (y/numberOfDivisions)
+
+4.  Fim do algoritmo
+
+
+
+
+
+
+

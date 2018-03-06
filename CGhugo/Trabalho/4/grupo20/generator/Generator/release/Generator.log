@@ -1,0 +1,13 @@
+﻿  Generator.cpp
+Generator.cpp(168): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+Generator.cpp(169): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+Generator.cpp(195): warning C4477: 'fprintf' : format string '%f' requires an argument of type 'double', but variadic argument 1 has type 'int'
+Generator.cpp(195): warning C4477: 'fprintf' : format string '%f' requires an argument of type 'double', but variadic argument 3 has type 'int'
+Generator.cpp(269): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  2 of 99 functions ( 2.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Generator.vcxproj -> E:\Software\Dropbox\uminho\3rd_year\2nd_semester\Computação Gráfica\Assessment\cg-1617\Generator\Release\Generator.exe
+  Generator.vcxproj -> E:\Software\Dropbox\uminho\3rd_year\2nd_semester\Computação Gráfica\Assessment\cg-1617\Generator\Release\Generator.pdb (Full PDB)

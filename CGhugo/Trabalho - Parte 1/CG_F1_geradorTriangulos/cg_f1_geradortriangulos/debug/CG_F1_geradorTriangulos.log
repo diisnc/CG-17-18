@@ -1,0 +1,11 @@
+﻿  geradorTriangulos.cpp
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(59): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(180): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(181): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(182): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(183): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(197): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\hugo carvalho\desktop\cg_f1_geradortriangulos\cg_f1_geradortriangulos\geradortriangulos.cpp(403): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  CG_F1_geradorTriangulos.vcxproj -> C:\Users\Hugo Carvalho\Desktop\CG_F1_geradorTriangulos\Debug\CG_F1_geradorTriangulos.exe
+  CG_F1_geradorTriangulos.vcxproj -> C:\Users\Hugo Carvalho\Desktop\CG_F1_geradorTriangulos\Debug\CG_F1_geradorTriangulos.pdb (Full PDB)

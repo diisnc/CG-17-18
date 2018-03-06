@@ -1,0 +1,259 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1EC5FCB18DD410F008F3278 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1EC5FCA18DD410F008F3278 /* GLUT.framework */; };
+		A1EC5FCD18DD412C008F3278 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1EC5FCC18DD412C008F3278 /* OpenGL.framework */; };
+		A1EC5FCF18DD4187008F3278 /* motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5FCE18DD4187008F3278 /* motor.cpp */; };
+		A1EC5FD718DD41A8008F3278 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5FD118DD41A8008F3278 /* tinystr.cpp */; };
+		A1EC5FD818DD41A8008F3278 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5FD318DD41A8008F3278 /* tinyxml.cpp */; };
+		A1EC5FD918DD41A8008F3278 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5FD518DD41A8008F3278 /* tinyxmlerror.cpp */; };
+		A1EC5FDA18DD41A8008F3278 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1EC5FD618DD41A8008F3278 /* tinyxmlparser.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1EC5FBC18DD4104008F3278 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1EC5FBE18DD4104008F3278 /* Motor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Motor; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1EC5FCA18DD410F008F3278 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		A1EC5FCC18DD412C008F3278 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		A1EC5FCE18DD4187008F3278 /* motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = motor.cpp; sourceTree = SOURCE_ROOT; };
+		A1EC5FD018DD4191008F3278 /* motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = motor.h; sourceTree = SOURCE_ROOT; };
+		A1EC5FD118DD41A8008F3278 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinystr.cpp; path = tinyxml/tinystr.cpp; sourceTree = SOURCE_ROOT; };
+		A1EC5FD218DD41A8008F3278 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinystr.h; path = tinyxml/tinystr.h; sourceTree = SOURCE_ROOT; };
+		A1EC5FD318DD41A8008F3278 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = tinyxml/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
+		A1EC5FD418DD41A8008F3278 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml.h; path = tinyxml/tinyxml.h; sourceTree = SOURCE_ROOT; };
+		A1EC5FD518DD41A8008F3278 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlerror.cpp; path = tinyxml/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
+		A1EC5FD618DD41A8008F3278 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = tinyxml/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1EC5FBB18DD4104008F3278 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1EC5FCD18DD412C008F3278 /* OpenGL.framework in Frameworks */,
+				A1EC5FCB18DD410F008F3278 /* GLUT.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1EC5FB518DD4104008F3278 = {
+			isa = PBXGroup;
+			children = (
+				A1EC5FCC18DD412C008F3278 /* OpenGL.framework */,
+				A1EC5FCA18DD410F008F3278 /* GLUT.framework */,
+				A1EC5FC018DD4104008F3278 /* Motor */,
+				A1EC5FBF18DD4104008F3278 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1EC5FBF18DD4104008F3278 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1EC5FBE18DD4104008F3278 /* Motor */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1EC5FC018DD4104008F3278 /* Motor */ = {
+			isa = PBXGroup;
+			children = (
+				A1EC5FCE18DD4187008F3278 /* motor.cpp */,
+				A1EC5FD018DD4191008F3278 /* motor.h */,
+				A1EC5FD118DD41A8008F3278 /* tinystr.cpp */,
+				A1EC5FD218DD41A8008F3278 /* tinystr.h */,
+				A1EC5FD318DD41A8008F3278 /* tinyxml.cpp */,
+				A1EC5FD418DD41A8008F3278 /* tinyxml.h */,
+				A1EC5FD518DD41A8008F3278 /* tinyxmlerror.cpp */,
+				A1EC5FD618DD41A8008F3278 /* tinyxmlparser.cpp */,
+			);
+			path = Motor;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1EC5FBD18DD4104008F3278 /* Motor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1EC5FC718DD4104008F3278 /* Build configuration list for PBXNativeTarget "Motor" */;
+			buildPhases = (
+				A1EC5FBA18DD4104008F3278 /* Sources */,
+				A1EC5FBB18DD4104008F3278 /* Frameworks */,
+				A1EC5FBC18DD4104008F3278 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Motor;
+			productName = Motor;
+			productReference = A1EC5FBE18DD4104008F3278 /* Motor */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1EC5FB618DD4104008F3278 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Tiago Conceição";
+			};
+			buildConfigurationList = A1EC5FB918DD4104008F3278 /* Build configuration list for PBXProject "Motor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A1EC5FB518DD4104008F3278;
+			productRefGroup = A1EC5FBF18DD4104008F3278 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1EC5FBD18DD4104008F3278 /* Motor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1EC5FBA18DD4104008F3278 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1EC5FD918DD41A8008F3278 /* tinyxmlerror.cpp in Sources */,
+				A1EC5FCF18DD4187008F3278 /* motor.cpp in Sources */,
+				A1EC5FD818DD41A8008F3278 /* tinyxml.cpp in Sources */,
+				A1EC5FDA18DD41A8008F3278 /* tinyxmlparser.cpp in Sources */,
+				A1EC5FD718DD41A8008F3278 /* tinystr.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A1EC5FC518DD4104008F3278 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A1EC5FC618DD4104008F3278 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A1EC5FC818DD4104008F3278 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A1EC5FC918DD4104008F3278 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1EC5FB918DD4104008F3278 /* Build configuration list for PBXProject "Motor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1EC5FC518DD4104008F3278 /* Debug */,
+				A1EC5FC618DD4104008F3278 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1EC5FC718DD4104008F3278 /* Build configuration list for PBXNativeTarget "Motor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1EC5FC818DD4104008F3278 /* Debug */,
+				A1EC5FC918DD4104008F3278 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1EC5FB618DD4104008F3278 /* Project object */;
+}
