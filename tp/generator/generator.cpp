@@ -3,6 +3,9 @@
 #include <string>
 #include <Windows.h>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 int main(int argc, char** argv) {
 
     SetConsoleOutputCP(CP_UTF8); // UTF-8 mode for Windows console
@@ -83,6 +86,29 @@ int main(int argc, char** argv) {
             std::cout << "Slices= " << argv[4] << std::endl;
             std::cout << "Stacks= " << argv[5] << std::endl;
         }
+        // CYLINDER
+        else if(form.compare("cylinder") == 0 && argc == 6) {
+            std::cout << "Está a criar um cilindro." << std::endl;
+            // Create file and his output stream
+            std::ofstream outfile (argv[5]);
+            // Read inputs and put them in file, line by line
+            for(int i = 1; i < argc-1; i++) {
+                outfile << argv[i] << std::endl;
+            }
+            outfile.close();
+
+            std::cout << "Raio= " << argv[2] << std::endl;
+            float raio = std::stof(argv[2]);
+            std::cout << raio << std::endl;
+            std::cout << "Altura= " << argv[3] << std::endl;
+            float altura = std::stof(argv[3]);
+            std::cout << altura << std::endl;
+            std::cout << "Slices= " << argv[4] << std::endl;
+            float fatias = std::stof(argv[4]);
+            std::cout << fatias << std::endl;
+            
+            getCylinder(raio,altura,fatias);
+        }
         else {
             std::cout << argv[1] << " não é válido." << std::endl;
         }
@@ -91,4 +117,51 @@ int main(int argc, char** argv) {
 
     return 0;
     
+}
+
+void getCylinder(float radius, float height, int slices) {
+
+	float alpha = (2 * M_PI) / slices;
+	int i = 0;
+
+	for (i = 0; i < slices; i++) {
+
+        // BOTTOM
+        std::cout << 0 << std::endl;
+        std::cout << "Raio= " << argv[2] << std::endl;
+        std::cout << "Raio= " << argv[2] << std::endl;
+        std::cout << "Raio= " << argv[2] << std::endl;
+        std::cout << "Raio= " << argv[2] << std::endl;
+        std::cout << "Raio= " << argv[2] << std::endl;
+		glVertex3f(0, 0, 0);
+		glVertex3f(sin(alpha*(i + 1))*radius,0,cos(alpha*(i+1))*radius);
+		glVertex3f(sin(alpha*(i))*radius, 0, cos(alpha*(i))*radius);
+
+		// TOP
+		glBegin(GL_TRIANGLES);
+		glColor3f(1, 1 - (0.01 * i), 0);
+		glVertex3f(0, height, 0);
+		glVertex3f(sin(alpha*(i))*radius, height, cos(alpha*(i))*radius);
+		glVertex3f(sin(alpha*(i + 1))*radius, height, cos(alpha*(i + 1))*radius);
+		glEnd();
+
+		// MIDDLE FIRST TRIANGLE
+		glBegin(GL_TRIANGLES);
+		glColor3f(1, 1 - (0.01 * i), 0);
+		glVertex3f(sin(alpha*(i))*radius, 0, cos(alpha*(i))*radius);
+		glVertex3f(sin(alpha*(i + 1))*radius, height, cos(alpha*(i + 1))*radius);
+		glVertex3f(sin(alpha*(i))*radius, height, cos(alpha*(i))*radius);
+		glEnd();
+
+		// MIDDLE SECOND TRIANGLE
+		glBegin(GL_TRIANGLES);
+		glColor3f(1 - (0.01 * i), 1 - (0.01 * i), 0);
+		glVertex3f(sin(alpha*(i))*radius, 0, cos(alpha*(i))*radius);
+		glVertex3f(sin(alpha*(i + 1))*radius, 0, cos(alpha*(i + 1))*radius);
+		glVertex3f(sin(alpha*(i + 1))*radius, height, cos(alpha*(i + 1))*radius);
+		glEnd();
+
+
+	}
+
 }
