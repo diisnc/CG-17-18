@@ -99,6 +99,48 @@ void plane(){
 }
 
 
+//nota: se for só uma cor, basta um color por cada 3 vertices, e antes desses 3 vertices, pq a cor vai de cima p baixo
+void pyramid() {
+	/*
+	glBegin(GL_TRIANGLES);
+
+	//glColor3f(r,g,b): r=1 means full red, g=1 means full green, b=1 means full blue
+	//T1 
+	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.f, 0.0f); //1 0 0 
+	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, 0.0f, 1.0f); //1 0 0
+	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f, 0.0f, 1.0f); //1 0 0 ficava a face vermelha
+
+	//T2
+	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(1.0f, 0.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(1.0f, 0.0f, -1.0f);
+
+	//T3
+	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
+	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, 0.0f, 1.0f);
+
+	//T4
+	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(0.0f, 3.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(1.0f, 0.0f, -1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
+
+	//T5
+	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 1.0f);
+	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(-1.0f, 0.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
+
+	//T6
+	glColor3f(1.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f); glVertex3f(-1.0f, 0.0f, -1.0f);
+	glColor3f(0.0f, 1.0f, 0.0f); glVertex3f(1.0f, 0.0f, -1.0f);
+
+
+	glEnd();
+	*/
+}
+
+
 //12 triângulos (6 faces * 2 triângulos por face)
 void box(){
 	/*
@@ -303,6 +345,7 @@ void renderScene(void) {
 	sphere(1, 20, 50);
 	cone(1, 2, 100, 50);
 	cylinder(1, 2, 100);
+	pyramid();
 
 	// End of frame
 	glutSwapBuffers();

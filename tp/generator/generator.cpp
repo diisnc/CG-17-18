@@ -41,6 +41,7 @@ void cone(float radius, float height, int slices, int stacks, string fileName){
 
 }
 
+//NOTA: CRIAR NA MAIN PARA A PIRAMIDE
 void pyramid(float height, float width, float length, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(),"w"); //open to write
@@ -79,6 +80,12 @@ void pyramid(float height, float width, float length, string fileName){
         vertices.push_back( length/2, 0, -width/2);
 
     }
+
+    int nVert;
+    for(nVert = 0, nVert < vertices.size(); nVert++){
+        fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+    }
+    fclose(out);
 
 }
 
