@@ -1,2 +1,2 @@
-project/build/
-project/toolkits
+# build/ ignores all folders called "build", anywhere in the project
+build/
