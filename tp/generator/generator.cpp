@@ -6,6 +6,95 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+/*
+
+TODO:
+
+•   Plane (a square in the XZ plane, centred in the origin, made with 2 triangles)
+•   Box (requires X, Y and Z dimensions, and optionally the number of divisions)
+•   Sphere (requires radius, slices and stacks)
+•   Cone (requires bottom radius, height, slices and stacks)
+•   EXTRA: • pyramid (height, width)
+           • cylinder (radius, height, length, slices)
+
+*/
+
+
+void plane(float width, string fileName){
+
+
+}
+
+//box is placed on XZ plane
+void box(float xcoord, float ycoord, float zcoord, int nDivisions, string fileName){
+
+
+}
+
+void sphere(float radius, int slices, int stacks, string fileName){
+
+
+}
+
+void cone(float radius, float height, int slices, int stacks, string fileName){
+
+
+}
+
+//NOTA: CRIAR NA MAIN PARA A PIRAMIDE
+void pyramid(float height, float width, float length, string fileName){
+    FILE *out;
+    fopen_s(&out, fileName.c_str(),"w"); //open to write
+
+    if( out != NULL){
+        std::vector<Point> vertices; //Vector to store the vertices
+
+        //T1(CIMA, BAIXO, BAIXO)
+        vertices.push_back( 0, height, 0);
+        vertices.push_back(-length/2, 0, width/2);
+        vertices.push_back( length/2, 0, width/2);
+
+        //T2
+        vertices.push_back( 0, height, 0);
+        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back( length/2, 0, -width/2);
+
+        //T3 
+        vertices.push_back( 0, height, 0);
+        vertices.push_back(-length/2, 0, -width/2);
+        vertices.push_back(-length/2, 0, width/2);
+
+        //T4
+        vertices.push_back( 0, height, 0);
+        vertices.push_back( length/2, 0, -width/2);
+        vertices.push_back(-length/2, 0, -width/2);
+
+        //T5
+        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back(-length/2, 0, width/2);
+        vertices.push_back(-length/2, 0, -width/2);
+
+        //T6
+        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back(-length/2, 0, -width/2);
+        vertices.push_back( length/2, 0, -width/2);
+
+    }
+
+    int nVert;
+    for(nVert = 0, nVert < vertices.size(); nVert++){
+        fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+    }
+    fclose(out);
+
+}
+
+void cylinder(float radius, float height, int slices, string fileName){
+
+
+}
+
+
 int main(int argc, char** argv) {
 
     SetConsoleOutputCP(CP_UTF8); // UTF-8 mode for Windows console
@@ -34,6 +123,7 @@ int main(int argc, char** argv) {
             std::cout << "A= (" << argv[11] << "," << argv[12] << "," << argv[13] << ")" << std::endl;
             std::cout << "B= (" << argv[14] << "," << argv[15] << "," << argv[16] << ")" << std::endl;
             std::cout << "C= (" << argv[17] << "," << argv[18] << "," << argv[19] << ")" << std::endl;
+
         }
         // BOX
         else if(form.compare("box") == 0 && argc == 27) {
