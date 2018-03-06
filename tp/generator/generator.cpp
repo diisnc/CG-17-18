@@ -3,6 +3,52 @@
 #include <string>
 #include <Windows.h>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+/*
+
+TODO:
+
+•   Plane (a square in the XZ plane, centred in the origin, made with 2 triangles)
+•   Box (requires X, Y and Z dimensions, and optionally the number of divisions)
+•   Sphere (requires radius, slices and stacks)
+•   Cone (requires bottom radius, height, slices and stacks)
+•   EXTRA: • pyramid (height, width)
+           • cylinder (radius, height, length, slices)
+
+*/
+
+void plane(float width, string fileName){
+
+
+}
+
+void box(float xcord, float ycord, float zcord, int nDivisions, string fileName){
+
+
+}
+
+void sphere(float radius, int slices, int stacks, string fileName){
+
+
+}
+
+void cone(float radius, float height, int slices, int stacks, string fileName){
+
+
+}
+
+void pyramid(float height, float width, float length, string fileName){
+
+
+}
+
+void cylinder(float radius, float height, int slices, string fileName){
+
+
+}
+
 int main(int argc, char** argv) {
 
     SetConsoleOutputCP(CP_UTF8); // UTF-8 mode for Windows console
