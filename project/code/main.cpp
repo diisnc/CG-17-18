@@ -4,7 +4,9 @@
 #include <GL/glut.h>
 #endif
 
+#define _USE_MATH_DEFINES
 #include <math.h>
+
 
 GLUquadric* qobj;
 float translateX = 0;
@@ -169,20 +171,61 @@ void box(){
 
 
 
-void sphere(){
+void sphere(float radius, int slices, int stacks){
+	
+	/*
+	float alpha = 2 * M_PI / slices;
+	float height;
 
-	//float radius, int slices, int stacks
-	//glutSolidSphere(1.5, 75, 75);
-	//glutWireSphere(1.5, 75, 75);
+	for (int r = 0, height = 0 ; r <= radius && height <3; r+=0.1, height+=0.1) {
 
+		for (int slice = 0; slice <= slices; slice++) {
+
+			// SIDES
+			glBegin(GL_TRIANGLES);
+			glColor3f(1, 1, 0);
+			glVertex3f(r * sin(alpha * (slice + 1)), -height / 2, r * cos(alpha * (slice + 1)));
+			glVertex3f(r * sin(alpha * slice), height / 2, (r+0.1) * cos(alpha * slice));
+			glVertex3f(r * sin(alpha * slice), -height / 2, r * cos(alpha * slice));
+			glEnd();
+
+			glBegin(GL_TRIANGLES);
+			glColor3f(0, 1, 1);
+			glVertex3f(r * sin(alpha * slice), height / 2, (r+0.5) * cos(alpha * slice));
+			glVertex3f(r * sin(alpha * (slice + 1)), -height / 2, r * cos(alpha * (slice + 1)));
+			glVertex3f(r * sin(alpha * (slice + 1)), height / 2, (r + 0.5) * cos(alpha * (slice + 1)));
+			glEnd();
+		}
+	}
+
+	*/
 }
 
-void cone(){
 
-	//float radius, float height, int slices, int stacks
-	//glutSolidCone(1.5, 3.0, 75, 75);
-	//glutWireCone(1.5, 3.0, 75, 75);
+void cone(float radius, float height, int slices, int stacks){
+	/*
+	float alpha = 2 * M_PI / slices;
 
+	for (int slice = 0; slice <= slices; slice++) {
+
+		// BOTTOM
+		glBegin(GL_TRIANGLES);
+		glColor3f(1, 0, 0); // red
+		glVertex3f(0.0f, -height / 2, 0.0f);    // centre
+		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
+		glVertex3f(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice));
+		glEnd();
+
+		// SIDE
+		glBegin(GL_TRIANGLES);
+		glColor3f(1, 1, 0);
+		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
+		glVertex3f(0, height / 2 , 0);
+		glVertex3f(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice));
+		glEnd();
+
+	}
+	*/
 }
 
 void ring() {
@@ -193,12 +236,45 @@ void ring() {
 
 }
 
-void cylinder() {
+void cylinder(float radius, float height, int slices) {
 
-	//GLUquadric* quad,  GLdouble base,  GLdouble top,  GLdouble height,  GLint slices,  GLint stacks
-	gluCylinder(qobj, 1.0, 1.0, 3.0, 75, 100);
-	//drawCylinder(2.0, 5.0, 100);
+	/*
+	float alpha = 2 * M_PI / slices;
 
+	for (int slice = 0; slice <= slices; slice++) {
+		// BOTTOM
+		glBegin(GL_TRIANGLES);
+		glColor3f(1, 0, 0); // red
+		glVertex3f(0.0f, -height / 2, 0.0f);    // centre
+		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
+		glVertex3f(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice));
+		glEnd();
+
+		// TOP
+		glBegin(GL_TRIANGLES);
+		glColor3f(0, 0, 1); // blue
+		glVertex3f(0.0f, height / 2, 0.0f); // centre
+		glVertex3f(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice));
+		glVertex3f(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1)));
+		glEnd();
+
+		// SIDES
+		glBegin(GL_TRIANGLES);
+		glColor3f(1, 1, 0);
+		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
+		glVertex3f(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice));
+		glVertex3f(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice));
+		glEnd();
+
+		glBegin(GL_TRIANGLES);
+		glColor3f(0, 1, 1);
+		glVertex3f(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice));
+		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
+		glVertex3f(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1)));
+		glEnd();
+
+	}
+	*/
 }
 
 
@@ -230,10 +306,10 @@ void renderScene(void) {
 	// put drawing instructions here
 	plane();
 	box();
-	sphere();
-	cone();
+	sphere(1, 100, 200);
+	cone(1, 2, 100, 50);
 	ring();
-	cylinder();
+	cylinder(1, 2, 100);
 
 	// End of frame
 	glutSwapBuffers();
