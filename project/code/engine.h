@@ -6,7 +6,7 @@ namespace engine {
 
 	// A vertex has x y and z coordinates
 	struct vertex {
-		int x, y, z;
+		double x, y, z;
 	};
 
 	// A model is a collection of vertices

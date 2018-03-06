@@ -84,7 +84,7 @@ void renderScene(void) {
 	glPolygonMode(GL_FRONT, mode);
 
 	// Draw frame
-	Engine::drawFrame();
+	engine::drawFrame();
 
 	// End of frame
 	glutSwapBuffers();
