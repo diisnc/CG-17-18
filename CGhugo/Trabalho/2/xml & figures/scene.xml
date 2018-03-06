@@ -1,0 +1,397 @@
+<scene>
+	<group a="Sun">
+		<models>
+			<model file="sun.3d" />
+		</models>
+		<group a="Mercury">
+			<translate X="1.3" Y="0" Z="0" />
+			<rotate angle="-0.1" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.07" Y="0.07" Z="0.07" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+		</group>
+		<group a="Venus">
+			<translate X="2.1" Y="0" Z="0" />
+			<rotate angle="-177.3" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.15" Y="0.15" Z="0.15" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+		</group>
+		<group a="Earth">
+			<translate X="2.9" Y="0" Z="0" />
+			<rotate angle="-23.5" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.15" Y="0.15" Z="0.15" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+			<group a="Moon">
+				<translate X="0.625" Y="0" Z="0.625" />
+				<scale X="0.125" Y="0.125" Z="0.125" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+		</group>
+		<group a="Mars">
+			<translate X="3.7" Y="0" Z="0" />
+			<rotate angle="-25.19" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.1" Y="0.1" Z="0.1" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+			<group a="Moon">
+				<translate X="-1" Y="0" Z="1" />
+				<scale X="0.2" Y="0.2" Z="0.2" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="1" Y="0" Z="1" />
+				<scale X="0.2" Y="0.2" Z="0.2" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+		</group>
+		<group a="AsteroidBelt">
+			<translate X="5.3" Y="0" Z="0" />
+			<rotate angle="-25.19" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.05" Y="0.05" Z="0.05" />
+			<group a="Asteroid">
+				<translate X="-1" Y="0" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="0" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="1" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="2" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="-1" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="-2" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="0" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="1" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="-1" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="3" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="-3" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="2" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="-4" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="-2" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="-5" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="5" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="2" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="-4" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="5" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="-5" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="6" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="2" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="-6" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="0" Y="6" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="-5" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="5" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="1" Y="7" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="-3" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="-7" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-1" Y="-6" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-2" Y="-7" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-2" Y="6" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="-2" Y="7" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="2" Y="4" Z="1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="2" Y="3" Z="0" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+			<group a="Asteroid">
+				<translate X="2" Y="-3" Z="-1" />
+				<models>
+					<model file="asteroid.3d" />
+				</models>
+			</group>
+		</group>
+		<group a="Jupiter">
+			<translate X="6.9" Y="0" Z="0" />
+			<rotate angle="-3.13" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.55" Y="0.55" Z="0.55" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+			<group a="Moon">
+				<translate X="0.7" Y="0" Z="-0.4" />
+				<scale X="0.1" Y="0.1" Z="0.1" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="0.8" Y="0" Z="-0.1" />
+				<scale X="0.1" Y="0.1" Z="0.1" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="-0.9" Y="0" Z="0" />
+				<scale X="0.1" Y="0.1" Z="0.1" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="1" Y="0" Z="0.1" />
+				<scale X="0.07" Y="0.07" Z="0.07" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+		</group>
+		<group a="Saturn">
+			<translate X="10.1" Y="0" Z="0" />
+			<rotate angle="-26.73" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.5" Y="0.5" Z="0.5" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+			<group a="Moon">
+				<translate X="0.7" Y="0" Z="0.7" />
+				<scale X="0.07" Y="0.07" Z="0.07" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+		</group>
+		<group a="Uranus">
+			<translate X="13.3" Y="0" Z="0" />
+			<rotate angle="-97.77" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.4" Y="0.4" Z="0.4" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+			<group a="Moon">
+				<translate X="0.5" Y="0.5" Z="0.5" />
+				<scale X="0.048" Y="0.048" Z="0.048" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="0.5" Y="-0.5" Z="0.5" />
+				<scale X="0.048" Y="0.048" Z="0.048" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="0.5" Y="0.5" Z="-0.5" />
+				<scale X="0.048" Y="0.048" Z="0.048" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="-0.5" Y="0.5" Z="0.5" />
+				<scale X="0.048" Y="0.048" Z="0.048" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+		</group>
+		<group a="Neptune">
+			<translate X="15.7" Y="0" Z="0" />
+			<rotate angle="-28.32" axisX="0" axisY="0" axisZ="1" />
+			<scale X="0.4" Y="0.4" Z="0.4" />
+			<models>
+				<model file="planet.3d" />
+			</models>
+			<group a="Moon">
+				<translate X="0.7" Y="0" Z="-0.7" />
+				<scale X="0.08" Y="0.08" Z="0.08" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="0.7" Y="0" Z="0.7" />
+				<scale X="0.08" Y="0.08" Z="0.08" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+			<group a="Moon">
+				<translate X="-0.7" Y="0" Z="0.7" />
+				<scale X="0.08" Y="0.08" Z="0.08" />
+				<models>
+					<model file="moon.3d" />
+				</models>
+			</group>
+		</group>
+	</group>
+</scene>

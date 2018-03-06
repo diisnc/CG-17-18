@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='us-ascii'?> 
+
+<scene>
+	<model file = "esfera.3d"/>
+	<model file = "caixa.3d"/>
+	<model file = "cone.3d"/>
+	<model file = "plano.3d"/>
+</scene>

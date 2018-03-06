@@ -1,0 +1,15 @@
+		1. Colocar na variável side o valor de width/2
+
+		2. Criar o primeiro triângulo com os pontos:
+			P1-> (side, 0, -side)
+			P2-> (-side, 0, -side)
+			P3-> (-side, 0, side)
+
+		3. Criar o segundo triângulo com os pontos:
+			P1 -> (side, 0, -side)
+			P3 -> (-side, 0, side)
+			P4 -> (side, 0, side)
+
+		4.  Fim do algoritmo
+
+
