@@ -2,6 +2,13 @@
 
 4-phase solar system project, developed for the course of CG, using Glut and OpenGL (C++).
 
+## Como iniciar
+
+* Seguir as instruções do CMAKE fornecidas pelo professor.
+* Colocar o ficheiro `glut32.dll` (da pasta `toolkits/glut/`) na pasta onde são colocados os ficheiros gerados pelo projeto (normalmente chamada `build`).
+* Abrir o ficheiro `classTP.sln` que se encontra na mesma pasta que `glut32.dll`.
+* Antes de correr, escolher o projeto `classTP` como Startup Project no Visual Studio e correr no modo Release (em vez de Debug).
+
 ## Pastas
 
 * `project`: Pasta que contém os ficheiros necessários para qualquer trabalho de CG.
