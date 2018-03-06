@@ -15,14 +15,11 @@ using std::ifstream;
  * to .3d files, which in turn contain vertices.
  * Returns a vector of models, which in turn are a vector of vertices.
  */
-std::vector<engine::model> xmlLoader::loadSceneXML(string path) {
-
-	// Turn path into char*
-	const char* charPath = path.c_str();
+std::vector<engine::model> xmlLoader::loadSceneXML(const char* path) {
 
 	// Load XML document
 	XMLDocument file;
-	XMLError result = file.LoadFile(charPath);
+	XMLError result = file.LoadFile(path);
 
 	if (result != XML_SUCCESS) {
 		printf("XML não foi carregado com sucesso.\n");
