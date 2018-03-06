@@ -19,12 +19,14 @@ TODO:
 
 */
 
+
 void plane(float width, string fileName){
 
 
 }
 
-void box(float xcord, float ycord, float zcord, int nDivisions, string fileName){
+//box is placed on XZ plane
+void box(float xcoord, float ycoord, float zcoord, int nDivisions, string fileName){
 
 
 }
@@ -40,7 +42,43 @@ void cone(float radius, float height, int slices, int stacks, string fileName){
 }
 
 void pyramid(float height, float width, float length, string fileName){
+    FILE *out;
+    fopen_s(&out, fileName.c_str(),"w"); //open to write
 
+    if( out != NULL){
+        std::vector<Point> vertices; //Vector to store the vertices
+
+        //T1(CIMA, BAIXO, BAIXO)
+        vertices.push_back( 0, height, 0);
+        vertices.push_back(-length/2, 0, width/2);
+        vertices.push_back( length/2, 0, width/2);
+
+        //T2
+        vertices.push_back( 0, height, 0);
+        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back( length/2, 0, -width/2);
+
+        //T3 
+        vertices.push_back( 0, height, 0);
+        vertices.push_back(-length/2, 0, -width/2);
+        vertices.push_back(-length/2, 0, width/2);
+
+        //T4
+        vertices.push_back( 0, height, 0);
+        vertices.push_back( length/2, 0, -width/2);
+        vertices.push_back(-length/2, 0, -width/2);
+
+        //T5
+        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back(-length/2, 0, width/2);
+        vertices.push_back(-length/2, 0, -width/2);
+
+        //T6
+        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back(-length/2, 0, -width/2);
+        vertices.push_back( length/2, 0, -width/2);
+
+    }
 
 }
 
@@ -78,6 +116,7 @@ int main(int argc, char** argv) {
             std::cout << "A= (" << argv[11] << "," << argv[12] << "," << argv[13] << ")" << std::endl;
             std::cout << "B= (" << argv[14] << "," << argv[15] << "," << argv[16] << ")" << std::endl;
             std::cout << "C= (" << argv[17] << "," << argv[18] << "," << argv[19] << ")" << std::endl;
+
         }
         // BOX
         else if(form.compare("box") == 0 && argc == 27) {
