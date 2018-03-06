@@ -172,36 +172,36 @@ void box(){
 
 
 void sphere(float radius, int slices, int stacks){
-	
-	/*
+		
 	float alpha = 2 * M_PI / slices;
-	float height;
+	float beta = 2 * M_PI / stacks;
 
-	for (int r = 0, height = 0 ; r <= radius && height <3; r+=0.1, height+=0.1) {
-
-		for (int slice = 0; slice <= slices; slice++) {
-
-			// SIDES
-			glBegin(GL_TRIANGLES);
+	for (int slice = 0; slice < slices; slice++) {
+		for (int stack = 0; stack < stack; stack++) {
+			
+			glBegin(GL_TRIANGLES); // 1, 2, 3
 			glColor3f(1, 1, 0);
-			glVertex3f(r * sin(alpha * (slice + 1)), -height / 2, r * cos(alpha * (slice + 1)));
-			glVertex3f(r * sin(alpha * slice), height / 2, (r+0.1) * cos(alpha * slice));
-			glVertex3f(r * sin(alpha * slice), -height / 2, r * cos(alpha * slice));
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * slice), radius*sin(beta * (stack+1)) , radius * cos(beta * (stack + 1)) * cos (alpha * slice) );
+			glVertex3f(radius * cos(beta * stack) * sin(alpha*slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice) );
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice+1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice + 1) ));
 			glEnd();
 
-			glBegin(GL_TRIANGLES);
+			glBegin(GL_TRIANGLES); // 3, 2, 4
 			glColor3f(0, 1, 1);
-			glVertex3f(r * sin(alpha * slice), height / 2, (r+0.5) * cos(alpha * slice));
-			glVertex3f(r * sin(alpha * (slice + 1)), -height / 2, r * cos(alpha * (slice + 1)));
-			glVertex3f(r * sin(alpha * (slice + 1)), height / 2, (r + 0.5) * cos(alpha * (slice + 1)));
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice + 1)));
+			glVertex3f(radius * cos(beta * stack) * sin(alpha*slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice));
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(beta * stack) );
 			glEnd();
+
+
 		}
 	}
 
-	*/
+
 }
 
 
+/*sem considerar as stacks, mudar isto*/
 void cone(float radius, float height, int slices, int stacks){
 	/*
 	float alpha = 2 * M_PI / slices;
@@ -228,20 +228,14 @@ void cone(float radius, float height, int slices, int stacks){
 	*/
 }
 
-void ring() {
 
-	//float innerRadius, float outerRadius, int sides, int rings
-	//glutSolidTorus(0.3, 0.75, 50, 200);
-	//glutWireTorus(0.3, 0.75, 50, 200);
-
-}
 
 void cylinder(float radius, float height, int slices) {
 
 	/*
 	float alpha = 2 * M_PI / slices;
 
-	for (int slice = 0; slice <= slices; slice++) {
+	for (int slice = 0; slice < slices; slice++) {
 		// BOTTOM
 		glBegin(GL_TRIANGLES);
 		glColor3f(1, 0, 0); // red
@@ -308,7 +302,6 @@ void renderScene(void) {
 	box();
 	sphere(1, 100, 200);
 	cone(1, 2, 100, 50);
-	ring();
 	cylinder(1, 2, 100);
 
 	// End of frame
