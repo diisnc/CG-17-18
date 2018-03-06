@@ -181,16 +181,16 @@ void sphere(float radius, int slices, int stacks){
 			
 			glBegin(GL_TRIANGLES); // 1, 2, 3
 			glColor3f(1, 1, 0);
-			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * slice), radius*sin(beta * (stack+1)) , radius * cos(beta * (stack + 1)) * cos (alpha * slice) );
-			glVertex3f(radius * cos(beta * stack) * sin(alpha*slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice) );
-			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice+1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice + 1) ));
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * slice), radius*sin(beta * (stack+1)) , radius * cos(beta * (stack + 1)) * cos(alpha * slice));
+			glVertex3f(radius * cos(beta * stack) * sin(alpha * slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice) );
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice+1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice) ));
 			glEnd();
 
 			glBegin(GL_TRIANGLES); // 3, 2, 4
 			glColor3f(0, 1, 1);
-			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice + 1)));
+			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice)));
 			glVertex3f(radius * cos(beta * stack) * sin(alpha*slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice));
-			glVertex3f(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(beta * stack) );
+			glVertex3f(radius * cos(beta * (stack)) * sin(alpha * (slice + 1)), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha * (slice+1)) );
 			glEnd();
 
 
