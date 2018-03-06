@@ -177,7 +177,7 @@ void sphere(float radius, int slices, int stacks){
 	float beta = 2 * M_PI / stacks;
 
 	for (int slice = 0; slice < slices; slice++) {
-		for (int stack = 0; stack < stack; stack++) {
+		for (int stack = 0; stack < stacks; stack++) {
 			
 			glBegin(GL_TRIANGLES); // 1, 2, 3
 			glColor3f(1, 1, 0);
