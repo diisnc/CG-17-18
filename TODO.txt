@@ -1,0 +1,4 @@
+TODO	
+	- ENGINE -> drawFrame() MUDAR CÓDIGO, CORES ESTÃO IGUAIS ÀS DO HUGO
+	- GENERATOR -> chamar funções na main
+	- GENERATOR -> criar na main um if() para a pirâmide
