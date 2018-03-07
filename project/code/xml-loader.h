@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef	XMLLOADER_H
 #define XMLLOADER_H
 

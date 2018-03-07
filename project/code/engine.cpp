@@ -1,6 +1,4 @@
-#include "engine.h"
-
-#ifdef __APPLE__
+﻿#ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
@@ -9,47 +7,42 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <vector>
+#include "engine.h"
+
+using std::vector;
+using engine::model;
+using engine::vertex;
+
+vector<model> engine::scene;
+
+void engine::loadScene(vector<model> scene) {
+	engine::scene = scene;
+}
 
 void engine::drawFrame() {
-	// Draw cilinder
-	int slices = 10;
-	int height = 2;
-	int radius = 1;
-	float alpha = 2 * M_PI / slices;
 
-	for (int slice = 0; slice <= slices; slice++) {
-		// BOTTOM
-		glBegin(GL_TRIANGLES);
-		glColor3f(1, 0, 0); // red
-		glVertex3f(0.0f, -height / 2, 0.0f);    // centre
-		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
-		glVertex3f(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice));
-		glEnd();
-
-		// TOP
-		glBegin(GL_TRIANGLES);
-		glColor3f(0, 0, 1); // blue
-		glVertex3f(0.0f, height / 2, 0.0f); // centre
-		glVertex3f(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice));
-		glVertex3f(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1)));
-		glEnd();
-
-		// SIDES
-		glBegin(GL_TRIANGLES);
-		glColor3f(1, 1, 0);
-		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
-		glVertex3f(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice));
-		glVertex3f(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice));
-		glEnd();
+	// Iterate over models
+	vector<model>::iterator i;
+	for (i = scene.begin(); i != scene.end(); i++) {
+		std::vector<vertex> vertices = i->vertices;
 
 		glBegin(GL_TRIANGLES);
-		glColor3f(0, 1, 1);
-		glVertex3f(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice));
-		glVertex3f(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1)));
-		glVertex3f(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1)));
-		glEnd();
+		glColor3f(0, 0, 0.2);
+		int color = 0;
 
-		glColor3f(0, 1, 1);
-		glutWireTeapot(2);
+		// Iterate over vertices
+		std::vector<vertex>::iterator j;
+		for (j = vertices.begin(), color = 0; j != vertices.end(); j++, color++) {
+
+			// Vary colors
+			if (color % 3 == 0) {
+				glColor3f(0, 0, 0.4);
+				if (color % 6 == 0) {
+					glColor3f(0, 0, 0.2);
+				}
+			}
+			glVertex3f(j->x, j->y, j->z); // Get vertex coordinates by dereferencing pointer
+		}
+		glEnd();
 	}
-};
+}

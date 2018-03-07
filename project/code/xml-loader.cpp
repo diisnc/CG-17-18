@@ -1,4 +1,4 @@
-#include <vector>
+﻿#include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -22,7 +22,7 @@ std::vector<engine::model> xmlLoader::loadSceneXML(const char* path) {
 	XMLError result = file.LoadFile(path);
 
 	if (result != XML_SUCCESS) {
-		printf("XML n�o foi carregado com sucesso.\n");
+		printf("O documento XML não foi carregado com sucesso.\n");
 		return;
 	}
 	XMLNode *scene = file.FirstChildElement("scene");

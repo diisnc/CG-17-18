@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "engine.h"
+#include "xml-loader.h"
 
 GLUquadric* qobj;
 float translateX = 0;
@@ -136,6 +137,12 @@ int main(int argc, char **argv) {
 	// OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE); //tirar para ver a parte de baixo
+
+	// Load scene XML
+	std::vector<engine::model> scene = xmlLoader::loadSceneXML("scene.xml");
+
+	// Send scene models to engine
+	engine::loadScene(scene);
 
 	// Enter GLUT's main cycle
 	glutMainLoop();
