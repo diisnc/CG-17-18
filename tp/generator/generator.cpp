@@ -1,10 +1,13 @@
 #include <iostream>
 #include <fstream>  
 #include <string>
-#include <Windows.h>
-
-#define _USE_MATH_DEFINES
+#include <vector>
+#include "point.h"
 #include <math.h>
+#define _USE_MATH_DEFINES
+using namespace std;
+
+
 
 /*
 
@@ -22,7 +25,7 @@ TODO:
 
 void plane(float width, string fileName){
     FILE *out;
-    fopen_s(&out, fileName.c_str(),"w"); //open to write
+    fopen_s(&out, fileName.c_str(), "w"); //open to write
 
     if( out != NULL ){
         std::vector<Point> vertices; //Vector to store the vertices
@@ -39,7 +42,7 @@ void plane(float width, string fileName){
     }
 
     int nVert;
-    for(nVert = 0, nVert < vertices.size(); nVert++){
+    for(nVert = 0; nVert < vertices.size(); nVert++){
         fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
     }
     fclose(out);
@@ -65,7 +68,7 @@ void cone(float radius, float height, int slices, int stacks, string fileName){
 //NOTA: CRIAR NA MAIN PARA A PIRAMIDE
 void pyramid(float height, float width, float length, string fileName){
     FILE *out;
-    fopen_s(&out, fileName.c_str(),"w"); //open to write
+    fopen_s(&out, fileName.c_str(), "w"); //open to write
 
     if( out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
@@ -103,16 +106,58 @@ void pyramid(float height, float width, float length, string fileName){
     }
 
     int nVert;
-    for(nVert = 0, nVert < vertices.size(); nVert++){
+    for(nVert = 0; nVert < vertices.size(); nVert++){
         fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
     }
     fclose(out);
 
 }
 
-void cylinder(float radius, float height, int slices, string fileName){
+/*
+DÚVIDA:
+    - AS STACKS SÃO WORTH?
+*/
+void cylinder(float radius, float height, int stacks, int slices, string fileName){
+    FILE *out;
+    fopen_s(&out, fileName.c_str(), "w"); //open to write
+    float alpha = 2*M_PI/slices;
 
+    if( out != NULL){
+        std::vector<Point> vertices; //Vector to store the vertices
 
+        float alpha = 2*M_PI / slices; 
+        for (int slice = 0; slice < slices; slice++) {
+            
+            //BOTTOM - always drawn at XZplane = 0
+            vertices.push_back(Point(0.0, 0.0, 0.0 ));
+            vertices.push_back(Point(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1))));
+            vertices.push_back(Point(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice)));
+
+            //TOP - always drawn at XZplane = height
+            vertices.push_back(Point( 0.0, height, 0.0 ));
+            vertices.push_back(Point(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice)));
+            vertices.push_back(Point(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1))));
+
+            for(){
+            
+            //SIDES
+            vertices.push_back(Point(  ));
+            vertices.push_back(Point(  ));
+            vertices.push_back(Point(  ));
+
+            vertices.push_back(Point(  ));
+            vertices.push_back(Point(  ));
+            vertices.push_back(Point(  ));
+
+            }
+        }
+
+        int nVert;
+        for(nVert = 0; nVert < vertices.size(); nVert++){
+            fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        }
+        
+        fclose(out);
 }
 
 
@@ -218,7 +263,7 @@ int main(int argc, char** argv) {
             float fatias = std::stof(argv[4]);
             std::cout << fatias << std::endl;
             
-            getCylinder(raio,altura,fatias);
+            //getCylinder(raio,altura,fatias);
         }
         else {
             std::cout << argv[1] << " não é válido." << std::endl;
@@ -229,7 +274,7 @@ int main(int argc, char** argv) {
     return 0;
     
 }
-
+/*
 void getCylinder(float radius, float height, int slices) {
 
 	float alpha = (2 * M_PI) / slices;
@@ -276,3 +321,4 @@ void getCylinder(float radius, float height, int slices) {
 	}
 
 }
+*/
