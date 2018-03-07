@@ -21,7 +21,28 @@ TODO:
 
 
 void plane(float width, string fileName){
+    FILE *out;
+    fopen_s(&out, fileName.c_str(),"w"); //open to write
 
+    if( out != NULL ){
+        std::vector<Point> vertices; //Vector to store the vertices
+
+        //T1
+        vertices.push_back(Point( width/2, 0.0,-width/2));
+        vertices.push_back(Point(-width/2, 0.0, width/2));
+        vertices.push_back(Point( width/2, 0.0, width/2));
+
+        //T2
+        vertices.push_back(Point( width/2, 0.0,-width/2));
+        vertices.push_back(Point(-width/2, 0.0,-width/2));
+        vertices.push_back(Point(-width/2, 0.0, width/2));
+    }
+
+    int nVert;
+    for(nVert = 0, nVert < vertices.size(); nVert++){
+        fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+    }
+    fclose(out);
 
 }
 
@@ -50,34 +71,34 @@ void pyramid(float height, float width, float length, string fileName){
         std::vector<Point> vertices; //Vector to store the vertices
 
         //T1(CIMA, BAIXO, BAIXO)
-        vertices.push_back( 0, height, 0);
-        vertices.push_back(-length/2, 0, width/2);
-        vertices.push_back( length/2, 0, width/2);
+        vertices.push_back(Point( 0.0, height, 0.0));
+        vertices.push_back(Point(-length/2, 0.0, width/2));
+        vertices.push_back(Point( length/2, 0.0, width/2));
 
         //T2
-        vertices.push_back( 0, height, 0);
-        vertices.push_back( length/2, 0, width/2);
-        vertices.push_back( length/2, 0, -width/2);
+        vertices.push_back(Point( 0.0, height, 0.0));
+        vertices.push_back(Point( length/2, 0.0, width/2));
+        vertices.push_back(Point( length/2, 0.0, -width/2));
 
         //T3 
-        vertices.push_back( 0, height, 0);
-        vertices.push_back(-length/2, 0, -width/2);
-        vertices.push_back(-length/2, 0, width/2);
+        vertices.push_back(Point( 0.0, height, 0.0));
+        vertices.push_back(Point(-length/2, 0.0, -width/2));
+        vertices.push_back(Point(-length/2, 0.0, width/2));
 
         //T4
-        vertices.push_back( 0, height, 0);
-        vertices.push_back( length/2, 0, -width/2);
-        vertices.push_back(-length/2, 0, -width/2);
+        vertices.push_back(Point( 0.0, height, 0.0));
+        vertices.push_back(Point( length/2, 0.0, -width/2));
+        vertices.push_back(Point(-length/2, 0.0, -width/2));
 
         //T5
-        vertices.push_back( length/2, 0, width/2);
-        vertices.push_back(-length/2, 0, width/2);
-        vertices.push_back(-length/2, 0, -width/2);
+        vertices.push_back(Point( length/2, 0.0, width/2));
+        vertices.push_back(Point(-length/2, 0.0, width/2));
+        vertices.push_back(Point(-length/2, 0.0, -width/2));
 
         //T6
-        vertices.push_back( length/2, 0, width/2);
-        vertices.push_back(-length/2, 0, -width/2);
-        vertices.push_back( length/2, 0, -width/2);
+        vertices.push_back(Point( length/2, 0.0, width/2));
+        vertices.push_back(Point(-length/2, 0.0, -width/2));
+        vertices.push_back(Point( length/2, 0.0, -width/2));
 
     }
 
