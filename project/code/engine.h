@@ -1,12 +1,14 @@
-#pragma once
+﻿#pragma once
 #ifndef	ENGINE_H
 #define ENGINE_H
+
+#include <vector>
 
 namespace engine {
 
 	// A vertex has x y and z coordinates
 	struct vertex {
-		double x, y, z;
+		float x, y, z;
 	};
 
 	// A model is a collection of vertices
@@ -14,7 +16,12 @@ namespace engine {
 		std::vector<vertex> vertices;
 	};
 
-	static void drawFrame();
+	// Scene that can be loaded with loadScene().
+	// "extern" means it has to be defined once in a source (.cpp) file
+	extern std::vector<model> scene;
+
+	void loadScene(std::vector<model> scene); // Loads a scene
+	void drawFrame(); // Draws a frame of the scene
 };
 
 #endif
