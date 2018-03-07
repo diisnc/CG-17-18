@@ -23,12 +23,13 @@ TODO:
 
 */
 
-/*
+
 void plane(float width, string filename){
+
     FILE *out;
     fopen_s(&out, filename.c_str(),"w"); //open to write (cleans if file already exists or creates it if not)
 
-    if( out != NULL ){
+    if(out != NULL) {
         std::vector<Point> vertices; // Vector to store the vertices
 
         //T1
@@ -40,22 +41,103 @@ void plane(float width, string filename){
         vertices.push_back(Point( width/2, 0.0,-width/2));
         vertices.push_back(Point(-width/2, 0.0,-width/2));
         vertices.push_back(Point(-width/2, 0.0, width/2));
+
+        // Sending vertices to .3d file
+        for(int nVert = 0; nVert < vertices.size(); nVert++) {
+            fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        }
     }
 
-    int nVert;
-    for(nVert = 0, nVert < vertices.size(); nVert++){
-        fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
-    }
     fclose(out);
 
 }
 
 //box is placed on XZ plane
-void box(float xcoord, float ycoord, float zcoord, int nDivisions, string filename){
+void box(float side, int nDivisions, string filename){
 
+    FILE *out;
+    fopen_s(&out, filename.c_str(),"w"); //open to write (cleans if file already exists or creates it if not)
+
+    if(out != NULL) {
+
+        std::vector<Point> vertices; // Vector to store the vertices
+        float unit = side / nDivisions; // Size of a unit (like an alpha in polar coordenates)
+
+        for(int div = 0; div < nDivisions; div++) {
+
+            // CIMA
+            // F-E-D
+            vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
+            vertices.push_back(Point(side*unit*div, side, side*unit*div));
+            vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
+            // F-D-C
+            vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
+            vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
+            vertices.push_back(Point(side*unit*(div+1), side, side*unit*(div+1)));
+
+            // BAIXO
+            // F-D-E
+            vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
+            vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
+            vertices.push_back(Point(side*unit*div, 0, side*unit*div));
+            // F-C-D
+            vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
+            vertices.push_back(Point(side*unit*(div+1), 0, side*unit*(div+1)));
+            vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
+
+            // DIREITA
+            // F-C-B
+            vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
+            vertices.push_back(Point(side, side*unit*(div+1), side*unit*(div+1)));
+            vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
+            // F-B-G
+            vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
+            vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
+            vertices.push_back(Point(side, side*unit*div, side*unit*div));
+
+            // ESQUERDA
+            // F-B-C
+            vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
+            vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
+            vertices.push_back(Point(0, side*unit*(div+1), side*unit*(div+1)));
+            // F-G-B
+            vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
+            vertices.push_back(Point(0, side*unit*div, side*unit*div));
+            vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
+
+            // FRENTE
+            // C-D-A
+            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
+            vertices.push_back(Point(side*unit*div, side*unit*(div+1), side));
+            vertices.push_back(Point(side*unit*div, side*unit*div, side));
+            // C-A-B
+            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
+            vertices.push_back(Point(side*unit*div, side*unit*div, side));
+            vertices.push_back(Point(side*unit*(div+1), side*unit*div, side));
+
+            // TRAS
+            // C-A-D
+            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
+            vertices.push_back(Point(side*unit*div, side*unit*div, 0));
+            vertices.push_back(Point(side*unit*div, side*unit*(div+1), 0));
+            // C-B-A
+            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
+            vertices.push_back(Point(side*unit*(div+1), side*unit*div, 0));
+            vertices.push_back(Point(side*unit*div, side*unit*div, 0));
+        }
+
+        // Sending vertices to .3d file
+        for(int nVert = 0; nVert < vertices.size(); nVert++) {
+            fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        }
+
+    }
+
+    fclose(out);
 
 }
 
+/*
 void sphere(float radius, int slices, int stacks, string filename){
 
 
@@ -141,29 +223,25 @@ int main(int argc, char** argv) {
             std::cout << "FILENAME: " << argv[3] << std::endl;
 
             // Call triangle criation function
-            // plane(width,argv[3]);
+            plane(width,argv[3]);
         }
         // BOX
-        else if(form.compare("box") == 0 && argc == 7) {
+        else if(form.compare("box") == 0 && argc == 5) {
             std::cout << "Está a criar um cubo." << std::endl;
             
             // Prints Coordinates, Number of Divisions and Filename just for DEBUG purposes
-            std::cout << "POINT: (" << argv[2] << "," << argv[3] << "," << argv[4] << ")" << std::endl;
-            float x = std::stof(argv[2]);
-            std::cout << x << std::endl;
-            float y = std::stof(argv[3]);
-            std::cout << y << std::endl;
-            float z = std::stof(argv[4]);
-            std::cout << z << std::endl;
+            std::cout << "SIDE: " << argv[2] << std::endl;
+            float side = std::stof(argv[2]);
+            std::cout << side << std::endl;
 
-            std::cout << "DIVISIONS: "<< argv[5] << std::endl;
-            int divisions = std::stoi(argv[5]);
+            std::cout << "DIVISIONS: "<< argv[3] << std::endl;
+            int divisions = std::stoi(argv[3]);
             std::cout << divisions << std::endl;
 
-            std::cout << "FILENAME: " << argv[6] << std::endl;
+            std::cout << "FILENAME: " << argv[4] << std::endl;
 
             // Call triangle criation function
-            // box(x,y,z,divisions,argv[6]);
+            box(side,divisions,argv[4]);
         }
         // SPHERE
         else if(form.compare("sphere") == 0 && argc == 6) {
