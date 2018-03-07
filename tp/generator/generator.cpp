@@ -1,10 +1,12 @@
+#include<stdio.h>
+#include<windows.h>
 #include <iostream>
-#include <fstream>  
+#include <fstream>
+#include <vector> 
 #include <string>
-#include <vector>
 #include "Point.h"
-#include <math.h>
 #define _USE_MATH_DEFINES
+#include <math.h>
 using namespace std;
 using std::string; //escolher um dos using
 
@@ -22,10 +24,10 @@ TODO:
 */
 
 
-void plane(float width, string filename){
+void plane(float width, string fileName){
 
     FILE *out;
-    fopen_s(&out, filename.c_str(),"w"); //open to write (cleans if file already exists or creates it if not)
+    fopen_s(&out, fileName.c_str(),"w"); //open to write (cleans if file already exists or creates it if not)
 
     if(out != NULL) {
         std::vector<Point> vertices; // Vector to store the vertices
@@ -51,10 +53,10 @@ void plane(float width, string filename){
 }
 
 //box is placed on XZ plane
-void box(float side, int nDivisions, string filename){
+void box(float side, int nDivisions, string fileName){
 
     FILE *out;
-    fopen_s(&out, filename.c_str(),"w"); //open to write (cleans if file already exists or creates it if not)
+    fopen_s(&out, fileName.c_str(),"w"); //open to write (cleans if file already exists or creates it if not)
 
     if(out != NULL) {
 
@@ -136,17 +138,17 @@ void box(float side, int nDivisions, string filename){
 }
 
 
-void sphere(float radius, int slices, int stacks, string filename){
+void sphere(float radius, int slices, int stacks, string fileName){
 
 
 }
 
-void cone(float radius, float height, int slices, int stacks, string filename){
+void cone(float radius, float height, int slices, int stacks, string fileName){
 
 
 }
 
-void pyramid(float height, float width, float length, string filename){
+void pyramid(float height, float width, float length, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
 
@@ -183,11 +185,10 @@ void pyramid(float height, float width, float length, string filename){
         vertices.push_back(Point(-length/2, 0.0, -width/2));
         vertices.push_back(Point( length/2, 0.0, -width/2));
 
-    }
-
-    int nVert;
-    for(nVert = 0; nVert < vertices.size(); nVert++){
-        fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        int nVert;
+        for(nVert = 0; nVert < vertices.size(); nVert++){
+            fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        }
     }
     fclose(out);
 
@@ -219,7 +220,8 @@ void cylinder(float radius, float height, int stacks, int slices, string fileNam
             vertices.push_back(Point(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice)));
             vertices.push_back(Point(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1))));
 
-            for(){
+            /*
+            for(  ){
             
             //SIDES
             vertices.push_back(Point(  ));
@@ -231,6 +233,7 @@ void cylinder(float radius, float height, int stacks, int slices, string fileNam
             vertices.push_back(Point(  ));
 
             }
+            */
         }
 
         int nVert;
@@ -239,6 +242,7 @@ void cylinder(float radius, float height, int stacks, int slices, string fileNam
         }
         
         fclose(out);
+    }
 }
 
 
