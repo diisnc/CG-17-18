@@ -2,7 +2,7 @@
 #include <fstream>  
 #include <string>
 #include <vector>
-#include "point.h"
+#include "Point.h"
 #include <math.h>
 #define _USE_MATH_DEFINES
 using namespace std;
