@@ -222,8 +222,10 @@ void pyramid(float height, float width, float length, string fileName){
 }
 
 
-
-void cylinder(float radius, float height, int stacks, int slices, string fileName){
+/*
+Point in the work report that stacks here are worthless
+*/
+void cylinder(float r, float height, int stacks, int slices, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
 
@@ -234,29 +236,30 @@ void cylinder(float radius, float height, int stacks, int slices, string fileNam
         for (int slice = 0; slice < slices; slice++) {
             
             //BOTTOM - always drawn at XZplane = 0
-            vertices.push_back(Point(0.0, 0.0, 0.0 ));
-            vertices.push_back(Point(radius * sin(alpha * (slice + 1)), -height / 2, radius * cos(alpha * (slice + 1))));
-            vertices.push_back(Point(radius * sin(alpha * slice), -height / 2, radius * cos(alpha * slice)));
+            vertices.push_back(Point(0.0, 0.0, 0.0));
+            vertices.push_back(Point(r*sin(alpha*(slice + 1)), -height/2, r*cos(alpha*(slice+1))));
+            vertices.push_back(Point(r*sin(alpha*slice), -height/2, r*cos(alpha*slice)));
 
             //TOP - always drawn at XZplane = height
-            vertices.push_back(Point( 0.0, height, 0.0 ));
-            vertices.push_back(Point(radius * sin(alpha * slice), height / 2, radius * cos(alpha * slice)));
-            vertices.push_back(Point(radius * sin(alpha * (slice + 1)), height / 2, radius * cos(alpha * (slice + 1))));
+            vertices.push_back(Point(0.0, height, 0.0));
+            vertices.push_back(Point(r*sin(alpha*slice), height/2, r*cos(alpha*slice)));
+            vertices.push_back(Point(r*sin(alpha*(slice+1)), height/2, r*cos(alpha*(slice+1))));
 
-            /*
-            for(  ){
+            float lowerStackHeight = 0;
+            for(int stack = 0; slice < slices; slice++){
+                float upperStackHeight = height/stacks;
+                
+                //SIDES
+                vertices.push_back(Point(r*sin(alpha*slice), lowerStackHeight, r*cos(alpha*slice)));
+                vertices.push_back(Point(r*sin(alpha*(slice+1)), lowerStackHeight, r*cos(alpha*(slice+1))));
+                vertices.push_back(Point(r*sin(alpha*slice), upperStackHeight, r*cos(alpha*slice)));
+
+                vertices.push_back(Point(r*sin(alpha*(slice+1)), lowerStackHeight, r*cos(alpha*(slice+1))));
+                vertices.push_back(Point(r*sin(alpha*(slice+1)), upperStackHeight, r*cos(alpha*(slice+1))));
+                vertices.push_back(Point(r*sin(alpha*slice), upperStackHeight, r*cos(alpha*slice)));
             
-            //SIDES
-            vertices.push_back(Point(  ));
-            vertices.push_back(Point(  ));
-            vertices.push_back(Point(  ));
-
-            vertices.push_back(Point(  ));
-            vertices.push_back(Point(  ));
-            vertices.push_back(Point(  ));
-
+                lowerStackHeight = upperStackHeight;
             }
-            */
         }
 
         int nVert;
