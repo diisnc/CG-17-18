@@ -51,6 +51,7 @@ void plane(float width, string fileName){
 
 }
 
+
 //box is placed on XZ plane
 void box(float side, int nDivisions, string fileName){
 
@@ -133,7 +134,6 @@ void box(float side, int nDivisions, string fileName){
     }
 
     fclose(out);
-
 }
 
 
@@ -170,10 +170,56 @@ void sphere(float r, int slices, int stacks, string fileName){
     fclose(out);
 }
 
-void cone(float radius, float height, int slices, int stacks, string fileName){
 
+void cone(float r, float height, int slices, int stacks, string fileName){
+    FILE *out;
+    fopen_s(&out, fileName.c_str(), "w"); //open to write
 
+    if( out != NULL){
+        std::vector<Point> vertices; //Vector to store the vertices
+        
+        float alpha = 2*M_PI / slices;
+        for (int slice = 0; slice < slices; slice++) {
+        
+        //BOTTOM - always drawn at XZplane = 0
+		vertices.push_back(Point(0.0, 0.0, 0.0));    // centre
+		vertices.push_back(Point(r*sin(alpha*(slice+1)), 0.0, r*cos(alpha*(slice+1))));
+		vertices.push_back(Point(r*sin(alpha*slice), 0.0, r*cos(alpha*slice)));
+            
+            float lowerR = r; 
+            float lowerStackHeight = 0;
+            for(int stack = 0; slice < slices; slice++){
+                float upperStackHeight = height/stacks*stack;
+                float upperR = (height - upperStackHeight) * r / height;
+            
+                //SIDES
+                vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), lowerStackHeight, lowerR*cos(alpha*(slice+1))));
+                vertices.push_back(Point(lowerR*sin(alpha*slice), upperStackHeight, lowerR*cos(alpha*slice)));
+                vertices.push_back(Point(upperR*sin(alpha*slice), lowerStackHeight, upperR*cos(alpha*slice)));
+
+                vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), upperStackHeight, upperR*cos(alpha*(slice+1))));
+                vertices.push_back(Point(upperR*sin(alpha*slice), upperStackHeight, lowerR*cos(alpha*slice)));
+                vertices.push_back(Point(upperR*sin(alpha*(slice+1)), lowerStackHeight, upperR*cos(alpha*(slice+1))));
+
+                lowerR = upperR;
+                lowerStackHeight = upperStackHeight;
+            }
+
+            //TOP OF THE SLICE -> it's a triangle, not a rectangle (on each slice)
+    	    vertices.push_back(Point(0.0, height, 0.0));
+		    vertices.push_back(Point(lowerR*sin(alpha), lowerStackHeight, lowerR * cos(alpha*slice)));
+            vertices.push_back(Point(lowerR * sin(alfa*(slice+1), lowerStackHeight, lowerR * cos(alfa*(slice+1))));
+        }
+
+        // Sending vertices to .3d file
+        for(int nVert = 0; nVert < vertices.size(); nVert++) {
+            fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        }
+    }
+
+    fclose(out);
 }
+
 
 void pyramid(float height, float width, float length, string fileName){
     FILE *out;
@@ -212,13 +258,14 @@ void pyramid(float height, float width, float length, string fileName){
         vertices.push_back(Point(-length/2, 0.0, -width/2));
         vertices.push_back(Point( length/2, 0.0, -width/2));
 
+        // Sending vertices to .3d file
         int nVert;
         for(nVert = 0; nVert < vertices.size(); nVert++){
             fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
         }
     }
+    
     fclose(out);
-
 }
 
 
@@ -237,17 +284,17 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
             
             //BOTTOM - always drawn at XZplane = 0
             vertices.push_back(Point(0.0, 0.0, 0.0));
-            vertices.push_back(Point(r*sin(alpha*(slice + 1)), -height/2, r*cos(alpha*(slice+1))));
-            vertices.push_back(Point(r*sin(alpha*slice), -height/2, r*cos(alpha*slice)));
+            vertices.push_back(Point(r*sin(alpha*(slice + 1)), 0.0, r*cos(alpha*(slice+1))));
+            vertices.push_back(Point(r*sin(alpha*slice), 0.0, r*cos(alpha*slice)));
 
             //TOP - always drawn at XZplane = height
             vertices.push_back(Point(0.0, height, 0.0));
-            vertices.push_back(Point(r*sin(alpha*slice), height/2, r*cos(alpha*slice)));
-            vertices.push_back(Point(r*sin(alpha*(slice+1)), height/2, r*cos(alpha*(slice+1))));
+            vertices.push_back(Point(r*sin(alpha*slice), height, r*cos(alpha*slice)));
+            vertices.push_back(Point(r*sin(alpha*(slice+1)), height, r*cos(alpha*(slice+1))));
 
             float lowerStackHeight = 0;
             for(int stack = 0; slice < slices; slice++){
-                float upperStackHeight = height/stacks;
+                float upperStackHeight = height/stacks*stack;
                 
                 //SIDES
                 vertices.push_back(Point(r*sin(alpha*slice), lowerStackHeight, r*cos(alpha*slice)));
@@ -262,13 +309,14 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
             }
         }
 
+        // Sending vertices to .3d file
         int nVert;
         for(nVert = 0; nVert < vertices.size(); nVert++){
             fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
         }
-        
-        fclose(out);
     }
+    
+    fclose(out);
 }
 
 
@@ -411,52 +459,3 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-
-/*
-void getCylinder(float radius, float height, int slices) {
-
-	float alpha = (2 * M_PI) / slices;
-	int i = 0;
-
-	for (i = 0; i < slices; i++) {
-
-        // BOTTOM
-        std::cout << 0 << std::endl;
-        std::cout << "Raio= " << argv[2] << std::endl;
-        std::cout << "Raio= " << argv[2] << std::endl;
-        std::cout << "Raio= " << argv[2] << std::endl;
-        std::cout << "Raio= " << argv[2] << std::endl;
-        std::cout << "Raio= " << argv[2] << std::endl;
-		glVertex3f(0, 0, 0);
-		glVertex3f(sin(alpha*(i + 1))*radius,0,cos(alpha*(i+1))*radius);
-		glVertex3f(sin(alpha*(i))*radius, 0, cos(alpha*(i))*radius);
-
-		// TOP
-		glBegin(GL_TRIANGLES);
-		glColor3f(1, 1 - (0.01 * i), 0);
-		glVertex3f(0, height, 0);
-		glVertex3f(sin(alpha*(i))*radius, height, cos(alpha*(i))*radius);
-		glVertex3f(sin(alpha*(i + 1))*radius, height, cos(alpha*(i + 1))*radius);
-		glEnd();
-
-		// MIDDLE FIRST TRIANGLE
-		glBegin(GL_TRIANGLES);
-		glColor3f(1, 1 - (0.01 * i), 0);
-		glVertex3f(sin(alpha*(i))*radius, 0, cos(alpha*(i))*radius);
-		glVertex3f(sin(alpha*(i + 1))*radius, height, cos(alpha*(i + 1))*radius);
-		glVertex3f(sin(alpha*(i))*radius, height, cos(alpha*(i))*radius);
-		glEnd();
-
-		// MIDDLE SECOND TRIANGLE
-		glBegin(GL_TRIANGLES);
-		glColor3f(1 - (0.01 * i), 1 - (0.01 * i), 0);
-		glVertex3f(sin(alpha*(i))*radius, 0, cos(alpha*(i))*radius);
-		glVertex3f(sin(alpha*(i + 1))*radius, 0, cos(alpha*(i + 1))*radius);
-		glVertex3f(sin(alpha*(i + 1))*radius, height, cos(alpha*(i + 1))*radius);
-		glEnd();
-
-
-	}
-
-}
-*/
