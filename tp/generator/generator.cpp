@@ -139,8 +139,35 @@ void box(float side, int nDivisions, string fileName){
 
 
 void sphere(float radius, int slices, int stacks, string fileName){
+    FILE *out;
+    fopen_s(&out, fileName.c_str(), "w"); //open to write
+    
+    if( out != NULL){
+        std::vector<Point> vertices; //Vector to store the vertices
 
+        float alpha = 2 * M_PI / slices;
+	    float beta = 2 * M_PI / stacks;
 
+	    for (int slice = 0; slice < slices; slice++) {
+		    for (int stack = 0; stack < stacks; stack++) {
+			
+			    vertices.push_back(Point(radius * cos(beta * (stack + 1)) * sin(alpha * slice), radius*sin(beta * (stack+1)) , radius * cos(beta * (stack + 1)) * cos(alpha * slice)));
+			    vertices.push_back(Point(radius * cos(beta * stack) * sin(alpha * slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice)));
+			    vertices.push_back(Point(radius * cos(beta * (stack + 1)) * sin(alpha * (slice+1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice))));
+
+    		    vertices.push_back(Point(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice))));
+	    		vertices.push_back(Point(radius * cos(beta * stack) * sin(alpha*slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice)));
+		    	vertices.push_back(Point(radius * cos(beta * (stack)) * sin(alpha * (slice + 1)), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha * (slice+1))));
+            }
+        }
+
+        // Sending vertices to .3d file
+        for(int nVert = 0; nVert < vertices.size(); nVert++) {
+            fprintf(out, "%f %f %f \n", vertices[nVert].getX(), vertices[nVert].getY(), vertices[nVert].getZ());
+        }
+	}
+
+    fclose(out);
 }
 
 void cone(float radius, float height, int slices, int stacks, string fileName){
@@ -202,7 +229,6 @@ DÚVIDA:
 void cylinder(float radius, float height, int stacks, int slices, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
-    float alpha = 2*M_PI/slices;
 
     if( out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
