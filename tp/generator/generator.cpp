@@ -8,7 +8,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 using namespace std;
-using std::string; //escolher um dos using
 
 /*
 
@@ -138,26 +137,27 @@ void box(float side, int nDivisions, string fileName){
 }
 
 
-void sphere(float radius, int slices, int stacks, string fileName){
+void sphere(float r, int slices, int stacks, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
     
     if( out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
-
-        float alpha = 2 * M_PI / slices;
-	    float beta = 2 * M_PI / stacks;
-
-	    for (int slice = 0; slice < slices; slice++) {
+	    
+        for (int slice = 0; slice < slices; slice++) {
 		    for (int stack = 0; stack < stacks; stack++) {
-			
-			    vertices.push_back(Point(radius * cos(beta * (stack + 1)) * sin(alpha * slice), radius*sin(beta * (stack+1)) , radius * cos(beta * (stack + 1)) * cos(alpha * slice)));
-			    vertices.push_back(Point(radius * cos(beta * stack) * sin(alpha * slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice)));
-			    vertices.push_back(Point(radius * cos(beta * (stack + 1)) * sin(alpha * (slice+1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice))));
+                float alpha1 = slice * (2 * M_PI / slices);
+                float alpha2 = (slice + 1) * (2 * M_PI / slices);
+	            float beta1 = stack * (2 * M_PI / stacks);
+                float beta2 = (stack + 1) * (2 * M_PI / stacks);
 
-    		    vertices.push_back(Point(radius * cos(beta * (stack + 1)) * sin(alpha * (slice + 1)), radius*sin(beta * (stack + 1)), radius * cos(beta * (stack + 1)) * cos(alpha * (slice))));
-	    		vertices.push_back(Point(radius * cos(beta * stack) * sin(alpha*slice), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha*slice)));
-		    	vertices.push_back(Point(radius * cos(beta * (stack)) * sin(alpha * (slice + 1)), radius*sin(beta * stack) , radius * cos(beta * stack) * cos(alpha * (slice+1))));
+			    vertices.push_back(Point(r*cos(beta2)*sin(alpha1), r*sin(beta2), r*cos(beta2)*cos(alpha1)));
+			    vertices.push_back(Point(r*cos(beta1)*sin(alpha1), r*sin(beta1), r*cos(beta1)*cos(alpha1)));
+			    vertices.push_back(Point(r*cos(beta2)*sin(alpha2), r*sin(beta2), r*cos(beta2)*cos(alpha1)));
+
+    		    vertices.push_back(Point(r*cos(beta2)*sin(alpha2), r*sin(beta2), r*cos(beta2)*cos(alpha1)));
+	    		vertices.push_back(Point(r*cos(beta1)*sin(alpha1), r*sin(beta1), r*cos(beta1)*cos(alpha1)));
+		    	vertices.push_back(Point(r*cos(beta1)*sin(alpha2), r*sin(beta1), r*cos(beta1)*cos(alpha2)));
             }
         }
 
@@ -222,10 +222,7 @@ void pyramid(float height, float width, float length, string fileName){
 }
 
 
-/*
-DÚVIDA:
-    - AS STACKS SÃO WORTH?
-*/
+
 void cylinder(float radius, float height, int stacks, int slices, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
