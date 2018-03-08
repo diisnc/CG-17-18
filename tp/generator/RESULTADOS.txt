@@ -1,0 +1,3 @@
+Cilindro -> mal
+Piramide -> certo
+Esfera -> mal
