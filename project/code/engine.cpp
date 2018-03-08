@@ -1,13 +1,16 @@
-﻿#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
-
+﻿
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <vector>
 #include "engine.h"
+
+// Glut has to be included last to avoid errors
+// (for example, C2381 'exit': redefinition; '__declspec(noreturn)' or '[[noreturn]]' differs)
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 
 using std::vector;
 using engine::model;

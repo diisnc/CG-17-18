@@ -22,13 +22,12 @@ std::vector<engine::model> xmlLoader::loadSceneXML(const char* path) {
 	XMLError result = file.LoadFile(path);
 
 	if (result != XML_SUCCESS) {
-		printf("O documento XML não foi carregado com sucesso.\n");
-		return;
+		throw std::runtime_error("O documento XML não foi carregado com sucesso.\n");
 	}
+
 	XMLNode *scene = file.FirstChildElement("scene");
 	if (scene == nullptr) {
-		printf("Erro ao procurar elemento \"scene\" no XML.\n");
-		return;
+		throw std::runtime_error("Erro ao procurar elemento \"scene\" no XML.\n");
 	}
 
 	// Will contain paths to .3d models present in XML

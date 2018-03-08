@@ -1,13 +1,15 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include "engine.h"
+#include "xml-loader.h"
+
+// Glut has to be included last to avoid errors
+// (for example, C2381 'exit': redefinition; '__declspec(noreturn)' or '[[noreturn]]' differs)
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
 #endif
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include "engine.h"
-#include "xml-loader.h"
 
 GLUquadric* qobj;
 float translateX = 0;
@@ -17,16 +19,12 @@ float rotateY = 0;
 float rotateX = 0;
 GLenum mode = GL_FILL;
 
-
 /*
-
 TODO:
-
 •	Plane (a square in the XZ plane, centred in the origin, made with 2 triangles)
 •	Box (requires X, Y and Z dimensions, and optionally the number of divisions)
 •	Sphere (requires radius, slices and stacks)
 •	Cone (requires bottom radius, height, slices and stacks)
-
 */
 
 
@@ -290,11 +288,11 @@ void renderScene(void) {
 	glPolygonMode(GL_FRONT, mode);
 
 	// put drawing instructions here
-	plane();
-	box();
-	sphere(1, 100, 200);
-	cone(1, 2, 100, 50);
-	cylinder(1, 2, 100);
+	//plane();
+	//box();
+	//sphere(1, 100, 200);
+	//cone(1, 2, 100, 50);
+	//cylinder(1, 2, 100);
 	
 	// Draw frame
 	engine::drawFrame();
