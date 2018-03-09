@@ -52,7 +52,7 @@ void plane(float width, string fileName){
 }
 
 
-//box is placed on XZ plane
+// TENHO QUE METER ROW E COLUMN, NÃO CHEGA DIV
 void box(float side, int nDivisions, string fileName){
 
     FILE *out;
@@ -63,67 +63,72 @@ void box(float side, int nDivisions, string fileName){
         std::vector<Point> vertices; // Vector to store the vertices
         float unit = side / nDivisions; // Size of a unit (like an alpha in polar coordenates)
 
-        for(int div = 0; div < nDivisions; div++) {
+        for(int col = 0; col < nDivisions; col++) {
 
-            // CIMA
-            // F-E-D
-            vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
-            vertices.push_back(Point(side*unit*div, side, side*unit*div));
-            vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
-            // F-D-C
-            vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
-            vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
-            vertices.push_back(Point(side*unit*(div+1), side, side*unit*(div+1)));
+            for(int row = 0; row < nDivisions; row++) {
 
-            // BAIXO
-            // F-D-E
-            vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
-            vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
-            vertices.push_back(Point(side*unit*div, 0, side*unit*div));
-            // F-C-D
-            vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
-            vertices.push_back(Point(side*unit*(div+1), 0, side*unit*(div+1)));
-            vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
+                // CIMA
+                // F-E-D
+                vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
+                vertices.push_back(Point(side*unit*div, side, side*unit*div));
+                vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
+                // F-D-C
+                vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
+                vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
+                vertices.push_back(Point(side*unit*(div+1), side, side*unit*(div+1)));
 
-            // DIREITA
-            // F-C-B
-            vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
-            vertices.push_back(Point(side, side*unit*(div+1), side*unit*(div+1)));
-            vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
-            // F-B-G
-            vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
-            vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
-            vertices.push_back(Point(side, side*unit*div, side*unit*div));
+                // BAIXO
+                // F-D-E
+                vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
+                vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
+                vertices.push_back(Point(side*unit*div, 0, side*unit*div));
+                // F-C-D
+                vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
+                vertices.push_back(Point(side*unit*(div+1), 0, side*unit*(div+1)));
+                vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
 
-            // ESQUERDA
-            // F-B-C
-            vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
-            vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
-            vertices.push_back(Point(0, side*unit*(div+1), side*unit*(div+1)));
-            // F-G-B
-            vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
-            vertices.push_back(Point(0, side*unit*div, side*unit*div));
-            vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
+                // DIREITA
+                // F-C-B
+                vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
+                vertices.push_back(Point(side, side*unit*(div+1), side*unit*(div+1)));
+                vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
+                // F-B-G
+                vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
+                vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
+                vertices.push_back(Point(side, side*unit*div, side*unit*div));
 
-            // FRENTE
-            // C-D-A
-            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
-            vertices.push_back(Point(side*unit*div, side*unit*(div+1), side));
-            vertices.push_back(Point(side*unit*div, side*unit*div, side));
-            // C-A-B
-            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
-            vertices.push_back(Point(side*unit*div, side*unit*div, side));
-            vertices.push_back(Point(side*unit*(div+1), side*unit*div, side));
+                // ESQUERDA
+                // F-B-C
+                vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
+                vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
+                vertices.push_back(Point(0, side*unit*(div+1), side*unit*(div+1)));
+                // F-G-B
+                vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
+                vertices.push_back(Point(0, side*unit*div, side*unit*div));
+                vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
 
-            // TRAS
-            // C-A-D
-            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
-            vertices.push_back(Point(side*unit*div, side*unit*div, 0));
-            vertices.push_back(Point(side*unit*div, side*unit*(div+1), 0));
-            // C-B-A
-            vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
-            vertices.push_back(Point(side*unit*(div+1), side*unit*div, 0));
-            vertices.push_back(Point(side*unit*div, side*unit*div, 0));
+                // FRENTE
+                // C-D-A
+                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
+                vertices.push_back(Point(side*unit*div, side*unit*(div+1), side));
+                vertices.push_back(Point(side*unit*div, side*unit*div, side));
+                // C-A-B
+                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
+                vertices.push_back(Point(side*unit*div, side*unit*div, side));
+                vertices.push_back(Point(side*unit*(div+1), side*unit*div, side));
+
+                // TRAS
+                // C-A-D
+                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
+                vertices.push_back(Point(side*unit*div, side*unit*div, 0));
+                vertices.push_back(Point(side*unit*div, side*unit*(div+1), 0));
+                // C-B-A
+                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
+                vertices.push_back(Point(side*unit*(div+1), side*unit*div, 0));
+                vertices.push_back(Point(side*unit*div, side*unit*div, 0));
+
+            }
+
         }
 
         // Sending vertices to .3d file
@@ -170,7 +175,7 @@ void sphere(float r, int slices, int stacks, string fileName){
     fclose(out);
 }
 
-
+/* TEM PARA AQUI UMA CONFUSÃO DE ALFA E ALPHA que não deixa compilar
 void cone(float r, float height, int slices, int stacks, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
@@ -208,7 +213,7 @@ void cone(float r, float height, int slices, int stacks, string fileName){
             //TOP OF THE SLICE -> it's a triangle, not a rectangle (on each slice)
     	    vertices.push_back(Point(0.0, height, 0.0));
 		    vertices.push_back(Point(lowerR*sin(alpha), lowerStackHeight, lowerR * cos(alpha*slice)));
-            vertices.push_back(Point(lowerR * sin(alpha*(slice+1)), lowerStackHeight, lowerR * cos(alpha*(slice+1))));
+            vertices.push_back(Point(lowerR * sin(alfa*(slice+1), lowerStackHeight, lowerR * cos(alfa*(slice+1))));
         }
 
         // Sending vertices to .3d file
@@ -219,6 +224,7 @@ void cone(float r, float height, int slices, int stacks, string fileName){
 
     fclose(out);
 }
+*/
 
 
 void pyramid(float height, float width, float length, string fileName){
@@ -381,7 +387,7 @@ int main(int argc, char** argv) {
             std::cout << "FILENAME: " << argv[5] << std::endl;
 
             // Call triangle criation function
-            // sphere(raio,slices,stacks,argv[5]);
+            sphere(raio,slices,stacks,argv[5]);
         }
         // CONE
         else if(form.compare("cone") == 0 && argc == 7) {
@@ -407,7 +413,7 @@ int main(int argc, char** argv) {
             std::cout << "FILENAME: " << argv[6] << std::endl;
 
             // Call triangle criation function
-            // cone(raio,altura,slices,stacks,argv[6]);
+            //cone(raio,altura,slices,stacks,argv[6]);
         }
         // PYRAMID
         else if(form.compare("pyramid") == 0 && argc == 6) {
@@ -429,10 +435,10 @@ int main(int argc, char** argv) {
             std::cout << "FILENAME: " << argv[5] << std::endl;
             
             // Call triangle criation function
-            // pyramid(altura,largura,comprimento,argv[5]);
+            pyramid(altura,largura,comprimento,argv[5]);
         }
-        // CYLINDER
-        else if(form.compare("cylinder") == 0 && argc == 6) {
+        // CYLINDER - ESTÁ A DAR MAL, SÓ APARECE UMA FATIA EM CIMA
+        else if(form.compare("cylinder") == 0 && argc == 7) {
             std::cout << "Está a criar um cilindro." << std::endl;
 
             // Prints Coordinates, Number of Divisions and Filename just for DEBUG purposes
@@ -442,14 +448,17 @@ int main(int argc, char** argv) {
             std::cout << "ALTURA= " << argv[3] << std::endl;
             float altura = std::stof(argv[3]);
             std::cout << altura << std::endl;
-            std::cout << "SLICES= " << argv[4] << std::endl;
-            int fatias = std::stoi(argv[4]);
+            std::cout << "STACKS= " << argv[4] << std::endl;
+            int slices = std::stoi(argv[4]);
+            std::cout << slices << std::endl;
+            std::cout << "SLICES= " << argv[5] << std::endl;
+            int fatias = std::stoi(argv[5]);
             std::cout << fatias << std::endl;
-            std::cout << "FILENAME: " << argv[5] << std::endl;
+            std::cout << "FILENAME: " << argv[6] << std::endl;
             
 
             // Call triangle criation function
-            // cylinder(raio,altura,fatias,argv[5]);
+            cylinder(raio,altura,slices,fatias,argv[6]);
         }
         else {
             std::cout << argv[1] << " não é válido." << std::endl;
