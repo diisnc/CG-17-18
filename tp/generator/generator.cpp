@@ -67,47 +67,63 @@ void box(float x, float y, float z, int nDivisions, string fileName){
 
         for(int col = 0; col < nDivisions; col++) {
 
-            for(int row = 0; row < nDivisions; row++) {
+            for(int dep = 0; dep < nDivisions; dep++) {
 
                 // CIMA
                 // F-E-D
-                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*row));
-                vertices.push_back(Point(x*unitx*col, y, z*unitz*row));
-                vertices.push_back(Point(x*unitx*col, y, z*unitz*(row+1)));
+                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*dep));
+                vertices.push_back(Point(x*unitx*col, y, z*unitz*dep));
+                vertices.push_back(Point(x*unitx*col, y, z*unitz*(dep+1)));
                 // F-D-C
-                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*row));
-                vertices.push_back(Point(x*unitx*col, y, z*unitz*(row+1)));
-                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*(row+1)));
+                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*dep));
+                vertices.push_back(Point(x*unitx*col, y, z*unitz*(dep+1)));
+                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*(dep+1)));
 
                 // BAIXO
                 // F-D-E
-                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*row));
-                vertices.push_back(Point(x*unitx*col, 0, z*unitz*(row+1)));
-                vertices.push_back(Point(x*unitx*col, 0, z*unitz*row));
+                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*dep));
+                vertices.push_back(Point(x*unitx*col, 0, z*unitz*(dep+1)));
+                vertices.push_back(Point(x*unitx*col, 0, z*unitz*dep));
                 // F-C-D
-                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*row));
-                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*(row+1)));
-                vertices.push_back(Point(x*unitx*col, 0, z*unitz*(row+1)));
+                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*dep));
+                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*(dep+1)));
+                vertices.push_back(Point(x*unitx*col, 0, z*unitz*(dep+1)));
+
+            }
+
+        }
+
+        for(int dep = 0; dep < nDivisions; dep++) {
+
+            for(int row = 0; row < nDivisions; row++) {
 
                 // DIREITA
                 // F-C-B
-                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*col));
-                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*(col+1)));
-                vertices.push_back(Point(x, y*unity*row, z*unitz*(col+1)));
+                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*dep));
+                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*(dep+1)));
+                vertices.push_back(Point(x, y*unity*row, z*unitz*(dep+1)));
                 // F-B-G
-                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*col));
-                vertices.push_back(Point(x, y*unity*row, z*unitz*(col+1)));
-                vertices.push_back(Point(x, y*unity*row, z*unitz*col));
+                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*dep));
+                vertices.push_back(Point(x, y*unity*row, z*unitz*(dep+1)));
+                vertices.push_back(Point(x, y*unity*row, z*unitz*dep));
 
                 // ESQUERDA
                 // F-B-C
-                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*col));
-                vertices.push_back(Point(0, y*unity*row, z*unitz*(col+1)));
-                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*(col+1)));
+                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*dep));
+                vertices.push_back(Point(0, y*unity*row, z*unitz*(dep+1)));
+                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*(dep+1)));
                 // F-G-B
-                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*col));
-                vertices.push_back(Point(0, y*unity*row, z*unitz*col));
-                vertices.push_back(Point(0, y*unity*row, z*unitz*(col+1)));
+                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*dep));
+                vertices.push_back(Point(0, y*unity*row, z*unitz*dep));
+                vertices.push_back(Point(0, y*unity*row, z*unitz*(dep+1)));
+
+            }
+
+        }
+
+        for(int col = 0; col < nDivisions; col++) {
+
+            for(int row = 0; row < nDivisions; row++) {
 
                 // FRENTE
                 // C-D-A
@@ -422,7 +438,7 @@ int main(int argc, char** argv) {
             std::cout << "FILENAME: " << argv[6] << std::endl;
 
             // Call triangle criation function
-            //cone(raio,altura,slices,stacks,argv[6]);
+            cone(raio,altura,slices,stacks,argv[6]);
         }
         // PYRAMID
         else if(form.compare("pyramid") == 0 && argc == 6) {
