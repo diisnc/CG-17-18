@@ -193,7 +193,7 @@ void cone(float r, float height, int slices, int stacks, string fileName){
             
             float lowerR = r; 
             float lowerStackHeight = 0;
-            for(int stack = 0; slice < slices; slice++){
+            for(int stack = 0; stack < stacks; stack++){
                 float upperStackHeight = height/stacks*stack;
                 float upperR = (height - upperStackHeight) * r / height;
             
@@ -298,7 +298,7 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
             vertices.push_back(Point(r*sin(alpha*(slice+1)), height, r*cos(alpha*(slice+1))));
 
             float lowerStackHeight = 0;
-            for(int stack = 0; stack < stacks; stack++){
+            for(int stack = 0; stack <= stacks; stack++){
                 float upperStackHeight = height/stacks*stack;
                 
                 //SIDES
