@@ -63,7 +63,7 @@ void box(float x, float y, float z, int nDivisions, string fileName){
         std::vector<Point> vertices; // Vector to store the vertices
         float unitx = x / nDivisions; // Size of a width unit (like an alpha in polar coordenates)
         float unity = y / nDivisions; // Size of a height unit (like an alpha in polar coordenates)
-        float unitz = x / nDivisions; // Size of a length unit (like an alpha in polar coordenates)
+        float unitz = z / nDivisions; // Size of a length unit (like an alpha in polar coordenates)
 
         for(int col = 0; col < nDivisions; col++) {
 
@@ -71,23 +71,23 @@ void box(float x, float y, float z, int nDivisions, string fileName){
 
                 // CIMA
                 // F-E-D
-                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*dep));
-                vertices.push_back(Point(x*unitx*col, y, z*unitz*dep));
-                vertices.push_back(Point(x*unitx*col, y, z*unitz*(dep+1)));
+                vertices.push_back(Point(unitx*(col+1), y, unitz*dep));
+                vertices.push_back(Point(unitx*col, y, unitz*dep));
+                vertices.push_back(Point(unitx*col, y, unitz*(dep+1)));
                 // F-D-C
-                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*dep));
-                vertices.push_back(Point(x*unitx*col, y, z*unitz*(dep+1)));
-                vertices.push_back(Point(x*unitx*(col+1), y, z*unitz*(dep+1)));
+                vertices.push_back(Point(unitx*(col+1), y, unitz*dep));
+                vertices.push_back(Point(unitx*col, y, unitz*(dep+1)));
+                vertices.push_back(Point(unitx*(col+1), y, unitz*(dep+1)));
 
                 // BAIXO
                 // F-D-E
-                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*dep));
-                vertices.push_back(Point(x*unitx*col, 0, z*unitz*(dep+1)));
-                vertices.push_back(Point(x*unitx*col, 0, z*unitz*dep));
+                vertices.push_back(Point(unitx*(col+1), 0, unitz*dep));
+                vertices.push_back(Point(unitx*col, 0, unitz*(dep+1)));
+                vertices.push_back(Point(unitx*col, 0, unitz*dep));
                 // F-C-D
-                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*dep));
-                vertices.push_back(Point(x*unitx*(col+1), 0, z*unitz*(dep+1)));
-                vertices.push_back(Point(x*unitx*col, 0, z*unitz*(dep+1)));
+                vertices.push_back(Point(unitx*(col+1), 0, unitz*dep));
+                vertices.push_back(Point(unitx*(col+1), 0, unitz*(dep+1)));
+                vertices.push_back(Point(unitx*col, 0, unitz*(dep+1)));
 
             }
 
@@ -99,23 +99,23 @@ void box(float x, float y, float z, int nDivisions, string fileName){
 
                 // DIREITA
                 // F-C-B
-                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*dep));
-                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*(dep+1)));
-                vertices.push_back(Point(x, y*unity*row, z*unitz*(dep+1)));
+                vertices.push_back(Point(x, unity*(row+1), unitz*dep));
+                vertices.push_back(Point(x, unity*(row+1), unitz*(dep+1)));
+                vertices.push_back(Point(x, unity*row, unitz*(dep+1)));
                 // F-B-G
-                vertices.push_back(Point(x, y*unity*(row+1), z*unitz*dep));
-                vertices.push_back(Point(x, y*unity*row, z*unitz*(dep+1)));
-                vertices.push_back(Point(x, y*unity*row, z*unitz*dep));
+                vertices.push_back(Point(x, unity*(row+1), unitz*dep));
+                vertices.push_back(Point(x, unity*row, unitz*(dep+1)));
+                vertices.push_back(Point(x, unity*row, unitz*dep));
 
                 // ESQUERDA
                 // F-B-C
-                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*dep));
-                vertices.push_back(Point(0, y*unity*row, z*unitz*(dep+1)));
-                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*(dep+1)));
+                vertices.push_back(Point(0, unity*(row+1), unitz*dep));
+                vertices.push_back(Point(0, unity*row, unitz*(dep+1)));
+                vertices.push_back(Point(0, unity*(row+1), unitz*(dep+1)));
                 // F-G-B
-                vertices.push_back(Point(0, y*unity*(row+1), z*unitz*dep));
-                vertices.push_back(Point(0, y*unity*row, z*unitz*dep));
-                vertices.push_back(Point(0, y*unity*row, z*unitz*(dep+1)));
+                vertices.push_back(Point(0, unity*(row+1), unitz*dep));
+                vertices.push_back(Point(0, unity*row, unitz*dep));
+                vertices.push_back(Point(0, unity*row, unitz*(dep+1)));
 
             }
 
@@ -127,23 +127,23 @@ void box(float x, float y, float z, int nDivisions, string fileName){
 
                 // FRENTE
                 // C-D-A
-                vertices.push_back(Point(x*unitx*(col+1), y*unity*(row+1), z));
-                vertices.push_back(Point(x*unitx*col, y*unity*(row+1), z));
-                vertices.push_back(Point(x*unitx*col, y*unity*row, z));
+                vertices.push_back(Point(unitx*(col+1), unity*(row+1), z));
+                vertices.push_back(Point(unitx*col, unity*(row+1), z));
+                vertices.push_back(Point(unitx*col, unity*row, z));
                 // C-A-B
-                vertices.push_back(Point(x*unitx*(col+1), y*unity*(row+1), z));
-                vertices.push_back(Point(x*unitx*col, y*unity*row, z));
-                vertices.push_back(Point(x*unitx*(col+1), y*unity*row, z));
+                vertices.push_back(Point(unitx*(col+1), unity*(row+1), z));
+                vertices.push_back(Point(unitx*col, unity*row, z));
+                vertices.push_back(Point(unitx*(col+1), unity*row, z));
 
                 // TRAS
                 // C-A-D
-                vertices.push_back(Point(x*unitx*(col+1), y*unity*(row+1), 0));
-                vertices.push_back(Point(x*unitx*col, y*unity*row, 0));
-                vertices.push_back(Point(x*unitx*col, y*unity*(row+1), 0));
+                vertices.push_back(Point(unitx*(col+1), unity*(row+1), 0));
+                vertices.push_back(Point(unitx*col, unity*row, 0));
+                vertices.push_back(Point(unitx*col, unity*(row+1), 0));
                 // C-B-A
-                vertices.push_back(Point(x*unitx*(col+1), y*unity*(row+1), 0));
-                vertices.push_back(Point(x*unitx*(col+1), y*unity*row, 0));
-                vertices.push_back(Point(x*unitx*col, y*unity*row, 0));
+                vertices.push_back(Point(unitx*(col+1), unity*(row+1), 0));
+                vertices.push_back(Point(unitx*(col+1), unity*row, 0));
+                vertices.push_back(Point(unitx*col, unity*row, 0));
 
             }
 
