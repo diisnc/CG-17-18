@@ -200,13 +200,13 @@ void cone(float r, float height, int slices, int stacks, string fileName){
                 float upperR = (height - upperStackHeight) * r / height;
             
                 //SIDES
+                vertices.push_back(Point(lowerR*sin(alpha*slice), lowerStackHeight, lowerR*cos(alpha*slice)));
                 vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), lowerStackHeight, lowerR*cos(alpha*(slice+1))));
-                vertices.push_back(Point(lowerR*sin(alpha*slice), upperStackHeight, lowerR*cos(alpha*slice)));
-                vertices.push_back(Point(upperR*sin(alpha*slice), lowerStackHeight, upperR*cos(alpha*slice)));
+                vertices.push_back(Point(upperR*sin(alpha*slice), upperStackHeight, upperR*cos(alpha*slice)));
 
-                vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), upperStackHeight, upperR*cos(alpha*(slice+1))));
-                vertices.push_back(Point(upperR*sin(alpha*slice), upperStackHeight, lowerR*cos(alpha*slice)));
-                vertices.push_back(Point(upperR*sin(alpha*(slice+1)), lowerStackHeight, upperR*cos(alpha*(slice+1))));
+                vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), lowerStackHeight, lowerR*cos(alpha*(slice+1))));
+                vertices.push_back(Point(upperR*sin(alpha*(slice+1)), upperStackHeight, upperR*cos(alpha*(slice+1))));
+                vertices.push_back(Point(upperR*sin(alpha*slice), upperStackHeight, upperR*cos(alpha*slice)));
 
                 lowerR = upperR;
                 lowerStackHeight = upperStackHeight;
@@ -215,7 +215,7 @@ void cone(float r, float height, int slices, int stacks, string fileName){
             //TOP OF THE SLICE -> it's a triangle, not a rectangle (on each slice)
     	    vertices.push_back(Point(0.0, height, 0.0));
 		    vertices.push_back(Point(lowerR*sin(alpha), lowerStackHeight, lowerR * cos(alpha*slice)));
-            vertices.push_back(Point(lowerR * sin(alpha*(slice+1)), lowerStackHeight, lowerR * cos(alpha*(slice+1))));
+            vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), lowerStackHeight, lowerR * cos(alpha*(slice+1))));
         }
 
         // Sending vertices to .3d file
