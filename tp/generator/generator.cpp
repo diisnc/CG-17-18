@@ -151,12 +151,12 @@ void sphere(float r, int slices, int stacks, string fileName){
     if( out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
 	    
-        for (int slice = 0; slice < slices; slice++) {
+        for (int slice = 0; slice <= slices; slice++) {
 		    for (int stack = 0; stack < stacks; stack++) {
-                float alpha1 = slice * (2 * M_PI / slices);
-                float alpha2 = (slice + 1) * (2 * M_PI / slices);
-	            float beta1 = stack * (2 * M_PI / stacks);
-                float beta2 = (stack + 1) * (2 * M_PI / stacks);
+                float alpha1 = (2 * M_PI / slices) * slice;
+                float alpha2 = (2 * M_PI / slices) * (slice + 1);
+	            float beta1 = (2 * M_PI / stacks) * stack;
+                float beta2 = (2 * M_PI / stacks) * (stack + 1);
 
 			    vertices.push_back(Point(r*cos(beta2)*sin(alpha1), r*sin(beta2), r*cos(beta2)*cos(alpha1)));
 			    vertices.push_back(Point(r*cos(beta1)*sin(alpha1), r*sin(beta1), r*cos(beta1)*cos(alpha1)));
