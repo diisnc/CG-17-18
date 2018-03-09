@@ -69,63 +69,63 @@ void box(float side, int nDivisions, string fileName){
 
                 // CIMA
                 // F-E-D
-                vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
-                vertices.push_back(Point(side*unit*div, side, side*unit*div));
-                vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
+                vertices.push_back(Point(side*unit*(col+1), side, side*unit*row));
+                vertices.push_back(Point(side*unit*col, side, side*unit*row));
+                vertices.push_back(Point(side*unit*col, side, side*unit*(row+1)));
                 // F-D-C
-                vertices.push_back(Point(side*unit*(div+1), side, side*unit*div));
-                vertices.push_back(Point(side*unit*div, side, side*unit*(div+1)));
-                vertices.push_back(Point(side*unit*(div+1), side, side*unit*(div+1)));
+                vertices.push_back(Point(side*unit*(col+1), side, side*unit*row));
+                vertices.push_back(Point(side*unit*col, side, side*unit*(row+1)));
+                vertices.push_back(Point(side*unit*(col+1), side, side*unit*(row+1)));
 
                 // BAIXO
                 // F-D-E
-                vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
-                vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
-                vertices.push_back(Point(side*unit*div, 0, side*unit*div));
+                vertices.push_back(Point(side*unit*(col+1), 0, side*unit*row));
+                vertices.push_back(Point(side*unit*col, 0, side*unit*(row+1)));
+                vertices.push_back(Point(side*unit*col, 0, side*unit*row));
                 // F-C-D
-                vertices.push_back(Point(side*unit*(div+1), 0, side*unit*div));
-                vertices.push_back(Point(side*unit*(div+1), 0, side*unit*(div+1)));
-                vertices.push_back(Point(side*unit*div, 0, side*unit*(div+1)));
+                vertices.push_back(Point(side*unit*(col+1), 0, side*unit*row));
+                vertices.push_back(Point(side*unit*(col+1), 0, side*unit*(row+1)));
+                vertices.push_back(Point(side*unit*col, 0, side*unit*(row+1)));
 
                 // DIREITA
                 // F-C-B
-                vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
-                vertices.push_back(Point(side, side*unit*(div+1), side*unit*(div+1)));
-                vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
+                vertices.push_back(Point(side, side*unit*(row+1), side*unit*col));
+                vertices.push_back(Point(side, side*unit*(row+1), side*unit*(col+1)));
+                vertices.push_back(Point(side, side*unit*row, side*unit*(col+1)));
                 // F-B-G
-                vertices.push_back(Point(side, side*unit*(div+1), side*unit*div));
-                vertices.push_back(Point(side, side*unit*div, side*unit*(div+1)));
-                vertices.push_back(Point(side, side*unit*div, side*unit*div));
+                vertices.push_back(Point(side, side*unit*(row+1), side*unit*col));
+                vertices.push_back(Point(side, side*unit*row, side*unit*(col+1)));
+                vertices.push_back(Point(side, side*unit*row, side*unit*col));
 
                 // ESQUERDA
                 // F-B-C
-                vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
-                vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
-                vertices.push_back(Point(0, side*unit*(div+1), side*unit*(div+1)));
+                vertices.push_back(Point(0, side*unit*(row+1), side*unit*col));
+                vertices.push_back(Point(0, side*unit*row, side*unit*(col+1)));
+                vertices.push_back(Point(0, side*unit*(row+1), side*unit*(col+1)));
                 // F-G-B
-                vertices.push_back(Point(0, side*unit*(div+1), side*unit*div));
-                vertices.push_back(Point(0, side*unit*div, side*unit*div));
-                vertices.push_back(Point(0, side*unit*div, side*unit*(div+1)));
+                vertices.push_back(Point(0, side*unit*(row+1), side*unit*col));
+                vertices.push_back(Point(0, side*unit*row, side*unit*col));
+                vertices.push_back(Point(0, side*unit*row, side*unit*(col+1)));
 
                 // FRENTE
                 // C-D-A
-                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
-                vertices.push_back(Point(side*unit*div, side*unit*(div+1), side));
-                vertices.push_back(Point(side*unit*div, side*unit*div, side));
+                vertices.push_back(Point(side*unit*(col+1), side*unit*(row+1), side));
+                vertices.push_back(Point(side*unit*col, side*unit*(row+1), side));
+                vertices.push_back(Point(side*unit*col, side*unit*row, side));
                 // C-A-B
-                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), side));
-                vertices.push_back(Point(side*unit*div, side*unit*div, side));
-                vertices.push_back(Point(side*unit*(div+1), side*unit*div, side));
+                vertices.push_back(Point(side*unit*(col+1), side*unit*(row+1), side));
+                vertices.push_back(Point(side*unit*col, side*unit*row, side));
+                vertices.push_back(Point(side*unit*(col+1), side*unit*row, side));
 
                 // TRAS
                 // C-A-D
-                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
-                vertices.push_back(Point(side*unit*div, side*unit*div, 0));
-                vertices.push_back(Point(side*unit*div, side*unit*(div+1), 0));
+                vertices.push_back(Point(side*unit*(col+1), side*unit*(row+1), 0));
+                vertices.push_back(Point(side*unit*col, side*unit*row, 0));
+                vertices.push_back(Point(side*unit*col, side*unit*(row+1), 0));
                 // C-B-A
-                vertices.push_back(Point(side*unit*(div+1), side*unit*(div+1), 0));
-                vertices.push_back(Point(side*unit*(div+1), side*unit*div, 0));
-                vertices.push_back(Point(side*unit*div, side*unit*div, 0));
+                vertices.push_back(Point(side*unit*(col+1), side*unit*(row+1), 0));
+                vertices.push_back(Point(side*unit*(col+1), side*unit*row, 0));
+                vertices.push_back(Point(side*unit*col, side*unit*row, 0));
 
             }
 
