@@ -281,7 +281,7 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
 
-    if( out != NULL){
+    if(out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
 
         float alpha = 2*M_PI / slices; 
@@ -298,7 +298,7 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
             vertices.push_back(Point(r*sin(alpha*(slice+1)), height, r*cos(alpha*(slice+1))));
 
             float lowerStackHeight = 0;
-            for(int stack = 0; slice < slices; slice++){
+            for(int stack = 0; stack < stacks; stack++){
                 float upperStackHeight = height/stacks*stack;
                 
                 //SIDES
