@@ -167,7 +167,7 @@ void sphere(float r, int slices, int stacks, string fileName){
     if( out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
 	    
-        for (int slice = 0; slice < slices; slice++) {
+        for (int slice = 0; slice <= slices; slice++) {
 		    for (int stack = 0; stack <= stacks; stack++) {
                 float alpha1 = (2 * M_PI / slices) * slice;
                 float alpha2 = (2 * M_PI / slices) * (slice + 1);
