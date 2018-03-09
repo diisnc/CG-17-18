@@ -1,3 +1,6 @@
-Cilindro -> mal
+Plane -> certo
+Box -> certo
+Esfera -> certo
+Cone -> certo
 Piramide -> certo
-Esfera -> mal
+Cilindro -> mal
