@@ -211,7 +211,7 @@ void cone(float r, float height, int slices, int stacks, string fileName){
             
             float lowerR = r; 
             float lowerStackHeight = 0;
-            for(int stack = 0; stack < stacks; stack++){
+            for(int stack = 0; stack <= stacks; stack++){
                 float upperStackHeight = height/stacks*stack;
                 float upperR = (height - upperStackHeight) * r / height;
             
@@ -228,10 +228,6 @@ void cone(float r, float height, int slices, int stacks, string fileName){
                 lowerStackHeight = upperStackHeight;
             }
 
-            //TOP OF THE SLICE -> it's a triangle, not a rectangle (on each slice)
-    	    vertices.push_back(Point(0.0, height, 0.0));
-		    vertices.push_back(Point(lowerR*sin(alpha), lowerStackHeight, lowerR * cos(alpha*slice)));
-            vertices.push_back(Point(lowerR*sin(alpha*(slice+1)), lowerStackHeight, lowerR * cos(alpha*(slice+1))));
         }
 
         // Sending vertices to .3d file
