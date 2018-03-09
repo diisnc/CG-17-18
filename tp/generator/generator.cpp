@@ -177,7 +177,7 @@ void sphere(float r, int slices, int stacks, string fileName){
     fclose(out);
 }
 
-/* TEM PARA AQUI UMA CONFUSÃO DE ALFA E ALPHA que não deixa compilar
+
 void cone(float r, float height, int slices, int stacks, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
@@ -215,7 +215,7 @@ void cone(float r, float height, int slices, int stacks, string fileName){
             //TOP OF THE SLICE -> it's a triangle, not a rectangle (on each slice)
     	    vertices.push_back(Point(0.0, height, 0.0));
 		    vertices.push_back(Point(lowerR*sin(alpha), lowerStackHeight, lowerR * cos(alpha*slice)));
-            vertices.push_back(Point(lowerR * sin(alfa*(slice+1), lowerStackHeight, lowerR * cos(alfa*(slice+1))));
+            vertices.push_back(Point(lowerR * sin(alpha*(slice+1)), lowerStackHeight, lowerR * cos(alpha*(slice+1))));
         }
 
         // Sending vertices to .3d file
@@ -226,7 +226,6 @@ void cone(float r, float height, int slices, int stacks, string fileName){
 
     fclose(out);
 }
-*/
 
 
 void pyramid(float height, float width, float length, string fileName){
@@ -284,7 +283,7 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
     FILE *out;
     fopen_s(&out, fileName.c_str(), "w"); //open to write
 
-    if( out != NULL){
+    if(out != NULL){
         std::vector<Point> vertices; //Vector to store the vertices
 
         float alpha = 2*M_PI / slices; 
@@ -301,7 +300,7 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
             vertices.push_back(Point(r*sin(alpha*(slice+1)), height, r*cos(alpha*(slice+1))));
 
             float lowerStackHeight = 0;
-            for(int stack = 0; slice < slices; slice++){
+            for(int stack = 0; stack < stacks; stack++){
                 float upperStackHeight = height/stacks*stack;
                 
                 //SIDES
