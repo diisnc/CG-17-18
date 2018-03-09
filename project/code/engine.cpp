@@ -39,9 +39,9 @@ void engine::drawFrame() {
 
 			// Vary colors
 			if (color % 3 == 0) {
-				glColor3f(0, 0, 0.4);
+				glColor3f(0.6, 0.6, 0.5);
 				if (color % 6 == 0) {
-					glColor3f(0, 0, 0.2);
+					glColor3f(0.6, 1, 0.9);
 				}
 			}
 			glVertex3f(j->x, j->y, j->z); // Get vertex coordinates by dereferencing pointer
