@@ -24,12 +24,13 @@ void engine::loadScene(vector<model> scene) {
 
 void engine::drawFrame() {
 
+	glBegin(GL_TRIANGLES);
+
 	// Iterate over models
 	vector<model>::iterator i;
 	for (i = scene.begin(); i != scene.end(); i++) {
 		std::vector<vertex> vertices = i->vertices;
 
-		glBegin(GL_TRIANGLES);
 		glColor3f(0, 0, 0.2);
 		int color = 0;
 
@@ -46,6 +47,6 @@ void engine::drawFrame() {
 			}
 			glVertex3f(j->x, j->y, j->z); // Get vertex coordinates by dereferencing pointer
 		}
-		glEnd();
 	}
+	glEnd();
 }
