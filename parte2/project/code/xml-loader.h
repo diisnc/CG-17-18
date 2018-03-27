@@ -7,7 +7,9 @@
 #include "engine.h"
 
 namespace xmlLoader {
-	std::vector<engine::model> loadSceneXML(const char* path);
+	engine::modelTree loadSceneXML(const char* path);
+	engine::modelTree xmlLoader::getModelTreeFromXML(XMLElement* root);
+	engine::model loadModel(string path);
 };
 
 #endif
