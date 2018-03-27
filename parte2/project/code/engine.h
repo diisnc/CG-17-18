@@ -16,6 +16,13 @@ namespace engine {
 		std::vector<vertex> vertices;
 	};
 
+	// A Tree of models
+	// Introduced in part 2, for model groups
+	struct modelTree {
+		model model;
+		std::vector<modelTree> branches;
+	};
+
 	// Scene that can be loaded with loadScene().
 	// "extern" means it has to be defined once in a source (.cpp) file
 	extern std::vector<model> scene;
