@@ -8,7 +8,7 @@
 
 namespace xmlLoader {
 	engine::modelTree loadSceneXML(const char* path);
-	engine::modelTree xmlLoader::getModelTreeFromXML(XMLElement* root);
+	engine::modelTree getModelTreeFromXML(XMLElement* root);
 	engine::model loadModel(string path);
 };
 

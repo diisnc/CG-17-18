@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
 	glEnable(GL_CULL_FACE); //tirar para ver a parte de baixo
 
 	// Load scene XML
-	std::vector<engine::model> scene = xmlLoader::loadSceneXML("scene.xml");
+	engine::modelTree scene = xmlLoader::loadSceneXML("scene.xml");
 
 	// Send scene models to engine
 	engine::loadScene(scene);

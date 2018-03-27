@@ -108,7 +108,7 @@ engine::modelTree xmlLoader::getModelTreeFromXML(XMLElement* root) {
 
 // Loads a model from a given file path
 // Example path: banana.3d
-engine::model loadModel(string path) {
+engine::model xmlLoader::loadModel(string path) {
 
   ifstream modelFile;
   modelFile.open(path);
