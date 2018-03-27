@@ -48,9 +48,11 @@ namespace engine {
 
 	// Scene that can be loaded with loadScene().
 	// "extern" means it has to be defined once in a source (.cpp) file
-	extern std::vector<model> scene;
+	extern modelTree scene;
 
-	void loadScene(std::vector<model> scene); // Loads a scene
+	void loadScene(modelTree scene); // Loads a scene
+	void drawScene(modelTree scene);
+	void drawModel(model model);
 	void drawFrame(); // Draws a frame of the scene
 };
 

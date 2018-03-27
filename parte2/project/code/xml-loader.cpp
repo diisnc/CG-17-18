@@ -69,9 +69,9 @@ engine::modelTree xmlLoader::getModelTreeFromXML(XMLElement* root) {
 
     if (strcmp(tag.c_str(), "translate") == 0) {
       tree.applyTranslate = true;
-      tree.translate.x = child->DoubleAttribute("x");
-      tree.translate.y = child->DoubleAttribute("y");
-      tree.translate.z = child->DoubleAttribute("z");
+      tree.translate.x = child->DoubleAttribute("X");
+      tree.translate.y = child->DoubleAttribute("Y");
+      tree.translate.z = child->DoubleAttribute("Z");
     } else if (strcmp(tag.c_str(), "rotate") == 0) {
       tree.applyRotate = true;
       tree.rotate.x = child->DoubleAttribute("axisX");
@@ -80,9 +80,9 @@ engine::modelTree xmlLoader::getModelTreeFromXML(XMLElement* root) {
       tree.rotateAngle = child->DoubleAttribute("angle");
     } else if (strcmp(tag.c_str(), "scale") == 0) {
       tree.applyScale = true;
-      tree.scale.x = child->DoubleAttribute("x");
-      tree.scale.y = child->DoubleAttribute("y");
-      tree.scale.z = child->DoubleAttribute("z");
+      tree.scale.x = child->DoubleAttribute("X");
+      tree.scale.y = child->DoubleAttribute("Y");
+      tree.scale.z = child->DoubleAttribute("Z");
     } else if (strcmp(tag.c_str(), "models") == 0) {
       XMLElement* models = child->FirstChildElement();
 
