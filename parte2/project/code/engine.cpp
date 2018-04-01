@@ -56,7 +56,7 @@ void engine::drawScene(modelTree tree) {
 	// Draw all sub trees
 	std::vector<modelTree>::iterator j;
 	for (j = tree.branches.begin(); j != tree.branches.end(); j++) {
-		engine::drawModel(*j);
+		engine::drawScene(*j);
 	}
 
 	// Reset transformations
