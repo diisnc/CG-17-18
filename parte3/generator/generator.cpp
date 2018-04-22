@@ -415,7 +415,7 @@ Point getBezierPoint(unsigned int* patches, float* controlPoints, int numberOfIn
  * 3. Com recurso a polinomiais de Bernstein,
  *    calcula os pontos do modelo.
  */
-void makeBezier(string pathToPatchFile, string pathTo3DFile, int tesselationLevel) {
+void bezier(string pathToPatchFile, string pathTo3DFile, int tesselationLevel) {
     // Read Patch file
     const int numberOfIndexes = 16; // Number of indexes on patch file
     unsigned int* patches = NULL;
@@ -604,7 +604,7 @@ int main(int argc, char** argv) {
         // Requer 5 argumentos: generator bezier <pathToPatchFile> <pathTo3DFile> <tesselationLevel>
         else if (type == "bezier" && argc >= 5)
         {
-            makeBezier(argv[2], argv[3], atoi(argv[4]));
+            bezier(argv[2], argv[3], atoi(argv[4]));
             return 0;
         }
         else {
