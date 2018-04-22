@@ -338,6 +338,125 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
     fclose(out);
 }
 
+/**
+ * Parte 3 - readPatchFile
+ * Lê um ficheiro Patch
+ * numberOfIndexes é O número de indíces de cada patch
+ */
+void readPatchFile(unsigned int* patches, float* controlPoints, string path, int numberOfIndexes) {
+    ifstream file(path.c_str());
+    string firstLine;
+    getline(file, firstLine);
+    int numberOfPatches = atoi(firstLine.c_str());
+    // Allocate space for all entries
+    patches = (unsigned int *) malloc(sizeof(unsigned int) * numberOfPatches * numberOfIndexes);
+
+    // Get patches from file
+    string line;
+    for (int i = 0; i < numberOfPatches; i++) {
+        getline(file, line);
+        istringstream entries(line);
+        string controlPointIndex;
+        // Get control point indices
+        for (int j = 0; j < numberOfIndexes; j++) {
+            getline(entries, controlPointIndex, ',');
+            patches[i * numberOfIndexes + j] = atoi(controlPointIndex.c_str());
+        }
+    }
+
+    // Get control points from file
+    string cpLine; // Control Points Line
+    getline(file, cpLine);
+    int numberOfControlPoints = atoi(cpLine.c_str());
+    controlPoints = (float *) malloc(sizeof(float) * 3 /* Three cordinates per control point */ * numberOfControlPoints);
+
+    for (int k = 0; k < numberOfControlPoints; k++) { // Loop over control point lines
+        getline(file, line);
+        istringstream cpStream(line); // Control Points Stream
+        string cpEntry; // Control Point Entry
+        for (int l = 0; l < 3 && getline(cpStream, cpEntry, ','); l++) { // Loop over control points
+            controlPoints[k * 3 + l] = (float) atof(cpEntry.c_str());
+        }
+    }
+}
+
+/**
+ * Parte 3 - getBezierPoint
+ * Recebe vetor de patches e pontos de controlo,
+ * número de indíces, número do patch pretendido,
+ * e u & v que controlam a tesselation.
+ */
+Point getBezierPoint(unsigned int* patches, float* controlPoints, int numberOfIndexes, int patchNumber, float u, float v) {
+    // Initialize point
+    Point p(0, 0, 0);
+
+    // Polinómio de Bernstein
+    float bernsteinU[4] = { powf(1 - u, 3), 3 * u * powf(1 - u, 2), 3 * powf(u, 2) * (1 - u), powf(u, 3) };
+    float bernsteinV[4] = { powf(1 - v, 3), 3 * v * powf(1 - v, 2), 3 * powf(v, 2) * (1 - v), powf(v, 3) };
+
+    // Bezier Patch sum
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            int indexInPatch = i * 4 + j;
+            int indexCP = patches[patchNumber * numberOfIndexes + indexInPatch];
+            p.setX(p.getX() + controlPoints[j * 3 + 0] * bernsteinU[i] * bernsteinV[j]);
+            p.setY(p.getY() + controlPoints[j * 3 + 1] * bernsteinU[i] * bernsteinV[j]);
+            p.setZ(p.getZ() + controlPoints[j * 3 + 2] * bernsteinU[i] * bernsteinV[j]);
+        }
+    }
+    return p;
+}
+
+/**
+ * Parte 3 - Make Bezier
+ * 1. Lê um ficheiro patch e armazena os dados;
+ * 2. Gera a superfície de Bezier com um dado
+ *    nível de tesselation;
+ * 3. Com recurso a polinomiais de Bernstein,
+ *    calcula os pontos do modelo.
+ */
+void makeBezier(string pathToPatchFile, string pathTo3DFile, int tesselationLevel) {
+    // Read Patch file
+    const int numberOfIndexes = 16; // Number of indexes on patch file
+    unsigned int* patches = NULL;
+    float* controlPoints = NULL;
+    readPatchFile(patches, controlPoints, pathToPatchFile, numberOfIndexes);
+    std::vector<Point> points; // Points will be stored here
+
+    // Iterate over patches
+    for (int i = 0; i < 32; i++) {
+        // Achieve desired tesselation level
+        for (int j = 0; j < tesselationLevel; j++) { // j = tesselation V
+            float v = (float) j / tesselationLevel;
+            for (int k = 0; k < tesselationLevel; k++) { // k = tesselation U
+                float u = (float) k / tesselationLevel;
+
+                // First triangle
+                points.push_back(getBezierPoint(patches, controlPoints, numberOfIndexes, i, u, v));
+                points.push_back(getBezierPoint(patches, controlPoints, numberOfIndexes, i, (u + (1.0f / tesselationLevel)), v));
+                points.push_back(getBezierPoint(patches, controlPoints, numberOfIndexes, i, (u + (1.0f / tesselationLevel)), (v + (1.0f / tesselationLevel))));
+                // Second Triangle
+                points.push_back(getBezierPoint(patches, controlPoints, numberOfIndexes, i, (u + (1.0f / tesselationLevel)), (v + (1.0f / tesselationLevel))));
+                points.push_back(getBezierPoint(patches, controlPoints, numberOfIndexes, i, u, (v + (1.0f / tesselationLevel))));
+                points.push_back(getBezierPoint(patches, controlPoints, numberOfIndexes, i, u, v));
+            }
+        }
+    }
+
+    FILE *f;
+    fopen_s(&f, pathTo3DFile.c_str(), "w");
+
+    // Print all coordinates to the generated 3D file
+    for (int i = 0; i < points.size(); i++) {
+        fprintf(f, "%f %f %f\n", points[i].getX(), points[i].getY(), points[i].getZ());
+    }
+
+    fclose(f);
+
+    // Free memory allocated in readPatchFile
+    free(patches);
+    free(controlPoints);
+}
 
 int main(int argc, char** argv) {
 
@@ -480,6 +599,13 @@ int main(int argc, char** argv) {
 
             // Call triangle criation function
             cylinder(raio,altura,slices,fatias,argv[6]);
+        }
+        // Parte 3 - Bezier
+        // Requer 5 argumentos: generator bezier <pathToPatchFile> <pathTo3DFile> <tesselationLevel>
+        else if (type == "bezier" && argc >= 5)
+        {
+            makeBezier(argv[2], argv[3], atoi(argv[4]));
+            return 0;
         }
         else {
             std::cout << argv[1] << " não é válido." << std::endl;
