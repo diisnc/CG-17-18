@@ -79,7 +79,7 @@ void engine::drawModel(model m) {
 		if (color % 3 == 0) {
 			glColor3f(0.6, 0.6, 0.5);
 			if (color % 6 == 0) {
-				glColor3f(0.6, 1, 0.9);
+				glColor3f(0.2, 0.3, 0.4);
 			}
 		}
 		glVertex3f(i->x, i->y, i->z); // Get vertex coordinates by dereferencing pointer
