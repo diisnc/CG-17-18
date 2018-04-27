@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Point.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -343,13 +344,13 @@ void cylinder(float r, float height, int stacks, int slices, string fileName){
  * Lê um ficheiro Patch
  * numberOfIndexes é O número de indíces de cada patch
  */
-void readPatchFile(unsigned int* patches, float* controlPoints, string path, int numberOfIndexes) {
+void readPatchFile(unsigned int** patches, float** controlPoints, string path, int numberOfIndexes) {
     ifstream file(path.c_str());
     string firstLine;
     getline(file, firstLine);
     int numberOfPatches = atoi(firstLine.c_str());
     // Allocate space for all entries
-    patches = (unsigned int *) malloc(sizeof(unsigned int) * numberOfPatches * numberOfIndexes);
+    *patches = (unsigned int *) malloc(sizeof(unsigned int) * numberOfPatches * numberOfIndexes);
 
     // Get patches from file
     string line;
@@ -358,9 +359,8 @@ void readPatchFile(unsigned int* patches, float* controlPoints, string path, int
         istringstream entries(line);
         string controlPointIndex;
         // Get control point indices
-        for (int j = 0; j < numberOfIndexes; j++) {
-            getline(entries, controlPointIndex, ',');
-            patches[i * numberOfIndexes + j] = atoi(controlPointIndex.c_str());
+        for (int j = 0; j < numberOfIndexes && getline(entries, controlPointIndex, ','); j++) {
+            (*patches)[i * numberOfIndexes + j] = atoi(controlPointIndex.c_str());
         }
     }
 
@@ -368,14 +368,14 @@ void readPatchFile(unsigned int* patches, float* controlPoints, string path, int
     string cpLine; // Control Points Line
     getline(file, cpLine);
     int numberOfControlPoints = atoi(cpLine.c_str());
-    controlPoints = (float *) malloc(sizeof(float) * 3 /* Three cordinates per control point */ * numberOfControlPoints);
+    *controlPoints = (float *) malloc(sizeof(float) * 3 * numberOfControlPoints ); /* Three cordinates per control point */ 
 
     for (int k = 0; k < numberOfControlPoints; k++) { // Loop over control point lines
         getline(file, line);
         istringstream cpStream(line); // Control Points Stream
         string cpEntry; // Control Point Entry
         for (int l = 0; l < 3 && getline(cpStream, cpEntry, ','); l++) { // Loop over control points
-            controlPoints[k * 3 + l] = (float) atof(cpEntry.c_str());
+            (*controlPoints)[k * 3 + l] = (float) atof(cpEntry.c_str());
         }
     }
 }
@@ -399,9 +399,9 @@ Point getBezierPoint(unsigned int* patches, float* controlPoints, int numberOfIn
         for (int j = 0; j < 4; j++) {
             int indexInPatch = i * 4 + j;
             int indexCP = patches[patchNumber * numberOfIndexes + indexInPatch];
-            p.setX(p.getX() + controlPoints[j * 3 + 0] * bernsteinU[i] * bernsteinV[j]);
-            p.setY(p.getY() + controlPoints[j * 3 + 1] * bernsteinU[i] * bernsteinV[j]);
-            p.setZ(p.getZ() + controlPoints[j * 3 + 2] * bernsteinU[i] * bernsteinV[j]);
+            p.setX(p.getX() + controlPoints[indexCP * 3 + 0] * bernsteinU[i] * bernsteinV[j]);
+            p.setY(p.getY() + controlPoints[indexCP * 3 + 1] * bernsteinU[i] * bernsteinV[j]);
+            p.setZ(p.getZ() + controlPoints[indexCP * 3 + 2] * bernsteinU[i] * bernsteinV[j]);
         }
     }
     return p;
@@ -420,9 +420,10 @@ void bezier(string pathToPatchFile, string pathTo3DFile, int tesselationLevel) {
     const int numberOfIndexes = 16; // Number of indexes on patch file
     unsigned int* patches = NULL;
     float* controlPoints = NULL;
-    readPatchFile(patches, controlPoints, pathToPatchFile, numberOfIndexes);
-    std::vector<Point> points; // Points will be stored here
 
+    readPatchFile(&patches, &controlPoints, pathToPatchFile, numberOfIndexes);
+    std::vector<Point> points; // Points will be stored here
+    
     // Iterate over patches
     for (int i = 0; i < 32; i++) {
         // Achieve desired tesselation level
@@ -602,10 +603,10 @@ int main(int argc, char** argv) {
         }
         // Parte 3 - Bezier
         // Requer 5 argumentos: generator bezier <pathToPatchFile> <pathTo3DFile> <tesselationLevel>
-        else if (type == "bezier" && argc >= 5)
+        else if (form.compare("bezier") == 0 && argc >= 5)
         {
             bezier(argv[2], argv[3], atoi(argv[4]));
-            return 0;
+            
         }
         else {
             std::cout << argv[1] << " não é válido." << std::endl;

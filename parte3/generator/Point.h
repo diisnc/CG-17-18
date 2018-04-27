@@ -23,4 +23,14 @@ public:
 	float getZ() {
 		return z;
 	}
+
+	void setX(float value) {
+		x = value;
+	}
+	void setY(float value) {
+		y = value;
+	}
+	void setZ(float value) {
+		z = value;
+	}
 };
