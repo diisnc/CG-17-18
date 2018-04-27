@@ -447,6 +447,8 @@ void bezier(string pathToPatchFile, string pathTo3DFile, int tesselationLevel) {
     FILE *f;
     fopen_s(&f, pathTo3DFile.c_str(), "w");
 
+    fprintf(f, "%d\n", points.size() / 3);
+
     // Print all coordinates to the generated 3D file
     for (int i = 0; i < points.size(); i++) {
         fprintf(f, "%f %f %f\n", points[i].getX(), points[i].getY(), points[i].getZ());
