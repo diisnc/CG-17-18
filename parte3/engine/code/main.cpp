@@ -13,51 +13,41 @@ using namespace tinyxml2;
 using namespace std;
 
 #define _USE_MATH_DEFINES
-#define SPACE 100
+#define ESPACO 100
 
 
-class Scale {
-public:
-	Scale() :vazio(true) {}
-	bool vazio;
+struct Scale {
+	bool vazio = true;
 	float x, y, z;
 };
 
-class Rotation {
-public:
-	Rotation() :vazio(true), angulo(-1), time(-1) {}
-	bool vazio;
-	float x, y, z, angulo, time;
+struct Rotation {
+	bool vazio = true;
+	float x, y, z, angulo = -1, tempo = -1;
 };
 
-class Translate {
-public:
-	Translate() :vazio(true) {}
-	bool vazio;
-	float time;
+struct Translate {
+	bool vazio = true;
+	float tempo;
 	float** pontos;
 	int numPontos;
 	float** matrix;
 };
 
-class Figure {
-public:
-	Figure() : vboIndice(-1), triangulos(0) {}
-	string name;
-	int vboIndice, triangulos;
-	Scale scale;
-	Rotation rotate;
-	Translate translate;
-
+struct Figure {
+	string nome;
+	int vboIndice = -1, triangulos = 0;
+	Scale escala;
+	Rotation rotacao;
+	Translate translacao;
 };
 
-class Tree {
-public:
+struct Tree {
 	Figure modelo;
 	std::vector<Tree> subArvores;
 };
 
-std::vector<pair<string, pair<int, int>>> figureIndexes;
+std::vector<pair<string, pair<int, int>>> indiceFiguras;
 
 Tree arvore;
 Translate trans;
@@ -68,13 +58,13 @@ float dz = 0;
 float alfa = 0.0f, beta = 0.5f, radius = 15.0f;
 float coordCamX, coordCamY, coordCamZ;
 float rodaI = 0.0;
-float time = 0;
+float tempo = 0;
 static float p;
 
 float up[3] = { 0.0,1.0,0.0 };
 float leftCometa[3];
 
-pair<int, int> loadFigure(string object) {
+pair<int, int> loadModel(string object) {
 	ifstream file;
 	file.open(object);
 
@@ -96,7 +86,7 @@ pair<int, int> loadFigure(string object) {
 	return make_pair(t, numTriangulos);
 }
 
-void getCatmullRomPoint(float t, int *indices, float *res, float *deriv) {
+void getPontoCatmullRom(float t, int *indices, float *res, float *deriv) {
 
 	// catmull-rom matrix
 	float m[4][4] = { { -0.5f,  1.5f, -1.5f,  0.5f },
@@ -122,7 +112,7 @@ void getCatmullRomPoint(float t, int *indices, float *res, float *deriv) {
 	}
 }
 
-void getGlobalCatmullRomPoint(float gt, float *res, float *deriv) {
+void getPontoGlobalCatmullRom(float gt, float *res, float *deriv) {
 
 	float t = gt * (trans.numPontos); // this is the real global t
 	int index = floor(t);  // which segment
@@ -134,7 +124,7 @@ void getGlobalCatmullRomPoint(float gt, float *res, float *deriv) {
 	indices[1] = (indices[0] + 1) % (trans.numPontos);
 	indices[2] = (indices[1] + 1) % (trans.numPontos);
 	indices[3] = (indices[2] + 1) % (trans.numPontos);
-	getCatmullRomPoint(t, indices, res, deriv);
+	getPontoCatmullRom(t, indices, res, deriv);
 }
 
 
@@ -146,14 +136,14 @@ void toMatrix(Translate t) {
 	t.matrix[0][1] = 0; // distancia=0;
 
 	float tt = 0, pAnterior[3], deriv[3], point[3];
-	getGlobalCatmullRomPoint(tt, pAnterior, deriv);
+	getPontoGlobalCatmullRom(tt, pAnterior, deriv);
 
-	for (int i = 1; i < (int)t.numPontos * SPACE + 1; i++) {
+	for (int i = 1; i < (int)t.numPontos * ESPACO + 1; i++) {
 
 		t.matrix[i] = (float*)malloc(sizeof(float) * 2);
-		tt = (float)i / (float)(t.numPontos*SPACE);
+		tt = (float)i / (float)(t.numPontos*ESPACO);
 		t.matrix[i][0] = tt;
-		getGlobalCatmullRomPoint(tt, point, deriv);
+		getPontoGlobalCatmullRom(tt, point, deriv);
 
 		t.matrix[i][1] = sqrt(powf((point[0] - pAnterior[0]), 2) +
 			powf((point[1] - pAnterior[1]), 2) +
@@ -166,7 +156,7 @@ void toMatrix(Translate t) {
 	}
 }
 
-Tree getGroup(XMLElement* node) {
+Tree getTreeFROMXML(XMLElement* node) {
 
 	Tree t;
 	XMLElement* child = node->FirstChildElement();
@@ -174,8 +164,8 @@ Tree getGroup(XMLElement* node) {
 		string tag = child->Value();
 
 		if (strcmp(tag.c_str(), "translate") == 0) {
-			t.modelo.translate.vazio = false;
-			t.modelo.translate.time = child->IntAttribute("time");
+			t.modelo.translacao.vazio = false;
+			t.modelo.translacao.tempo = child->IntAttribute("time");
 
 			vector<float> pts;
 
@@ -187,39 +177,39 @@ Tree getGroup(XMLElement* node) {
 				pts.push_back(pModel->FloatAttribute("Z"));
 			}
 
-			t.modelo.translate.numPontos = pts.size() / 3;
-			t.modelo.translate.pontos = (float**)malloc(sizeof(float*) * t.modelo.translate.numPontos);
-			t.modelo.translate.matrix = (float**)malloc(sizeof(float*) * t.modelo.translate.numPontos*SPACE + 1);
+			t.modelo.translacao.numPontos = pts.size() / 3;
+			t.modelo.translacao.pontos = (float**)malloc(sizeof(float*) * t.modelo.translacao.numPontos);
+			t.modelo.translacao.matrix = (float**)malloc(sizeof(float*) * t.modelo.translacao.numPontos*ESPACO + 1);
 
 			vector<float>::iterator itpts;
 			int aux = 0;
 
 			for (itpts = pts.begin(); itpts != pts.end(); itpts++) {
-				t.modelo.translate.pontos[aux] = (float*)malloc(sizeof(float) * 3);
+				t.modelo.translacao.pontos[aux] = (float*)malloc(sizeof(float) * 3);
 
-				t.modelo.translate.pontos[aux][0] = *itpts;
+				t.modelo.translacao.pontos[aux][0] = *itpts;
 				itpts++;
-				t.modelo.translate.pontos[aux][1] = *itpts;
+				t.modelo.translacao.pontos[aux][1] = *itpts;
 				itpts++;
-				t.modelo.translate.pontos[aux][2] = *itpts;
+				t.modelo.translacao.pontos[aux][2] = *itpts;
 				aux++;
 			}
-			toMatrix(t.modelo.translate);
+			toMatrix(t.modelo.translacao);
 		}
 		else if (strcmp(tag.c_str(), "rotate") == 0) {
-			t.modelo.rotate.x = child->DoubleAttribute("axisX");
-			t.modelo.rotate.y = child->DoubleAttribute("axisY");
-			t.modelo.rotate.z = child->DoubleAttribute("axisZ");
+			t.modelo.rotacao.x = child->DoubleAttribute("axisX");
+			t.modelo.rotacao.y = child->DoubleAttribute("axisY");
+			t.modelo.rotacao.z = child->DoubleAttribute("axisZ");
 			if (child->DoubleAttribute("angulo"))
-				t.modelo.rotate.angulo = child->DoubleAttribute("angulo");
+				t.modelo.rotacao.angulo = child->DoubleAttribute("angulo");
 			else if (child->DoubleAttribute("time"))
-				t.modelo.rotate.time = child->DoubleAttribute("time");
+				t.modelo.rotacao.tempo = child->DoubleAttribute("time");
 		}
 		else if (strcmp(tag.c_str(), "scale") == 0) {
-			t.modelo.scale.vazio = false;
-			t.modelo.scale.x = child->DoubleAttribute("X");
-			t.modelo.scale.y = child->DoubleAttribute("Y");
-			t.modelo.scale.z = child->DoubleAttribute("Z");
+			t.modelo.escala.vazio = false;
+			t.modelo.escala.x = child->DoubleAttribute("X");
+			t.modelo.escala.y = child->DoubleAttribute("Y");
+			t.modelo.escala.z = child->DoubleAttribute("Z");
 		}
 		else if (strcmp(tag.c_str(), "models") == 0) {
 			XMLElement* modelsNode = child->FirstChildElement();
@@ -227,44 +217,47 @@ Tree getGroup(XMLElement* node) {
 				string figureName = modelsNode->Attribute("file");
 				std::vector<pair<string, pair<int, int>>>::iterator it;
 
-				for (it = figureIndexes.begin(); it != figureIndexes.end(); it++) {
+				for (it = indiceFiguras.begin(); it != indiceFiguras.end(); it++) {
 					if (it->first == figureName.c_str()) {
 						t.modelo.vboIndice = it->second.first;
 						t.modelo.triangulos = it->second.second;
 					}
 				}
 				if (t.modelo.vboIndice == -1) {
-					pair<int, int> ret = loadFigure(figureName.c_str());
+					pair<int, int> ret = loadModel(figureName.c_str());
 					t.modelo.vboIndice = ret.first;
 					t.modelo.triangulos = ret.second;
-					figureIndexes.push_back(make_pair(figureName.c_str(), ret));
+					indiceFiguras.push_back(make_pair(figureName.c_str(), ret));
 				}
 			}
 		}
 		else if (strcmp(tag.c_str(), "group") == 0) {
 			Tree newTree;
-			newTree = getGroup(child);
+			newTree = getTreeFROMXML(child);
 			if (child->Attribute("a") != nullptr)
-				newTree.modelo.name = child->Attribute("a");
+				newTree.modelo.nome = child->Attribute("a");
 			else
-				newTree.modelo.name = "nada";
+				newTree.modelo.nome = "nada";
 			t.subArvores.push_back(newTree);
 		}
 	}
 	return t;
 }
 
-void getFigures() {
-	XMLDocument doc;						   // vector que vai conter nome das figuras presentes no ficheiro XML
-	XMLError load = doc.LoadFile("scene.xml"); // abre ficheiro XML
-											   // se conseguiu abrir o ficheiro vai colocar no vetor o nome  das figuras a carregar
+void loadSceneXML() {
+	// Load XML document
+	XMLDocument file;						   
+	XMLError load = file.LoadFile("scene.xml"); 
+											   
 	if (load != XML_SUCCESS) {
-		printf("Erro no ficheiro xml.\n");
-		return;
+		throw std::runtime_error("O documento XML não foi carregado com sucesso. \n");
 	}
-	XMLElement *pRoot = doc.FirstChildElement("scene");
-	if (pRoot == nullptr) return;
-	arvore = getGroup(pRoot);
+	XMLElement *scene = file.FirstChildElement("scene");
+
+	if (scene == nullptr) {
+		throw std::runtime_error("Erro ao procurar elemento \"scene\" no XML. \n");
+	}
+	arvore = getTreeFROMXML(scene);
 
 }
 
@@ -294,13 +287,13 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void renderCatmullRomCurve() {
+void renderCurvaCatmullRom() {
 
 	float res[3];
 	float deriv[3];
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < 1000; i++) {
-		getGlobalCatmullRomPoint(i / 1000.0, res, deriv);
+		getPontoGlobalCatmullRom(i / 1000.0, res, deriv);
 		glVertex3fv(res);
 	}
 	glEnd();
@@ -323,29 +316,29 @@ void normalize(float *a) {
 void drawScene(Tree t) {
 
 	glPushMatrix();
-	if (!t.modelo.translate.vazio) {
-		trans = t.modelo.translate;
-		renderCatmullRomCurve();
-		time = glutGet(GLUT_ELAPSED_TIME);
-		float aux = fmod(time, (float)(t.modelo.translate.time * 1000)) / (t.modelo.translate.time * 1000); // 1000 is the number of catmull-rom's division
-		float dist = aux*t.modelo.translate.matrix[(int)(t.modelo.translate.numPontos)*SPACE][1];
+	if (!t.modelo.translacao.vazio) {
+		trans = t.modelo.translacao;
+		renderCurvaCatmullRom();
+		tempo = glutGet(GLUT_ELAPSED_TIME);
+		float aux = fmod(tempo, (float)(t.modelo.translacao.tempo * 1000)) / (t.modelo.translacao.tempo * 1000); // 1000 is the number of catmull-rom's division
+		float dist = aux*t.modelo.translacao.matrix[(int)(t.modelo.translacao.numPontos)*ESPACO][1];
 
-		for (int i = 0; i < (int)(t.modelo.translate.numPontos)*SPACE + 1; i++) {
-			if (dist == t.modelo.translate.matrix[i][1])
-				p = t.modelo.translate.matrix[i][0];
-			else if (dist > t.modelo.translate.matrix[i][1] && dist < t.modelo.translate.matrix[i + 1][1]) {
-				float f = (float)(dist - t.modelo.translate.matrix[i][1]) / (t.modelo.translate.matrix[i + 1][1] - t.modelo.translate.matrix[i][1]);
-				p = t.modelo.translate.matrix[i][0] * (1 - f) + (t.modelo.translate.matrix[i + 1][0] * f);
+		for (int i = 0; i < (int)(t.modelo.translacao.numPontos)*ESPACO + 1; i++) {
+			if (dist == t.modelo.translacao.matrix[i][1])
+				p = t.modelo.translacao.matrix[i][0];
+			else if (dist > t.modelo.translacao.matrix[i][1] && dist < t.modelo.translacao.matrix[i + 1][1]) {
+				float f = (float)(dist - t.modelo.translacao.matrix[i][1]) / (t.modelo.translacao.matrix[i + 1][1] - t.modelo.translacao.matrix[i][1]);
+				p = t.modelo.translacao.matrix[i][0] * (1 - f) + (t.modelo.translacao.matrix[i + 1][0] * f);
 			}
 		}
 
 		float ponto[3], deriv[3];
 		float m[16];
-		getGlobalCatmullRomPoint(p, ponto, deriv);
+		getPontoGlobalCatmullRom(p, ponto, deriv);
 
 		glTranslatef(ponto[0], ponto[1], ponto[2]);
 
-		if (strcmp(t.modelo.name.c_str(), "Cometa") == 0) {
+		if (strcmp(t.modelo.nome.c_str(), "Cometa") == 0) {
 			
 			cross(deriv, up, leftCometa);
 			cross(leftCometa, deriv, up);
@@ -358,19 +351,18 @@ void drawScene(Tree t) {
 		}
 	}
 
-	if (!t.modelo.rotate.vazio)
-		if (t.modelo.rotate.angulo != -1)
-			glRotatef(t.modelo.rotate.angulo, t.modelo.rotate.x, t.modelo.rotate.y, t.modelo.rotate.z);
-		else if (t.modelo.rotate.time != -1) {
-			time = glutGet(GLUT_ELAPSED_TIME);
-			float aux = fmod(time, (float)(t.modelo.rotate.time * 1000)) / (t.modelo.rotate.time * 1000);
+	if (!t.modelo.rotacao.vazio)
+		if (t.modelo.rotacao.angulo != -1)
+			glRotatef(t.modelo.rotacao.angulo, t.modelo.rotacao.x, t.modelo.rotacao.y, t.modelo.rotacao.z);
+		else if (t.modelo.rotacao.tempo != -1) {
+			tempo = glutGet(GLUT_ELAPSED_TIME);
+			float aux = fmod(tempo, (float)(t.modelo.rotacao.tempo * 1000)) / (t.modelo.rotacao.tempo * 1000);
 			float angulo = aux * 360;
-			glRotatef(angulo, t.modelo.rotate.x, t.modelo.rotate.y, t.modelo.rotate.z);
+			glRotatef(angulo, t.modelo.rotacao.x, t.modelo.rotacao.y, t.modelo.rotacao.z);
 		}
-	if (!t.modelo.scale.vazio)
-		glScalef(t.modelo.scale.x, t.modelo.scale.y, t.modelo.scale.z);
+	if (!t.modelo.escala.vazio)
+		glScalef(t.modelo.escala.x, t.modelo.escala.y, t.modelo.escala.z);
 
-	//printf("nome %s // triangulos %d\n", t.modelo.name.c_str(), t.modelo.triangulos);
 
 	if (t.modelo.vboIndice != 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, t.modelo.vboIndice);
@@ -504,7 +496,7 @@ int main(int argc, char **argv) {
 	glutKeyboardFunc(processKeys);
 	glutSpecialFunc(processSpecialKeys);
 	// enter GLUT's main cycle
-	getFigures();
+	loadSceneXML();
 	glutMainLoop();
 
 	return 1;
