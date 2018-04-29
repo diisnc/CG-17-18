@@ -36,15 +36,6 @@ void processKeys(unsigned char c, int xx, int yy) {
 		break;
 	case 'o': radius += 1.0f;
 		break;
-	case 'z':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		break;
-	case 'x':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-		break;
-	case 'c':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		break;
 	default:
 		break;
 	}
@@ -80,6 +71,15 @@ void processSpecialKeys(int key, int xx, int yy) {
 		break;
 
 	case GLUT_KEY_PAGE_UP: radius += 1.0f; break;
+
+	case GLUT_KEY_F1: glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); break;
+
+	case GLUT_KEY_F2: glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
+
+	case GLUT_KEY_F3: glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); break;
+
+	default:
+		break;
 	}
 	spherical2Cartesian();
 	glutPostRedisplay();
