@@ -1,0 +1,17 @@
+﻿  Generator.cpp
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(51): warning C4018: '<': signed/unsigned mismatch
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(173): warning C4018: '<': signed/unsigned mismatch
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(184): warning C4305: 'initializing': truncation from 'double' to 'float'
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(185): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(212): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(381): warning C4018: '<': signed/unsigned mismatch
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(400): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(401): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(436): warning C4018: '<': signed/unsigned mismatch
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(451): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(452): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(484): warning C4018: '<': signed/unsigned mismatch
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(528): warning C4018: '<': signed/unsigned mismatch
+e:\software\dropbox\uminho\3rd_year\2nd_semester\computação gráfica\assessment\cg-1617\generator\generator\generator.cpp(692): warning C4018: '<': signed/unsigned mismatch
+  Generator.vcxproj -> E:\Software\Dropbox\uminho\3rd_year\2nd_semester\Computação Gráfica\Assessment\cg-1617\Generator\Debug\Generator.exe
+  Generator.vcxproj -> E:\Software\Dropbox\uminho\3rd_year\2nd_semester\Computação Gráfica\Assessment\cg-1617\Generator\Debug\Generator.pdb (Full PDB)
