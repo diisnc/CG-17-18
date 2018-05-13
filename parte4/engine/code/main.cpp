@@ -823,6 +823,23 @@ void processSpecialKeys(int key, int xx, int yy) {
 
 }
 
+// Frame limiting
+
+static int redisplay_interval;
+
+void FPStimer(int) {
+	glutPostRedisplay();
+	glutTimerFunc(redisplay_interval, FPStimer, 0);
+}
+
+void setFPS(int fps) {
+	redisplay_interval = 1000 / fps;
+	glutTimerFunc(redisplay_interval, FPStimer, 0);
+}
+
+void noop() {
+	return;
+}
 
 int main(int argc, char **argv) {
 
@@ -831,12 +848,12 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1920, 1080);
-	glutCreateWindow("engine 1.4");
+	glutCreateWindow("Sistema Solar com Luz e Texturas");
 
 	// Required callback registry 
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
-	glutIdleFunc(renderScene);
+	glutIdleFunc(noop);
 	glewInit();
 
 	//  OpenGL settings
@@ -853,9 +870,11 @@ int main(int argc, char **argv) {
 	// Callback registration for keyboard processing
 	glutKeyboardFunc(processKeys);
 	glutSpecialFunc(processSpecialKeys);
+
 	// enter GLUT's main cycle
 	light_number = 0;
 	getFigures();
+	// setFPS(1); // Limit framerate to 60FPS
 	glutMainLoop();
 
 	return 1;
