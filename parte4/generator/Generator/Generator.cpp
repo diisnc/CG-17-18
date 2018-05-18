@@ -5,7 +5,6 @@
 #include <fstream>
 #include <sstream>
 
-
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -47,7 +46,7 @@ void makePlane(float width, string filename) {
 		// Print the number of triangles into the file
 		fprintf(f, "%d\n", points.size() / 3);
 
-		// Print everypoint into the file
+		// Print every point into the file
 		for (int point = 0; point < points.size(); point++) {
 			// Triangle point
 			fprintf(f, "%f %f %f\n", points[point].getX(), points[point].getY(), points[point].getZ());
@@ -169,7 +168,7 @@ void makeBox(float x, float y, float z, int numberOfDivisions, string filename) 
 		// Print the number of triangles into the file
 		fprintf(f, "%d\n", points.size() / 3);
 
-		// Print everypoint into the file
+		// Print every point into the file
 		for (int point = 0; point < points.size(); point++) {
 			fprintf(f, "%f %f %f\n", points[point].getX(), points[point].getY(), points[point].getZ());
 		}
@@ -230,7 +229,7 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 	all_texture.push_back(TexturePoint(0.5, 1));
 
 	// Vectors used to store all the triangle points in the sphere
-	vector<Point> triangle_coordenate;
+	vector<Point> triangle_coordinate;
 	vector<Point> triangle_normal;
 	vector<TexturePoint> triangle_texture;
 
@@ -238,9 +237,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 	int counter;
 	int number_points = all_coordinate.size();
 	for (counter = 1; counter < number_points && all_coordinate[counter].getY() == all_coordinate[counter + 1].getY(); counter++) {
-		triangle_coordenate.push_back(all_coordinate[counter]);
-		triangle_coordenate.push_back(all_coordinate[0]);
-		triangle_coordenate.push_back(all_coordinate[counter + 1]);
+		triangle_coordinate.push_back(all_coordinate[counter]);
+		triangle_coordinate.push_back(all_coordinate[0]);
+		triangle_coordinate.push_back(all_coordinate[counter + 1]);
 		
 		triangle_normal.push_back(all_normal[counter]);
 		triangle_normal.push_back(all_normal[0]);
@@ -252,9 +251,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 	}
 
 	// Last triangle of the bottom of the sphere
-	triangle_coordenate.push_back(all_coordinate[counter]);
-	triangle_coordenate.push_back(all_coordinate[0]);
-	triangle_coordenate.push_back(all_coordinate[1]);
+	triangle_coordinate.push_back(all_coordinate[counter]);
+	triangle_coordinate.push_back(all_coordinate[0]);
+	triangle_coordinate.push_back(all_coordinate[1]);
 
 	triangle_normal.push_back(all_normal[counter]);
 	triangle_normal.push_back(all_normal[0]);
@@ -278,9 +277,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 			last = true;
 
 			// First triangle
-			triangle_coordenate.push_back(all_coordinate[counter]);
-			triangle_coordenate.push_back(all_coordinate[counter - fixed]);
-			triangle_coordenate.push_back(all_coordinate[counter + 1]);
+			triangle_coordinate.push_back(all_coordinate[counter]);
+			triangle_coordinate.push_back(all_coordinate[counter - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter + 1]);
 
 			triangle_normal.push_back(all_normal[counter]);
 			triangle_normal.push_back(all_normal[counter - fixed]);
@@ -291,9 +290,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 			triangle_texture.push_back(all_texture[texture_counter + 1]);
 
 			// Second triangle
-			triangle_coordenate.push_back(all_coordinate[counter + 1]);
-			triangle_coordenate.push_back(all_coordinate[counter - fixed]);
-			triangle_coordenate.push_back(all_coordinate[counter + 1 - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter + 1]);
+			triangle_coordinate.push_back(all_coordinate[counter - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter + 1 - fixed]);
 
 			triangle_normal.push_back(all_normal[counter + 1]);
 			triangle_normal.push_back(all_normal[counter - fixed]);
@@ -309,9 +308,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 		// Last triangles of each stack
 		if (last) {
 			// First triangle
-			triangle_coordenate.push_back(all_coordinate[counter]);
-			triangle_coordenate.push_back(all_coordinate[counter - fixed]);
-			triangle_coordenate.push_back(all_coordinate[counter + 1 - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter]);
+			triangle_coordinate.push_back(all_coordinate[counter - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter + 1 - fixed]);
 
 			triangle_normal.push_back(all_normal[counter]);
 			triangle_normal.push_back(all_normal[counter - fixed]);
@@ -322,9 +321,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 			triangle_texture.push_back(all_texture[texture_counter + 1]);
 
 			// Second triangle
-			triangle_coordenate.push_back(all_coordinate[counter - fixed]);
-			triangle_coordenate.push_back(all_coordinate[counter + 1 - (2 * fixed)]);
-			triangle_coordenate.push_back(all_coordinate[counter + 1 - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter - fixed]);
+			triangle_coordinate.push_back(all_coordinate[counter + 1 - (2 * fixed)]);
+			triangle_coordinate.push_back(all_coordinate[counter + 1 - fixed]);
 
 			triangle_normal.push_back(all_normal[counter - fixed]);
 			triangle_normal.push_back(all_normal[counter + 1 - (2 * fixed)]);
@@ -343,9 +342,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 	texture_counter++;
 	int k = counter - fixed;
 	for (k = counter - fixed; k < number_points - 2; k++) {
-		triangle_coordenate.push_back(all_coordinate[k]);
-		triangle_coordenate.push_back(all_coordinate[k + 1]);
-		triangle_coordenate.push_back(all_coordinate[number_points - 1]);
+		triangle_coordinate.push_back(all_coordinate[k]);
+		triangle_coordinate.push_back(all_coordinate[k + 1]);
+		triangle_coordinate.push_back(all_coordinate[number_points - 1]);
 
 		triangle_normal.push_back(all_normal[k]);
 		triangle_normal.push_back(all_normal[k + 1]);
@@ -359,9 +358,9 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 	}
 
 	// Last triangle of the top of the sphere
-	triangle_coordenate.push_back(all_coordinate[k]);
-	triangle_coordenate.push_back(all_coordinate[k + 1 - fixed]);
-	triangle_coordenate.push_back(all_coordinate[number_points - 1]);
+	triangle_coordinate.push_back(all_coordinate[k]);
+	triangle_coordinate.push_back(all_coordinate[k + 1 - fixed]);
+	triangle_coordinate.push_back(all_coordinate[number_points - 1]);
 
 	triangle_normal.push_back(all_normal[k]);
 	triangle_normal.push_back(all_normal[k + 1 - fixed]);
@@ -376,11 +375,11 @@ void makeSphere(float radius, int slices, int stacks, string filename) {
 	fopen_s(&f, filename.c_str(), "w");
 
 	// Print the number of triangles into the file
-	fprintf(f, "%d\n", triangle_coordenate.size() / 3);
+	fprintf(f, "%d\n", triangle_coordinate.size() / 3);
 
-	for (int point = 0; point < triangle_coordenate.size(); point++) {
+	for (int point = 0; point < triangle_coordinate.size(); point++) {
 		// Coordinate point
-		fprintf(f, "%f %f %f\n", triangle_coordenate[point].getX(), triangle_coordenate[point].getY(), triangle_coordenate[point].getZ());
+		fprintf(f, "%f %f %f\n", triangle_coordinate[point].getX(), triangle_coordinate[point].getY(), triangle_coordinate[point].getZ());
 		// Normal
 		fprintf(f, "%f %f %f\n", triangle_normal[point].getX(), triangle_normal[point].getY(), triangle_normal[point].getZ());
 		// Texture point
@@ -423,7 +422,7 @@ void makeCone(float radius, float height, int slices, int stacks, string filenam
 				previousRadius = newRadius;
 			}
 
-			//TIP OF THE CONE
+			// Tip of the cone
 			points.push_back(Point(0.0, height, 0.0));
 			points.push_back(Point(previousRadius * sin(alpha), previousStackHeight, previousRadius * cos(alpha)));
 			points.push_back(Point(previousRadius * sin(nextAlpha), previousStackHeight, previousRadius * cos(nextAlpha)));
@@ -432,7 +431,7 @@ void makeCone(float radius, float height, int slices, int stacks, string filenam
 		// Print the number of triangles into the file
 		fprintf(f, "%d\n", points.size() / 3);
 
-		// Print everypoint into the file
+		// Print every point into the file
 		for (int point = 0; point < points.size(); point++) {
 			fprintf(f, "%f %f %f\n", points[point].getX(), points[point].getY(), points[point].getZ());
 		}
@@ -451,7 +450,7 @@ void makeCylinder(float radius, float height, int slices, int stacks, string fil
 			float alpha = slice * (2 * M_PI / slices);
 			float nextAlpha = (slice + 1) * (2 * M_PI / slices);
 
-			// BOTTOM TRIANGLES
+			// Bottom triangles
 			points.push_back(Point(0.0f, 0.0f, 0.0f));
 			points.push_back(Point(radius * sin(nextAlpha), 0.0f, radius * cos(nextAlpha)));
 			points.push_back(Point(radius * sin(alpha), 0.0f, radius * cos(alpha)));
@@ -471,7 +470,7 @@ void makeCylinder(float radius, float height, int slices, int stacks, string fil
 				previousStackHeight = stackHeight;
 			}
 
-			// TOP TRIANGLES
+			// Top triangles
 			points.push_back(Point(0.0f, height, 0.0f));
 			points.push_back(Point(radius * sin(alpha), height, radius * cos(alpha)));
 			points.push_back(Point(radius * sin(nextAlpha), height, radius * cos(nextAlpha)));
@@ -480,7 +479,7 @@ void makeCylinder(float radius, float height, int slices, int stacks, string fil
 		// Print the number of triangles into the file
 		fprintf(f, "%d\n", points.size() / 3);
 
-		// Print everypoint into the file
+		// Print every point into the file
 		for (int point = 0; point < points.size(); point++) {
 			fprintf(f, "%f %f %f\n", points[point].getX(), points[point].getY(), points[point].getZ());
 		}
@@ -524,7 +523,7 @@ void makePyramid(float length, float height, float width, string filename) {
 		// Print the number of triangles into the file
 		fprintf(f, "%d\n", points.size() / 3);
 
-		// Print everypoint into the file
+		// Print every point into the file
 		for (int point = 0; point < points.size(); point++) {
 			fprintf(f, "%f %f %f\n", points[point].getX(), points[point].getY(), points[point].getZ());
 		}
@@ -541,7 +540,7 @@ void readPatch(string filename) {
 	int number_patches = atoi(firstLine.c_str());
 	patches = (unsigned int*)malloc(sizeof(unsigned int) * number_patches * NUMBER_INDEXES);
 
-	/* Save Patches */
+	// Save Patches
 	for (int patch_number = 0; patch_number < number_patches; patch_number++) {
 		getline(file, line);
 		istringstream indexes(line);
@@ -550,7 +549,7 @@ void readPatch(string filename) {
 			patches[patch_number * NUMBER_INDEXES + position] = atoi(indexCP.c_str());
 	}
 
-	/* Save Control Points */
+	// Save Control Points
 	getline(file, firstLine);
 	int number_control_points = atoi(firstLine.c_str());
 	control_points = (float *)malloc(sizeof(float) * 3 * number_control_points);
@@ -611,8 +610,9 @@ Point bezierPointNormal(int patch_number, float u, float v) {
 		}
 	}
 
-	/*Cross das tangentes e normalize para obter a normal*/
+	// Cross tangents
 	cross(tangentV, tangentU, normal);
+	// Normalize to obtain normal
 	normalize(normal);
 
 	Point res(normal[0], normal[1], normal[2]);
@@ -702,14 +702,14 @@ void makeBezier(string  filenamePatch, string filename3d, int tesselationLevel) 
 
 	fclose(f);
 
-	// free memory allocated in readPatch
+	// Free memory allocated in readPatch
 	free(patches);
 	free(control_points);
 }
 
 int main(int argc, char* argv[]) {
 	if (argc < 2) {
-		printf("Invalid parameters. Exiting..");
+		printf("Input inválida. Por favor tente novamente.");
 		return -1;
 	}
 
@@ -734,13 +734,13 @@ int main(int argc, char* argv[]) {
 		float radius = stof(argv[2]);
 		int slices = stoi(argv[3]), stacks = stoi(argv[4]);
 		string filename = argv[5];
-		// STACKS BIGGER THAN 0 && SLICES BIGGER THAN 1
+
 		if (slices > 1 && stacks > 0) {
 			makeSphere(radius, slices, stacks, filename);
 			return 0;
 		}
 		else {
-			printf("Invalid parameters. Exiting..");
+			printf("Input inválida. Por favor tente novamente.");
 			return -1;
 		}
 		return 0;
@@ -750,13 +750,13 @@ int main(int argc, char* argv[]) {
 		float radius = stof(argv[2]), height = stof(argv[3]);
 		int slices = stoi(argv[4]), stacks = stoi(argv[5]);
 		string filename = argv[6];
-		// STACKS BIGGER THAN 0 && SLICES BIGGER THAN 1
+
 		if (slices > 1 && stacks > 0) {
 			makeCone(radius, height, slices, stacks, filename);
 			return 0;
 		}
 		else {
-			printf("Invalid parameters. Exiting..");
+			printf("Input inválida. Por favor tente novamente.");
 			return -1;
 		}
 	}
@@ -765,13 +765,12 @@ int main(int argc, char* argv[]) {
 		float radius = stof(argv[2]), height = stof(argv[3]);
 		int slices = stoi(argv[4]), stacks = stoi(argv[5]);
 		string filename = argv[6];
-		// STACKS BIGGER THAN 0 && SLICES BIGGER THAN 1
+
 		if (slices > 1 && stacks > 0) {
 			makeCylinder(radius, height, slices, stacks, filename);
 			return 0;
-		}
-		else {
-			printf("Invalid parameters. Exiting..");
+		} else {
+			printf("Input inválida. Por favor tente novamente.");
 			return -1;
 		}
 	}
@@ -788,7 +787,7 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 
-	// IF IT REACHED THIS POINT NO VALID OPTIONS WERE INSERTED
-	printf("Invalid parameters. Exiting..");
+	// If it reached this point no valid option was inserted
+	printf("Input inválida, por favor tente novamente.");
 	return -1;
 }

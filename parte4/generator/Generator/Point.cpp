@@ -14,7 +14,6 @@ Point::Point(float a, float b, float c) {
 	z = c;
 }
 
-
 // Getters and setters
 
 float Point::getX() {

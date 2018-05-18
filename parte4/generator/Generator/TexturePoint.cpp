@@ -12,7 +12,6 @@ TexturePoint::TexturePoint(float a, float b) {
 	y = b;
 }
 
-
 // Getters and setters
 
 float TexturePoint::getX() {
