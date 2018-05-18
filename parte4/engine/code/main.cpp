@@ -17,52 +17,65 @@ using namespace std;
 #define _USE_MATH_DEFINES
 #define SPACE 100
 
-struct Scale {
-	bool vazio = true;
+class Scale {
+public:
+	Scale() : empty(true) {}
+	bool empty;
 	float x, y, z;
 };
 
-struct Rotation {
-	bool vazio = true;
-	float x, y, z, angulo = -1, tempo = -1;
+class Rotation {
+public:
+	Rotation() : empty(true), angle(-1), time(-1) {}
+	bool empty;
+	float x, y, z, angle, time;
 };
 
-struct Translate {
-	bool vazio = true;
-	float tempo = NULL;
-	float **pontos;
-	int numPontos;
+class Translate {
+public:
+	Translate() : empty(true), time(NULL) {}
+	bool empty;
+	float time;
+	float **points;
+	int npointers;
 	float **matrix;
 };
 
-struct Color {
-	bool vazio = true;
-	float *diffuseColor = NULL,
-		*specularColor = NULL,
-		*emissiveColor = NULL,
-		*ambientColor = NULL;
+class Color {
+public:
+	Color() : diffuseColor(NULL), specularColor(NULL), emissiveColor(NULL), ambientColor(NULL), empty(true) {}
+	bool empty;
+	float *diffuseColor,
+		*specularColor,
+		*emissiveColor,
+		*ambientColor;
 };
 
-struct Light {
+class Light {
+public:
+	Light() : cons(NULL), quad(NULL), linear(NULL), spotCutOff(NULL), spotDirection(NULL), spotExponent(NULL) {}
 	string type;
 	float pos[4];
 	Color color;
-	float cons = NULL, quad = NULL, linear = NULL, spotCutOff = NULL, *spotDirection = NULL, spotExponent = NULL;
+	float cons, quad, linear, spotCutOff, *spotDirection, spotExponent;
 	unsigned int id;
 };
 
 unsigned int light_number;
 
-struct Figure {
+class Figure {
+public:
+	Figure() : vboIndex(-1), triangles(0), textureIndexVBO(-1) {}
 	string name;
-	int vboIndice, normalIndice, textureIndice, textureIndiceVBO, triangles;
+	int vboIndex, normalIndex, textureIndex, textureIndexVBO, triangles;
 	Color color;
 	Scale scale;
 	Rotation rotate;
 	Translate translate;
 };
 
-struct Tree {
+class Tree {
+public:
 	Figure figure;
 	vector<Light> lights;
 	std::vector<Tree> subtrees;
@@ -135,24 +148,24 @@ void getCatmullRomPoint(float t, int *indices, float *res, float *deriv) {
 	// where Pi = p[indices[i]]
 	// ...
 	for (int i = 0; i < 3; i++) {
-		res[i] = (((pow(t, 3) * m[0][0] + pow(t, 2) * m[1][0] + t * m[2][0] + m[3][0]) * (trans.pontos)[indices[0]][i]) + ((pow(t, 3) * m[0][1] + pow(t, 2) * m[1][1] + t * m[2][1] + m[3][1]) * (trans.pontos)[indices[1]][i]) + ((pow(t, 3) * m[0][2] + pow(t, 2) * m[1][2] + t * m[2][2] + m[3][2]) * (trans.pontos)[indices[2]][i]) + ((pow(t, 3) * m[0][3] + pow(t, 2) * m[1][3] + t * m[2][3] + m[3][3]) * (trans.pontos)[indices[3]][i]));
+		res[i] = (((pow(t, 3) * m[0][0] + pow(t, 2) * m[1][0] + t * m[2][0] + m[3][0]) * (trans.points)[indices[0]][i]) + ((pow(t, 3) * m[0][1] + pow(t, 2) * m[1][1] + t * m[2][1] + m[3][1]) * (trans.points)[indices[1]][i]) + ((pow(t, 3) * m[0][2] + pow(t, 2) * m[1][2] + t * m[2][2] + m[3][2]) * (trans.points)[indices[2]][i]) + ((pow(t, 3) * m[0][3] + pow(t, 2) * m[1][3] + t * m[2][3] + m[3][3]) * (trans.points)[indices[3]][i]));
 
-		deriv[i] = (((pow(t, 2) * m[0][0] * 3 + pow(t, 1) * m[1][0] * 2 + m[2][0] + 0) * (trans.pontos)[indices[0]][i]) + ((pow(t, 2) * m[0][1] * 3 + pow(t, 1) * m[1][1] * 2 + m[2][1] + 0) * (trans.pontos)[indices[1]][i]) + ((pow(t, 2) * m[0][2] * 3 + pow(t, 1) * m[1][2] * 2 + m[2][2] + 0) * (trans.pontos)[indices[2]][i]) + ((pow(t, 2) * m[0][3] * 3 + pow(t, 1) * m[1][3] * 2 + m[2][3] + 0) * (trans.pontos)[indices[3]][i]));
+		deriv[i] = (((pow(t, 2) * m[0][0] * 3 + pow(t, 1) * m[1][0] * 2 + m[2][0] + 0) * (trans.points)[indices[0]][i]) + ((pow(t, 2) * m[0][1] * 3 + pow(t, 1) * m[1][1] * 2 + m[2][1] + 0) * (trans.points)[indices[1]][i]) + ((pow(t, 2) * m[0][2] * 3 + pow(t, 1) * m[1][2] * 2 + m[2][2] + 0) * (trans.points)[indices[2]][i]) + ((pow(t, 2) * m[0][3] * 3 + pow(t, 1) * m[1][3] * 2 + m[2][3] + 0) * (trans.points)[indices[3]][i]));
 	}
 }
 
 void getGlobalCatmullRomPoint(float gt, float *res, float *deriv) {
 
-	float t = gt * (trans.numPontos); // this is the real global t
+	float t = gt * (trans.npointers); // this is the real global t
 	int index = floor(t);							// which segment
 	t = t - index;										// where within  the segment
 
 														// indices store the points
 	int indices[4];
-	indices[0] = (index + (trans.numPontos) - 1) % (trans.numPontos);
-	indices[1] = (indices[0] + 1) % (trans.numPontos);
-	indices[2] = (indices[1] + 1) % (trans.numPontos);
-	indices[3] = (indices[2] + 1) % (trans.numPontos);
+	indices[0] = (index + (trans.npointers) - 1) % (trans.npointers);
+	indices[1] = (indices[0] + 1) % (trans.npointers);
+	indices[2] = (indices[1] + 1) % (trans.npointers);
+	indices[3] = (indices[2] + 1) % (trans.npointers);
 	getCatmullRomPoint(t, indices, res, deriv);
 }
 
@@ -166,10 +179,10 @@ void toMatrix(Translate t) {
 	float tt = 0, pAnterior[3], deriv[3], point[3];
 	getGlobalCatmullRomPoint(tt, pAnterior, deriv);
 
-	for (int i = 1; i < (int)t.numPontos * SPACE + 1; i++) {
+	for (int i = 1; i < (int)t.npointers * SPACE + 1; i++) {
 
 		t.matrix[i] = (float *)malloc(sizeof(float) * 2);
-		tt = (float)i / (float)(t.numPontos * SPACE);
+		tt = (float)i / (float)(t.npointers * SPACE);
 		t.matrix[i][0] = tt;
 		getGlobalCatmullRomPoint(tt, point, deriv);
 
@@ -218,8 +231,8 @@ Tree getGroup(XMLElement *node) {
 		//printf("tag : %s\n", tag.c_str());
 		if (strcmp(tag.c_str(), "translate") == 0) {
 
-			t.figure.translate.vazio = false;
-			t.figure.translate.tempo = child->IntAttribute("time");
+			t.figure.translate.empty = false;
+			t.figure.translate.time = child->IntAttribute("time");
 
 			vector<float> pts;
 
@@ -231,21 +244,21 @@ Tree getGroup(XMLElement *node) {
 				pts.push_back(pModel->FloatAttribute("Z"));
 			}
 
-			t.figure.translate.numPontos = pts.size() / 3;
-			t.figure.translate.pontos = (float **)malloc(sizeof(float *) * t.figure.translate.numPontos);
-			t.figure.translate.matrix = (float **)malloc(sizeof(float *) * t.figure.translate.numPontos * SPACE + 1);
+			t.figure.translate.npointers = pts.size() / 3;
+			t.figure.translate.points = (float **)malloc(sizeof(float *) * t.figure.translate.npointers);
+			t.figure.translate.matrix = (float **)malloc(sizeof(float *) * t.figure.translate.npointers * SPACE + 1);
 
 			vector<float>::iterator itpts;
 			int aux = 0;
 
 			for (itpts = pts.begin(); itpts != pts.end(); itpts++) {
-				t.figure.translate.pontos[aux] = (float *)malloc(sizeof(float) * 3);
+				t.figure.translate.points[aux] = (float *)malloc(sizeof(float) * 3);
 
-				t.figure.translate.pontos[aux][0] = *itpts;
+				t.figure.translate.points[aux][0] = *itpts;
 				itpts++;
-				t.figure.translate.pontos[aux][1] = *itpts;
+				t.figure.translate.points[aux][1] = *itpts;
 				itpts++;
-				t.figure.translate.pontos[aux][2] = *itpts;
+				t.figure.translate.points[aux][2] = *itpts;
 				aux++;
 			}
 			toMatrix(t.figure.translate);
@@ -256,13 +269,13 @@ Tree getGroup(XMLElement *node) {
 			t.figure.rotate.y = child->DoubleAttribute("axisY");
 			t.figure.rotate.z = child->DoubleAttribute("axisZ");
 			if (child->DoubleAttribute("angle"))
-				t.figure.rotate.angulo = child->DoubleAttribute("angle");
+				t.figure.rotate.angle = child->DoubleAttribute("angle");
 			else if (child->DoubleAttribute("time"))
-				t.figure.rotate.tempo = child->DoubleAttribute("time");
+				t.figure.rotate.time = child->DoubleAttribute("time");
 		}
 		else if (strcmp(tag.c_str(), "scale") == 0) {
 
-			t.figure.scale.vazio = false;
+			t.figure.scale.empty = false;
 			t.figure.scale.x = child->DoubleAttribute("X");
 			t.figure.scale.y = child->DoubleAttribute("Y");
 			t.figure.scale.z = child->DoubleAttribute("Z");
@@ -279,16 +292,16 @@ Tree getGroup(XMLElement *node) {
 					auto index = texturesIndex.find(name.c_str());
 
 					if (index != texturesIndex.end()) {
-						t.figure.textureIndice = index->second;
+						t.figure.textureIndex = index->second;
 					}
 					else {
 						int id = getTexture(name);
-						t.figure.textureIndice = id;
+						t.figure.textureIndex = id;
 						texturesIndex.insert(make_pair(name, id));
 					}
 				}
 				else
-					t.figure.textureIndice = 0;
+					t.figure.textureIndex = 0;
 
 				auto vIndex = figureIndex.find(figureName);
 				auto nIndex = normalIndex.find(figureName);
@@ -296,10 +309,10 @@ Tree getGroup(XMLElement *node) {
 				auto txIndex = textureCoord.find(figureName);
 
 				if (vIndex != figureIndex.end()) {
-					t.figure.vboIndice = vIndex->second;
-					t.figure.normalIndice = nIndex->second;
+					t.figure.vboIndex = vIndex->second;
+					t.figure.normalIndex = nIndex->second;
 					t.figure.triangles = tIndex->second;
-					t.figure.textureIndiceVBO = txIndex->second;
+					t.figure.textureIndexVBO = txIndex->second;
 				}
 				else {
 					float *v, *n, *tx;
@@ -331,9 +344,9 @@ Tree getGroup(XMLElement *node) {
 					free(tx);
 
 					t.figure.triangles = triangles;
-					t.figure.vboIndice = indexV;
-					t.figure.normalIndice = indexN;
-					t.figure.textureIndiceVBO = indexT;
+					t.figure.vboIndex = indexV;
+					t.figure.normalIndex = indexN;
+					t.figure.textureIndexVBO = indexT;
 
 					figureIndex.insert(make_pair(figureName.c_str(), indexV));
 					figureTriangles.insert(make_pair(figureName.c_str(), triangles));
@@ -570,18 +583,18 @@ void normalize(float *a) {
 void drawScene(Tree t) {
 
 	glPushMatrix();
-	if (!t.figure.translate.vazio) {
+	if (!t.figure.translate.empty) {
 
-		if (t.figure.translate.tempo != 0) {
+		if (t.figure.translate.time != 0) {
 			trans = t.figure.translate;
 			float color[4] = { 1.0, 1.0, 1.0, 1.0 };
 
 			renderCatmullRomCurve();
 			time = glutGet(GLUT_ELAPSED_TIME);
-			float aux = fmod(time, (float)(t.figure.translate.tempo * 1000)) / (t.figure.translate.tempo * 1000);
-			float dist = aux * t.figure.translate.matrix[(int)(t.figure.translate.numPontos) * SPACE][1];
+			float aux = fmod(time, (float)(t.figure.translate.time * 1000)) / (t.figure.translate.time * 1000);
+			float dist = aux * t.figure.translate.matrix[(int)(t.figure.translate.npointers) * SPACE][1];
 
-			for (int i = 0; i < (int)(t.figure.translate.numPontos) * SPACE + 1; i++) {
+			for (int i = 0; i < (int)(t.figure.translate.npointers) * SPACE + 1; i++) {
 				if (dist == t.figure.translate.matrix[i][1])
 					p = t.figure.translate.matrix[i][0];
 				else if (dist > t.figure.translate.matrix[i][1] && dist < t.figure.translate.matrix[i + 1][1]) {
@@ -609,117 +622,114 @@ void drawScene(Tree t) {
 			}
 		}
 		else {
-			glTranslatef(t.figure.translate.pontos[0][0], t.figure.translate.pontos[0][1], t.figure.translate.pontos[0][3]);
+			glTranslatef(t.figure.translate.points[0][0], t.figure.translate.points[0][1], t.figure.translate.points[0][3]);
 		}
 	}
 
 	if (t.figure.color.ambientColor != NULL) {
 		//glMaterialfv(GL_FRONT, GL_AMBIENT, t.figure.color.ambientColor);
-		//printf("vbo index : %d", t.figure.vboIndice);
+		//printf("vbo index : %d", t.figure.vboIndex);
 	}
 
-	if (t.figure.color.diffuseColor != NULL) {
+	if (t.figure.color.diffuseColor != NULL)
 		//glMaterialfv(GL_FRONT, GL_DIFFUSE, t.figure.color.diffuseColor);
-	}
 
-	if (t.figure.color.emissiveColor != NULL) {
-		//glMaterialfv(GL_FRONT, GL_EMISSION, t.figure.color.emissiveColor);
-	}
+		if (t.figure.color.emissiveColor != NULL)
+			//glMaterialfv(GL_FRONT, GL_EMISSION, t.figure.color.emissiveColor);
 
-	if (t.figure.color.specularColor != NULL) {
-		//glMaterialfv(GL_FRONT, GL_SPECULAR, t.figure.color.specularColor);
-	}
+			if (t.figure.color.specularColor != NULL)
+				//glMaterialfv(GL_FRONT, GL_SPECULAR, t.figure.color.specularColor);
 
-	if (!t.figure.rotate.vazio)
-		if (t.figure.rotate.angulo != -1)
-			glRotatef(t.figure.rotate.angulo, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
-		else if (t.figure.rotate.tempo != -1) {
-			time = glutGet(GLUT_ELAPSED_TIME);
-			float aux = fmod(time, (float)(t.figure.rotate.tempo * 1000)) / (t.figure.rotate.tempo * 1000);
-			float angle = aux * 360;
-			glRotatef(angle, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
-		}
-		if (!t.figure.scale.vazio)
-			glScalef(t.figure.scale.x, t.figure.scale.y, t.figure.scale.z);
+				if (!t.figure.rotate.empty)
+					if (t.figure.rotate.angle != -1)
+						glRotatef(t.figure.rotate.angle, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
+					else if (t.figure.rotate.time != -1) {
+						time = glutGet(GLUT_ELAPSED_TIME);
+						float aux = fmod(time, (float)(t.figure.rotate.time * 1000)) / (t.figure.rotate.time * 1000);
+						float angle = aux * 360;
+						glRotatef(angle, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
+					}
+					if (!t.figure.scale.empty)
+						glScalef(t.figure.scale.x, t.figure.scale.y, t.figure.scale.z);
 
-		vector<Light>::iterator i = t.lights.begin();
-		for (; i != t.lights.end(); i++) {
+					vector<Light>::iterator i = t.lights.begin();
+					for (; i != t.lights.end(); i++) {
 
-			glLightfv(GL_LIGHT0 + i->id, GL_POSITION, i->pos);
+						glLightfv(GL_LIGHT0 + i->id, GL_POSITION, i->pos);
 
-			if (i->color.ambientColor) {
-				glLightfv(GL_LIGHT0 + i->id, GL_AMBIENT, i->color.ambientColor);
-			}
+						if (i->color.ambientColor) {
+							glLightfv(GL_LIGHT0 + i->id, GL_AMBIENT, i->color.ambientColor);
+						}
 
-			if (i->color.diffuseColor) {
-				glLightfv(GL_LIGHT0 + i->id, GL_DIFFUSE, i->color.diffuseColor);
-			}
+						if (i->color.diffuseColor) {
+							glLightfv(GL_LIGHT0 + i->id, GL_DIFFUSE, i->color.diffuseColor);
+						}
 
-			if (i->color.emissiveColor) {
-				glLightfv(GL_LIGHT0 + i->id, GL_EMISSION, i->color.emissiveColor);
-			}
+						if (i->color.emissiveColor) {
+							glLightfv(GL_LIGHT0 + i->id, GL_EMISSION, i->color.emissiveColor);
+						}
 
-			if (i->color.specularColor) {
-				glLightfv(GL_LIGHT0 + i->id, GL_SPECULAR, i->color.specularColor);
-			}
+						if (i->color.specularColor) {
+							glLightfv(GL_LIGHT0 + i->id, GL_SPECULAR, i->color.specularColor);
+						}
 
-			if (strcmp(i->type.c_str(), "POINT") == 0) {
+						if (strcmp(i->type.c_str(), "POINT") == 0) {
 
-				if (i->cons) {
-					float arr[1] = { i->cons };
+							if (i->cons) {
+								float arr[1] = { i->cons };
 
-					glLightfv(GL_LIGHT0 + i->id, GL_CONSTANT_ATTENUATION, arr);
-				}
+								glLightfv(GL_LIGHT0 + i->id, GL_CONSTANT_ATTENUATION, arr);
+							}
 
-				if (i->linear) {
-					float arr[1] = { i->linear };
-					glLightfv(GL_LIGHT0 + i->id, GL_LINEAR_ATTENUATION, arr);
-				}
+							if (i->linear) {
+								float arr[1] = { i->linear };
+								glLightfv(GL_LIGHT0 + i->id, GL_LINEAR_ATTENUATION, arr);
+							}
 
-				if (i->quad) {
-					float arr[1] = { i->quad };
-					glLightfv(GL_LIGHT0 + i->id, GL_QUADRATIC_ATTENUATION, arr);
-				}
-			}
+							if (i->quad) {
+								float arr[1] = { i->quad };
+								glLightfv(GL_LIGHT0 + i->id, GL_QUADRATIC_ATTENUATION, arr);
+							}
+						}
 
-			if (strcmp(i->type.c_str(), "SPOTLIGHT") == 0) {
-				if (i->spotCutOff) {
-					float arr[1] = { i->spotCutOff };
-					glLightfv(GL_LIGHT0 + i->id, GL_SPOT_CUTOFF, arr);
-				}
+						if (strcmp(i->type.c_str(), "SPOTLIGHT") == 0) {
+							if (i->spotCutOff) {
+								float arr[1] = { i->spotCutOff };
+								glLightfv(GL_LIGHT0 + i->id, GL_SPOT_CUTOFF, arr);
+							}
 
-				if (i->spotDirection) {
-					glLightfv(GL_LIGHT0 + i->id, GL_SPOT_DIRECTION, i->spotDirection);
-				}
+							if (i->spotDirection) {
+								glLightfv(GL_LIGHT0 + i->id, GL_SPOT_DIRECTION, i->spotDirection);
+							}
 
-				if (i->spotExponent) {
-					float arr[1] = { i->spotExponent };
-					glLightfv(GL_LIGHT0 + i->id, GL_SPOT_EXPONENT, arr);
-				}
-			}
-		}
+							if (i->spotExponent) {
+								float arr[1] = { i->spotExponent };
+								glLightfv(GL_LIGHT0 + i->id, GL_SPOT_EXPONENT, arr);
+							}
+						}
+					}
 
-		if (t.figure.vboIndice != -1) {
+					if (t.figure.vboIndex != -1) {
 
-			glBindBuffer(GL_ARRAY_BUFFER, t.figure.vboIndice);
-			glVertexPointer(3, GL_FLOAT, 0, 0);
+						glBindBuffer(GL_ARRAY_BUFFER, t.figure.vboIndex);
+						glVertexPointer(3, GL_FLOAT, 0, 0);
 
-			glBindBuffer(GL_ARRAY_BUFFER, t.figure.normalIndice);
-			glNormalPointer(GL_FLOAT, 0, 0);
+						glBindBuffer(GL_ARRAY_BUFFER, t.figure.normalIndex);
+						glNormalPointer(GL_FLOAT, 0, 0);
 
-			glBindBuffer(GL_ARRAY_BUFFER, t.figure.textureIndiceVBO);
-			glTexCoordPointer(2, GL_FLOAT, 0, 0);
-			glBindTexture(GL_TEXTURE_2D, t.figure.textureIndice);
+						glBindBuffer(GL_ARRAY_BUFFER, t.figure.textureIndexVBO);
+						glTexCoordPointer(2, GL_FLOAT, 0, 0);
+						glBindTexture(GL_TEXTURE_2D, t.figure.textureIndex);
 
-			glDrawArrays(GL_TRIANGLES, 0, t.figure.triangles * 3);
-			glBindTexture(GL_TEXTURE_2D, 0);
-		}
+						glDrawArrays(GL_TRIANGLES, 0, t.figure.triangles * 3);
+						glBindTexture(GL_TEXTURE_2D, 0);
+					}
 
-		std::vector<Tree>::iterator it;
-		for (it = t.subtrees.begin(); it != t.subtrees.end(); it++)
-			drawScene(*it);
+					std::vector<Tree>::iterator it;
+					for (it = t.subtrees.begin(); it != t.subtrees.end(); it++)
+						drawScene(*it);
 
-		glPopMatrix();
+					glPopMatrix();
 }
 
 void spherical2Cartesian() {
