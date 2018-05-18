@@ -11,71 +11,60 @@
 #include <string>
 #include <map>
 #include "tinyxml2.h"
+#include "xml-loader.h"
+#include "engine.h"
 using namespace tinyxml2;
 using namespace std;
 
 #define _USE_MATH_DEFINES
 #define SPACE 100
 
-class Scale {
-public:
-	Scale() : vazio(true) {}
-	bool vazio;
+struct Scale {
+	bool vazio = true;
 	float x, y, z;
 };
 
-class Rotation {
-public:
-	Rotation() : vazio(true), angulo(-1), tempo(-1) {}
-	bool vazio;
-	float x, y, z, angulo, tempo;
+struct Rotation {
+	bool vazio = true;
+	float x, y, z, angulo = -1, tempo = -1;
 };
 
-class Translate {
-public:
-	Translate() : vazio(true), tempo(NULL) {}
-	bool vazio;
-	float tempo;
+struct Translate {
+	bool vazio = true;
+	float tempo = NULL;
 	float **points;
 	int numPointers;
 	float **matrix;
 };
 
-class Color {
-public:
-	Color() : diffuseColor(NULL), specularColor(NULL), emissiveColor(NULL), ambientColor(NULL), vazio(true) {}
-	bool vazio;
-	float *diffuseColor,
-		*specularColor,
-		*emissiveColor,
-		*ambientColor;
+struct Color {
+	bool vazio = true;
+	float *diffuseColor = NULL,
+		*specularColor = NULL,
+		*emissiveColor = NULL,
+		*ambientColor = NULL;
 };
 
-class Light {
-public:
-	Light() : cons(NULL), quad(NULL), linear(NULL), spotCutOff(NULL), spotDirection(NULL), spotExponent(NULL) {}
+struct Light {
 	string type;
 	float pos[4];
 	Color color;
-	float cons, quad, linear, spotCutOff, *spotDirection, spotExponent;
+	float cons = NULL, quad = NULL, linear = NULL, spotCutOff = NULL, *spotDirection = NULL, spotExponent = NULL;
 	unsigned int id;
 };
 
 unsigned int light_number;
 
-class Figure {
-public:
-	Figure() : vboIndex(-1), triangles(0), textureIndexVBO(-1) {}
+struct Figure {
 	string name;
-	int vboIndex, normalIndex, textureIndex, textureIndexVBO, triangles;
+	int vboIndex = -1, normalIndex, textureIndex, textureIndexVBO = -1, triangles = 0;
 	Color color;
 	Scale scale;
 	Rotation rotate;
 	Translate translate;
 };
 
-class Tree {
-public:
+struct Tree {
 	Figure figure;
 	vector<Light> lights;
 	std::vector<Tree> subtrees;
@@ -496,7 +485,7 @@ Tree getGroup(XMLElement *node) {
 	return t;
 }
 
-void getFigures() {
+void loadSceneXML() {
 	XMLDocument doc;													 // vector que vai conter nome das figuras presentes no ficheiro XML
 	XMLError load = doc.LoadFile("scene.xml"); // abre ficheiro XML
 											   // se conseguiu abrir o ficheiro vai colocar no vetor o nome  das figuras a carregar
@@ -869,7 +858,7 @@ int main(int argc, char **argv) {
 	glutSpecialFunc(processSpecialKeys);
 	// enter GLUT's main cycle
 	light_number = 0;
-	getFigures();
+	loadSceneXML();
 	glutMainLoop();
 
 	return 1;
