@@ -19,32 +19,32 @@ using namespace std;
 
 class Scale {
 public:
-	Scale() : empty(true) {}
-	bool empty;
+	Scale() : vazio(true) {}
+	bool vazio;
 	float x, y, z;
 };
 
 class Rotation {
 public:
-	Rotation() : empty(true), angle(-1), time(-1) {}
-	bool empty;
-	float x, y, z, angle, time;
+	Rotation() : vazio(true), angulo(-1), tempo(-1) {}
+	bool vazio;
+	float x, y, z, angulo, tempo;
 };
 
 class Translate {
 public:
-	Translate() : empty(true), time(NULL) {}
-	bool empty;
-	float time;
+	Translate() : vazio(true), tempo(NULL) {}
+	bool vazio;
+	float tempo;
 	float **points;
-	int npointers;
+	int numPointers;
 	float **matrix;
 };
 
 class Color {
 public:
-	Color() : diffuseColor(NULL), specularColor(NULL), emissiveColor(NULL), ambientColor(NULL), empty(true) {}
-	bool empty;
+	Color() : diffuseColor(NULL), specularColor(NULL), emissiveColor(NULL), ambientColor(NULL), vazio(true) {}
+	bool vazio;
 	float *diffuseColor,
 		*specularColor,
 		*emissiveColor,
@@ -156,16 +156,16 @@ void getCatmullRomPoint(float t, int *indices, float *res, float *deriv) {
 
 void getGlobalCatmullRomPoint(float gt, float *res, float *deriv) {
 
-	float t = gt * (trans.npointers); // this is the real global t
+	float t = gt * (trans.numPointers); // this is the real global t
 	int index = floor(t);							// which segment
 	t = t - index;										// where within  the segment
 
 														// indices store the points
 	int indices[4];
-	indices[0] = (index + (trans.npointers) - 1) % (trans.npointers);
-	indices[1] = (indices[0] + 1) % (trans.npointers);
-	indices[2] = (indices[1] + 1) % (trans.npointers);
-	indices[3] = (indices[2] + 1) % (trans.npointers);
+	indices[0] = (index + (trans.numPointers) - 1) % (trans.numPointers);
+	indices[1] = (indices[0] + 1) % (trans.numPointers);
+	indices[2] = (indices[1] + 1) % (trans.numPointers);
+	indices[3] = (indices[2] + 1) % (trans.numPointers);
 	getCatmullRomPoint(t, indices, res, deriv);
 }
 
@@ -179,10 +179,10 @@ void toMatrix(Translate t) {
 	float tt = 0, pAnterior[3], deriv[3], point[3];
 	getGlobalCatmullRomPoint(tt, pAnterior, deriv);
 
-	for (int i = 1; i < (int)t.npointers * SPACE + 1; i++) {
+	for (int i = 1; i < (int)t.numPointers * SPACE + 1; i++) {
 
 		t.matrix[i] = (float *)malloc(sizeof(float) * 2);
-		tt = (float)i / (float)(t.npointers * SPACE);
+		tt = (float)i / (float)(t.numPointers * SPACE);
 		t.matrix[i][0] = tt;
 		getGlobalCatmullRomPoint(tt, point, deriv);
 
@@ -231,8 +231,8 @@ Tree getGroup(XMLElement *node) {
 		//printf("tag : %s\n", tag.c_str());
 		if (strcmp(tag.c_str(), "translate") == 0) {
 
-			t.figure.translate.empty = false;
-			t.figure.translate.time = child->IntAttribute("time");
+			t.figure.translate.vazio = false;
+			t.figure.translate.tempo = child->IntAttribute("time");
 
 			vector<float> pts;
 
@@ -244,9 +244,9 @@ Tree getGroup(XMLElement *node) {
 				pts.push_back(pModel->FloatAttribute("Z"));
 			}
 
-			t.figure.translate.npointers = pts.size() / 3;
-			t.figure.translate.points = (float **)malloc(sizeof(float *) * t.figure.translate.npointers);
-			t.figure.translate.matrix = (float **)malloc(sizeof(float *) * t.figure.translate.npointers * SPACE + 1);
+			t.figure.translate.numPointers = pts.size() / 3;
+			t.figure.translate.points = (float **)malloc(sizeof(float *) * t.figure.translate.numPointers);
+			t.figure.translate.matrix = (float **)malloc(sizeof(float *) * t.figure.translate.numPointers * SPACE + 1);
 
 			vector<float>::iterator itpts;
 			int aux = 0;
@@ -269,13 +269,13 @@ Tree getGroup(XMLElement *node) {
 			t.figure.rotate.y = child->DoubleAttribute("axisY");
 			t.figure.rotate.z = child->DoubleAttribute("axisZ");
 			if (child->DoubleAttribute("angle"))
-				t.figure.rotate.angle = child->DoubleAttribute("angle");
+				t.figure.rotate.angulo = child->DoubleAttribute("angle");
 			else if (child->DoubleAttribute("time"))
-				t.figure.rotate.time = child->DoubleAttribute("time");
+				t.figure.rotate.tempo = child->DoubleAttribute("time");
 		}
 		else if (strcmp(tag.c_str(), "scale") == 0) {
 
-			t.figure.scale.empty = false;
+			t.figure.scale.vazio = false;
 			t.figure.scale.x = child->DoubleAttribute("X");
 			t.figure.scale.y = child->DoubleAttribute("Y");
 			t.figure.scale.z = child->DoubleAttribute("Z");
@@ -583,18 +583,18 @@ void normalize(float *a) {
 void drawScene(Tree t) {
 
 	glPushMatrix();
-	if (!t.figure.translate.empty) {
+	if (!t.figure.translate.vazio) {
 
-		if (t.figure.translate.time != 0) {
+		if (t.figure.translate.tempo != 0) {
 			trans = t.figure.translate;
 			float color[4] = { 1.0, 1.0, 1.0, 1.0 };
 
 			renderCatmullRomCurve();
 			time = glutGet(GLUT_ELAPSED_TIME);
-			float aux = fmod(time, (float)(t.figure.translate.time * 1000)) / (t.figure.translate.time * 1000);
-			float dist = aux * t.figure.translate.matrix[(int)(t.figure.translate.npointers) * SPACE][1];
+			float aux = fmod(time, (float)(t.figure.translate.tempo * 1000)) / (t.figure.translate.tempo * 1000);
+			float dist = aux * t.figure.translate.matrix[(int)(t.figure.translate.numPointers) * SPACE][1];
 
-			for (int i = 0; i < (int)(t.figure.translate.npointers) * SPACE + 1; i++) {
+			for (int i = 0; i < (int)(t.figure.translate.numPointers) * SPACE + 1; i++) {
 				if (dist == t.figure.translate.matrix[i][1])
 					p = t.figure.translate.matrix[i][0];
 				else if (dist > t.figure.translate.matrix[i][1] && dist < t.figure.translate.matrix[i + 1][1]) {
@@ -640,16 +640,16 @@ void drawScene(Tree t) {
 			if (t.figure.color.specularColor != NULL)
 				//glMaterialfv(GL_FRONT, GL_SPECULAR, t.figure.color.specularColor);
 
-				if (!t.figure.rotate.empty)
-					if (t.figure.rotate.angle != -1)
-						glRotatef(t.figure.rotate.angle, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
-					else if (t.figure.rotate.time != -1) {
+				if (!t.figure.rotate.vazio)
+					if (t.figure.rotate.angulo != -1)
+						glRotatef(t.figure.rotate.angulo, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
+					else if (t.figure.rotate.tempo != -1) {
 						time = glutGet(GLUT_ELAPSED_TIME);
-						float aux = fmod(time, (float)(t.figure.rotate.time * 1000)) / (t.figure.rotate.time * 1000);
+						float aux = fmod(time, (float)(t.figure.rotate.tempo * 1000)) / (t.figure.rotate.tempo * 1000);
 						float angle = aux * 360;
 						glRotatef(angle, t.figure.rotate.x, t.figure.rotate.y, t.figure.rotate.z);
 					}
-					if (!t.figure.scale.empty)
+					if (!t.figure.scale.vazio)
 						glScalef(t.figure.scale.x, t.figure.scale.y, t.figure.scale.z);
 
 					vector<Light>::iterator i = t.lights.begin();
