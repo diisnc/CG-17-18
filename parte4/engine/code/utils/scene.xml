@@ -44,7 +44,7 @@
         <rotate time="16" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.07" Y="0.07" Z="0.07"/>
         <models>
-          <model file="planet.3d" texture="mercury.jpg"/>
+          <model file="planeta.3d" texture="mercury.jpg"/>
         </models>
       </group>
     </group>
@@ -81,7 +81,7 @@
         <rotate time="7" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.15" Y="0.15" Z="0.15"/>
         <models>
-          <model file="planet.3d" texture="venus.jpg"/>
+          <model file="planeta.3d" texture="venus.jpg"/>
         </models>
       </group>
     </group>
@@ -118,7 +118,7 @@
         <rotate time="1" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.15" Y="0.15" Z="0.15"/>
         <models>
-          <model file="planet.3d" texture="earth.jpg"/>
+          <model file="planeta.3d" texture="earth.jpg"/>
         </models>
       </group>
       <group a="Lua">
@@ -153,7 +153,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.05" Y="0.05" Z="0.05"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -191,7 +191,7 @@
         <rotate time="1" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.13" Y="0.13" Z="0.13"/>
         <models>
-          <model file="planet.3d" texture="mars.jpg"/>
+          <model file="planeta.3d" texture="mars.jpg"/>
         </models>
       </group>
       <group a="Lua">
@@ -226,7 +226,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.06" Y="0.06" Z="0.06"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -262,7 +262,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.07" Y="0.07" Z="0.07"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -300,7 +300,7 @@
         <rotate time="1" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.55" Y="0.55" Z="0.55"/>
         <models>
-          <model file="planet.3d" texture="jupiter.jpg"/>
+          <model file="planeta.3d" texture="jupiter.jpg"/>
         </models>
       </group>
       <group a="Lua">
@@ -335,7 +335,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.1" Y="0.1" Z="0.1"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -371,7 +371,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.1" Y="0.1" Z="0.1"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -407,7 +407,7 @@
           <rotate time="21" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.1" Y="0.1" Z="0.1"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -443,7 +443,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.07" Y="0.07" Z="0.07"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -481,7 +481,7 @@
         <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.5" Y="0.5" Z="0.5"/>
         <models>
-          <model file="planet.3d" texture="saturn.jpg"/>
+          <model file="planeta.3d" texture="saturn.jpg"/>
         </models>
       </group>
       <group a="Lua">
@@ -516,7 +516,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.1" Y="0.1" Z="0.1"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -554,7 +554,7 @@
         <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.4" Y="0.4" Z="0.4"/>
         <models>
-          <model file="planet.3d" texture="uranus.jpg"/>
+          <model file="planeta.3d" texture="uranus.jpg"/>
         </models>
       </group>
       <group a="Lua">
@@ -589,7 +589,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.048" Y="0.048" Z="0.048"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -625,7 +625,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.048" Y="0.048" Z="0.048"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -663,7 +663,7 @@
         <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
         <scale X="0.4" Y="0.4" Z="0.4"/>
         <models>
-          <model file="planet.3d" texture="neptune.jpg"/>
+          <model file="planeta.3d" texture="neptune.jpg"/>
         </models>
       </group>
       <group a="Lua">
@@ -698,7 +698,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.08" Y="0.08" Z="0.08"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -734,7 +734,7 @@
           <rotate time="10" axisX="0" axisY="1" axisZ="0"/>
           <scale X="0.08" Y="0.08" Z="0.08"/>
           <models>
-            <model file="moon.3d" texture="moon.jpg"/>
+            <model file="lua.3d" texture="moon.jpg"/>
           </models>
         </group>
       </group>
@@ -742,15 +742,16 @@
   </group>
   <group a="Cometa">
     <translate time ="100" X="0" Y="0" Z="0">
-      <point X="0.5" Y="-0.5" Z="3.000000"/>
-      <point X="0.5" Y="0.5" Z="0.000000"/>
-      <point X="1.0" Y="3.0" Z="-3.0"/>
-      <point X="0.0" Y="0.0" Z="-2.0"/>
-      <point X="1.0" Y="-2.0" Z="4.000000"/>
+		<point X="-17" Y="10" Z="0" />
+		<point X="-20" Y="7" Z="0" />
+		<point X="-17" Y="4" Z="0" />
+		<point X="-2" Y="-1" Z="0" />
+		<point X="1" Y="0" Z="0" />
+		<point X="-2" Y="3" Z="0" />
     </translate>
     <scale X="0.05" Y="0.05" Z="0.05"/>
     <models>
-      <model file="comet.3d" texture="teapot.jpg"/>
+      <model file="cometa.3d" texture="teapot.jpg"/>
     </models>
   </group>
 </scene>
