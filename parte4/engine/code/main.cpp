@@ -21,38 +21,21 @@ using namespace std;
 
 void processKeys(unsigned char c, int xx, int yy) {
 	switch (c) {
-	case 'd':
-		dx -= 0.1;
+	case 'd': dx -= 0.1;
 		break;
-	case 'a':
-		dx += 0.1;
+	case 'a': dx += 0.1;
 		break;
-	case 'w':
-		dy -= 0.1;
+	case 'w': dy -= 0.1;
 		break;
-	case 's':
-		dy += 0.1;
+	case 's': dy += 0.1;
 		break;
-	case 'q':
-		dz -= 5;
+	case 'q': dz -= 5;
 		break;
-	case 'e':
-		dz += 5;
+	case 'e': dz += 5;
 		break;
-	case 'i':
-		radius -= 1.0f;
+	case 'i': radius -= 1.0f;
 		break;
-	case 'o':
-		radius += 1.0f;
-		break;
-	case 'z':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		break;
-	case 'x':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-		break;
-	case 'c':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	case 'o': radius += 1.0f;
 		break;
 	default:
 		break;
@@ -66,12 +49,10 @@ void processSpecialKeys(int key, int xx, int yy) {
 	switch (key) {
 
 	case GLUT_KEY_RIGHT:
-		alfa -= 0.1;
-		break;
+		alfa -= 0.1; break;
 
 	case GLUT_KEY_LEFT:
-		alfa += 0.1;
-		break;
+		alfa += 0.1; break;
 
 	case GLUT_KEY_UP:
 		beta += 0.1f;
@@ -85,14 +66,20 @@ void processSpecialKeys(int key, int xx, int yy) {
 			beta = -1.5f;
 		break;
 
-	case GLUT_KEY_PAGE_DOWN:
-		radius -= 1.0f;
+	case GLUT_KEY_PAGE_DOWN: radius -= 1.0f;
 		if (radius < 1.0f)
 			radius = 1.0f;
 		break;
 
-	case GLUT_KEY_PAGE_UP:
-		radius += 1.0f;
+	case GLUT_KEY_PAGE_UP: radius += 1.0f; break;
+
+	case GLUT_KEY_F1: glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); break;
+
+	case GLUT_KEY_F2: glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
+
+	case GLUT_KEY_F3: glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); break;
+
+	default:
 		break;
 	}
 	spherical2Cartesian();
