@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1920, 1080);
-	glutCreateWindow("Sistema Solar com Luz e Texturas");
+	glutCreateWindow("Parte 4");
 
 	// Required callback registry
 	glutDisplayFunc(renderScene);

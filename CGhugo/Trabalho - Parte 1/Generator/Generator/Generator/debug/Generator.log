@@ -1,4 +1,0 @@
-﻿  Generator.cpp
-c:\users\hugo carvalho\desktop\generator\generator\generator\generator.cpp(212): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generator.vcxproj -> C:\Users\Hugo Carvalho\Desktop\Generator\Generator\Debug\Generator.exe
-  Generator.vcxproj -> C:\Users\Hugo Carvalho\Desktop\Generator\Generator\Debug\Generator.pdb (Full PDB)

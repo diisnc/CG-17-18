@@ -1,6 +1,0 @@
-=> Técnico
-=> Deve conter:
-		- equações
-		- diagramas (com valores dos pontos, como são calculados, etc)
-		- figuras
-		- algoritmos (espécie de pseudo código)
